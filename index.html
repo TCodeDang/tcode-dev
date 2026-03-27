@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T•Code Dev | MT4/MT5 Expert Advisor & Tool</title>
   
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +18,8 @@
     }
 
     body {
-      background: #0c0f15;
+      /* Nền tối hơn và có chút màu xanh đen — tạo độ cách biệt rõ hơn với card */
+      background: #060810;
       color: #eef2f6;
       font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.5;
@@ -30,32 +30,31 @@
       padding: 20px;
     }
 
-    /* Main container with glass effect */
+    /* Container sáng hơn đáng kể so với nền */
     .container {
       max-width: 1400px;
       width: 100%;
-      background: rgba(18, 22, 30, 0.75);
+      background: rgba(22, 28, 40, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.08);
       border-radius: 40px;
       padding: 30px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.06);
     }
 
-    /* Grid layout */
     .grid {
       display: grid;
       grid-template-columns: 340px 1fr;
       gap: 30px;
     }
 
-    /* ===== LEFT PANEL ===== */
+    /* ===== LEFT PANEL — sáng hơn, viền vàng rõ hơn ===== */
     .left-panel {
-      background: rgba(12, 16, 22, 0.6);
+      background: rgba(26, 32, 46, 0.95);
       border-radius: 28px;
       padding: 32px 24px;
-      border: 1px solid rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.22);
       backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column;
@@ -67,11 +66,10 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.03), transparent 60%);
+      background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.05), transparent 60%);
       pointer-events: none;
     }
 
-    /* Logo */
     .logo {
       display: flex;
       align-items: baseline;
@@ -101,7 +99,7 @@
 
     .logo-dev {
       background: rgba(255, 215, 0, 0.15);
-      border: 1px solid rgba(255, 215, 0, 0.3);
+      border: 1px solid rgba(255, 215, 0, 0.35);
       border-radius: 30px;
       padding: 4px 12px;
       font-size: 12px;
@@ -112,13 +110,12 @@
       margin-left: 10px;
     }
 
-    /* Status badge */
     .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.28);
       border-radius: 30px;
       padding: 8px 16px;
       margin-bottom: 24px;
@@ -150,7 +147,6 @@
       font-weight: 600;
     }
 
-    /* Description */
     .description {
       font-size: 15px;
       color: #9ca3af;
@@ -164,7 +160,6 @@
       font-weight: 600;
     }
 
-    /* Contact buttons */
     .contact-list {
       display: flex;
       flex-direction: column;
@@ -177,8 +172,8 @@
       align-items: center;
       gap: 16px;
       padding: 14px 18px;
-      background: rgba(30, 35, 45, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(14, 18, 28, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: 18px;
       text-decoration: none;
       transition: all 0.3s ease;
@@ -190,7 +185,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.05), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.06), transparent);
       transform: translateX(-100%);
       transition: transform 0.6s ease;
     }
@@ -200,8 +195,8 @@
     }
 
     .contact-btn:hover {
-      border-color: rgba(255, 215, 0, 0.3);
-      background: rgba(40, 45, 58, 0.8);
+      border-color: rgba(255, 215, 0, 0.4);
+      background: rgba(32, 38, 52, 0.9);
       transform: translateY(-2px);
     }
 
@@ -217,23 +212,21 @@
     }
 
     .zalo .contact-icon {
-      background: rgba(0, 153, 102, 0.15);
+      background: rgba(0, 153, 102, 0.18);
       color: #00b386;
     }
 
     .telegram .contact-icon {
-      background: rgba(0, 136, 204, 0.15);
+      background: rgba(0, 136, 204, 0.18);
       color: #0088cc;
     }
 
     .email .contact-icon {
-      background: rgba(255, 215, 0, 0.15);
+      background: rgba(255, 215, 0, 0.18);
       color: #fbbf24;
     }
 
-    .contact-info {
-      flex: 1;
-    }
+    .contact-info { flex: 1; }
 
     .contact-label {
       font-size: 11px;
@@ -250,12 +243,11 @@
       font-family: 'Space Grotesk', monospace;
     }
 
-    /* Disclaimer */
     .disclaimer {
       margin-top: auto;
       padding: 16px;
-      background: rgba(239, 68, 68, 0.05);
-      border: 1px solid rgba(239, 68, 68, 0.1);
+      background: rgba(239, 68, 68, 0.07);
+      border: 1px solid rgba(239, 68, 68, 0.15);
       border-radius: 16px;
       font-size: 12px;
       color: #9ca3af;
@@ -275,7 +267,7 @@
       gap: 28px;
     }
 
-    /* Section title */
+    /* Section title — màu tiêu đề nổi bật hơn */
     .section-title {
       display: flex;
       align-items: center;
@@ -285,21 +277,21 @@
 
     .section-title h2 {
       font-size: 20px;
-      font-weight: 600;
-      color: #fff;
+      font-weight: 700;
+      color: #fde68a; /* vàng nhạt — nổi trên nền tối */
       letter-spacing: -0.3px;
     }
 
     .section-title span {
       padding: 4px 12px;
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(255, 215, 0, 0.12);
       border-radius: 30px;
       font-size: 12px;
       color: #fbbf24;
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.25);
     }
 
-    /* Service cards grid */
+    /* Service cards — sáng hơn rõ rệt so với background container */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -307,8 +299,8 @@
     }
 
     .service-card {
-      background: rgba(18, 22, 30, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(30, 37, 54, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 24px;
       padding: 24px 20px;
       backdrop-filter: blur(10px);
@@ -318,11 +310,16 @@
     }
 
     .service-card:hover {
-      border-color: rgba(255, 215, 0, 0.3);
-      background: rgba(24, 29, 38, 0.9);
+      border-color: rgba(255, 215, 0, 0.4);
+      background: rgba(36, 44, 62, 1);
       transform: translateY(-5px);
-      box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.6);
     }
+
+    /* Tiêu đề card — màu sắc riêng biệt cho từng card */
+    .service-card:nth-child(1) h3 { color: #fbbf24; } /* vàng gold */
+    .service-card:nth-child(2) h3 { color: #60a5fa; } /* xanh dương */
+    .service-card:nth-child(3) h3 { color: #c084fc; } /* tím */
 
     .card-icon {
       width: 52px;
@@ -333,26 +330,27 @@
       justify-content: center;
       font-size: 24px;
       margin-bottom: 20px;
-      background: rgba(255, 215, 0, 0.05);
-      border: 1px solid rgba(255, 215, 0, 0.1);
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.18);
       color: #fbbf24;
     }
 
     .service-card:nth-child(2) .card-icon {
       color: #60a5fa;
-      border-color: rgba(96, 165, 250, 0.2);
+      border-color: rgba(96, 165, 250, 0.25);
+      background: rgba(96, 165, 250, 0.08);
     }
 
     .service-card:nth-child(3) .card-icon {
       color: #c084fc;
-      border-color: rgba(192, 132, 252, 0.2);
+      border-color: rgba(192, 132, 252, 0.25);
+      background: rgba(192, 132, 252, 0.08);
     }
 
     .service-card h3 {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 12px;
-      color: #fff;
     }
 
     .service-list {
@@ -376,6 +374,9 @@
       font-size: 14px;
     }
 
+    .service-card:nth-child(2) .service-list li::before { color: #60a5fa; }
+    .service-card:nth-child(3) .service-list li::before { color: #c084fc; }
+
     .service-tags {
       display: flex;
       flex-wrap: wrap;
@@ -388,30 +389,30 @@
       padding: 4px 10px;
       border-radius: 30px;
       letter-spacing: 0.3px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: #d1d5db;
     }
 
     .tag-gold {
-      background: rgba(251, 191, 36, 0.1);
-      border-color: rgba(251, 191, 36, 0.2);
+      background: rgba(251, 191, 36, 0.12);
+      border-color: rgba(251, 191, 36, 0.25);
       color: #fbbf24;
     }
 
     .tag-blue {
-      background: rgba(96, 165, 250, 0.1);
-      border-color: rgba(96, 165, 250, 0.2);
+      background: rgba(96, 165, 250, 0.12);
+      border-color: rgba(96, 165, 250, 0.25);
       color: #60a5fa;
     }
 
     .tag-purple {
-      background: rgba(192, 132, 252, 0.1);
-      border-color: rgba(192, 132, 252, 0.2);
+      background: rgba(192, 132, 252, 0.12);
+      border-color: rgba(192, 132, 252, 0.25);
       color: #c084fc;
     }
 
-    /* Features row */
+    /* Features row — viền và nền rõ hơn */
     .features-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -419,8 +420,8 @@
     }
 
     .feature-item {
-      background: rgba(18, 22, 30, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(28, 34, 50, 0.95);
+      border: 1px solid rgba(255, 215, 0, 0.14);
       border-radius: 18px;
       padding: 16px;
       display: flex;
@@ -433,8 +434,8 @@
       width: 42px;
       height: 42px;
       border-radius: 14px;
-      background: rgba(255, 215, 0, 0.05);
-      border: 1px solid rgba(255, 215, 0, 0.1);
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -449,16 +450,16 @@
     }
 
     .feature-text strong {
-      color: #fff;
+      color: #e5e7eb;
       display: block;
       margin-bottom: 2px;
       font-size: 14px;
     }
 
-    /* Tech stack */
+    /* Tech stack — viền rõ hơn */
     .tech-stack {
-      background: rgba(18, 22, 30, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(28, 34, 50, 0.95);
+      border: 1px solid rgba(255, 215, 0, 0.14);
       border-radius: 24px;
       padding: 18px 22px;
       display: flex;
@@ -469,10 +470,10 @@
 
     .tech-label {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: #6b7280;
+      color: #fbbf24;
     }
 
     .tech-items {
@@ -483,8 +484,8 @@
 
     .tech-badge {
       padding: 6px 16px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 30px;
       font-size: 12px;
       font-family: 'Space Grotesk', monospace;
@@ -498,34 +499,20 @@
     }
 
     .tech-badge.highlight {
-      background: rgba(251, 191, 36, 0.1);
-      border-color: rgba(251, 191, 36, 0.3);
+      background: rgba(251, 191, 36, 0.12);
+      border-color: rgba(251, 191, 36, 0.35);
       color: #fbbf24;
     }
 
-    /* Responsive */
     @media (max-width: 1100px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 700px) {
-      .container {
-        padding: 20px;
-      }
-      
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .features-row {
-        grid-template-columns: 1fr;
-      }
+      .container { padding: 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .features-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -579,14 +566,13 @@
             <i class="fas fa-chevron-right" style="color: #4b5563; font-size: 12px;"></i>
           </a>
         </div>
-  </aside>
+      </aside>
+
       <!-- RIGHT PANEL -->
       <div class="right-panel">
         
-        <!-- Service Cards -->
         <div class="services-grid">
           
-          <!-- Card 1: EA / Bot -->
           <div class="service-card">
             <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
             <h3>Code Robot<br>MT4/MT5</h3>
@@ -605,7 +591,6 @@
             </div>
           </div>
 
-          <!-- Card 2: Indicator & Tool -->
           <div class="service-card">
             <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
             <h3>Indicator &<br>Utility</h3>
@@ -624,7 +609,6 @@
             </div>
           </div>
 
-          <!-- Card 3: Tư vấn & Vận hành -->
           <div class="service-card">
             <div class="card-icon"><i class="fa-solid fa-headset"></i></div>
             <h3>Tư Vấn &<br>Vận Hành</h3>
@@ -644,7 +628,6 @@
           </div>
         </div>
 
-        <!-- Features -->
         <div class="features-row">
           <div class="feature-item">
             <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
@@ -669,7 +652,6 @@
           </div>
         </div>
 
-        <!-- Tech Stack -->
         <div class="tech-stack">
           <span class="tech-label">Tech Stack</span>
           <div class="tech-items">
@@ -687,8 +669,5 @@
       </div>
     </div>
   </div>
-
-  <!-- Email protection script (optional) -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>
