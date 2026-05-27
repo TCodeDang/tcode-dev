@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -198,8 +197,12 @@ nav.scrolled{padding:11px 60px}
 .flow-title .w{background:linear-gradient(135deg,var(--w),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .flow-desc{font-size:.9rem;color:var(--w5);max-width:480px;margin:12px auto 0;line-height:1.75}
 .flow-line{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto 0;box-shadow:0 0 8px var(--gold)}
-.flow-diagram{max-width:900px;margin:0 auto 48px;position:relative;padding:0 8px}
-#flowCanvas{width:100%;display:block}
+
+/* ── NEW FLOW DIAGRAM: PIPELINE STYLE ── */
+.flow-diagram{max-width:1000px;margin:0 auto 48px;position:relative;padding:0 8px; display: flex; justify-content: center; align-items: center; width: 100%;}
+.pipeline-wrapper{width:100%;overflow:hidden}
+.pipeline-svg{width:100%;display:block}
+
 .metrics-box{max-width:960px;margin:0 auto 56px;border:1px solid rgba(201,151,42,.22);background:rgba(0,0,0,.6);display:grid;grid-template-columns:repeat(5,1fr);position:relative}
 .metrics-box::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 12px var(--gold)}
 .metric{padding:28px 12px;text-align:center;border-right:1px solid rgba(201,151,42,.12);transition:background .2s;position:relative;overflow:hidden}
@@ -408,6 +411,8 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
 .bsp-section{margin-bottom:44px}
 .bsp-section-title{font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#3b82f6;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .bsp-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(59,130,246,.3),transparent)}
+
+/* ── BSP SERVICES: NEW EXPANDED LAYOUT ── */
 .bsp-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:0}
 .bsp-svc{background:var(--b3);border:1px solid rgba(59,130,246,.15);padding:22px 18px;transition:border-color .25s,transform .25s}
 .bsp-svc:hover{border-color:rgba(59,130,246,.5);transform:translateY(-3px)}
@@ -416,6 +421,28 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
 .bsp-svc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
 .bsp-tag{font-size:.58rem;font-weight:700;letter-spacing:1px;padding:2px 8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#93c5fd;text-transform:uppercase}
 .bsp-svc-desc{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.55}
+
+/* NEW: Category blocks for detailed services */
+.bsp-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-bottom:3px}
+.bsp-cat{background:var(--b3);border:1px solid rgba(59,130,246,.13);padding:24px 20px;position:relative;overflow:hidden;transition:border-color .25s}
+.bsp-cat:hover{border-color:rgba(59,130,246,.4)}
+.bsp-cat-accent{position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);opacity:0;transition:opacity .25s}
+.bsp-cat:hover .bsp-cat-accent{opacity:1}
+.bsp-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.bsp-cat-icon{font-size:1.3rem}
+.bsp-cat-title{font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:800;color:#93c5fd;letter-spacing:1px;text-transform:uppercase}
+.bsp-cat-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.bsp-cat-list li{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+.bsp-cat-list li::before{content:'→';color:#3b82f6;font-size:.7rem;margin-top:2px;flex-shrink:0}
+
+/* Target audience */
+.bsp-audience{background:linear-gradient(135deg,rgba(30,58,138,.2),rgba(59,130,246,.06));border:1px solid rgba(59,130,246,.2);padding:20px 24px}
+.bsp-audience-title{font-family:'Montserrat',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#93c5fd;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.bsp-audience-title::before{content:'🎯'}
+.bsp-audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bsp-aud-item{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.15);padding:12px 14px;font-size:.76rem;color:rgba(255,255,255,.55);line-height:1.5}
+.bsp-aud-item strong{color:#93c5fd;display:block;font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+
 .bsp-tech-grid{display:flex;flex-wrap:wrap;gap:8px}
 .bsp-tech-badge{font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:1.5px;padding:6px 14px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:#93c5fd;text-transform:uppercase;transition:all .2s}
 .bsp-tech-badge:hover{background:rgba(59,130,246,.18);border-color:#3b82f6}
@@ -528,6 +555,8 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
   .sc-cta .abtn{text-align:center;max-width:100%}
   .ctp-contact{padding:32px 12px 48px}
   .bsp-services-grid{grid-template-columns:1fr}
+  .bsp-cat-grid{grid-template-columns:1fr}
+  .bsp-audience-grid{grid-template-columns:1fr}
   .bsp-process-grid{grid-template-columns:repeat(2,1fr)}
   .bsp-body{padding:24px 12px 48px}
   .esp-metrics{grid-template-columns:repeat(3,1fr)}
@@ -571,125 +600,6 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
 </div>
 
 <!-- ══════════════════════
-     COPYTRADE FULLPAGE
-══════════════════════ -->
-<div class="ctp" id="ctPage">
-  <div class="ctp-nav">
-    <div class="logo" style="font-size:1.1rem">tCode<span class="logo-sub">COPYTRADE · XTO CAPITAL</span></div>
-    <button class="ctp-back" onclick="closeCT()">← Quay Lại</button>
-  </div>
-  <div class="ctp-hero">
-    <h1>XTO Capital CopyTrade</h1>
-    <p>Hai chiến lược đầu tư — Forex XAUUSD trên Vantage và Crypto trên Binance. Minh bạch, xác thực, phù hợp mọi khẩu vị rủi ro.</p>
-  </div>
-  <div class="ctp-tabs">
-    <button class="ctab active" onclick="switchTab(0)">📈 Forex CopyTrade — XAUUSD</button>
-    <button class="ctab" onclick="switchTab(1)">₿ Crypto CopyTrade</button>
-  </div>
-  <div class="ctp-panels">
-    <!-- FOREX TAB -->
-    <div class="cpanel active" id="cp0">
-      <div class="sc-card">
-        <div class="sc-head">
-          <div class="sc-ident">
-            <div class="sc-av">XC</div>
-            <div>
-              <div class="sc-name">XTO Capital (XAUUSD)</div>
-              <div class="sc-tag">Forex CopyTrade · Vantage Markets · Chiến lược vàng</div>
-              <div class="sc-badges"><span class="badge badge-live">● Live</span><span class="badge badge-safe">🛡️ An Toàn</span></div>
-            </div>
-          </div>
-          <div class="sc-pnl">
-            <span class="sc-pnl-val grn">+52%</span>
-            <span class="sc-pnl-lbl">Lợi nhuận hiện tại</span>
-            <span class="sc-pnl-note">Từng đạt +300% trong 1 năm (2023–2024)</span>
-          </div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-stats">
-            <div class="sc-s"><span class="sc-sv">72%</span><span class="sc-sl">Win Rate</span></div>
-            <div class="sc-s"><span class="sc-sv">16%</span><span class="sc-sl">Max DD</span></div>
-            <div class="sc-s"><span class="sc-sv">360</span><span class="sc-sl">Lệnh/Ngày</span></div>
-            <div class="sc-s"><span class="sc-sv" style="font-size:1rem">Vantage</span><span class="sc-sl">Nền tảng</span></div>
-          </div>
-          <div class="sc-notes">
-            <div class="sc-notes-t">Thông Số Vận Hành</div>
-            <ul style="list-style:none">
-              <li>Cặp giao dịch: <strong style="color:var(--gl)">XAUUSD (Vàng)</strong></li>
-              <li>Lợi nhuận mục tiêu: <strong style="color:var(--gl)">1.5% – 3% mỗi ngày</strong></li>
-              <li>Stop Loss tối đa: <strong style="color:var(--gl)">15%</strong></li>
-              <li>Max Drawdown hiện tại <strong style="color:#4ade80">16%</strong> — được kiểm soát chặt chẽ</li>
-            </ul>
-          </div>
-          <div class="sc-cta">
-            <div class="sc-cta-txt">Kết nối tài khoản Vantage Markets và bắt đầu CopyTrade chiến lược XAUUSD của XTO Capital.</div>
-            <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-              <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="abtn abtn-gold"><span class="abtn-border"></span><span class="abtn-label">Mở Tài Khoản & CopyTrade</span></a>
-              <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="abtn abtn-ghost" style="font-size:.7rem;padding:10px 24px"><span class="abtn-border"></span><span class="abtn-label">Copy Ngay →</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="vid-ph"><span style="font-size:1.6rem">📹</span><p>Video phân tích · XTO Capital XAUUSD — Sắp ra mắt</p></div>
-    </div>
-    <!-- CRYPTO TAB -->
-    <div class="cpanel" id="cp1">
-      <div class="sc-card">
-        <div class="sc-head">
-          <div class="sc-ident">
-            <div class="sc-av" style="background:linear-gradient(135deg,#1e3a8a,#f59e0b)">XC</div>
-            <div>
-              <div class="sc-name">XTO Capital (Crypto)</div>
-              <div class="sc-tag">Crypto CopyTrade · Binance · Đa coin</div>
-              <div class="sc-badges"><span class="badge badge-live">● Live</span><span class="badge badge-crypto">₿ Crypto</span></div>
-            </div>
-          </div>
-          <div class="sc-pnl">
-            <span class="sc-pnl-val grn">+103%</span>
-            <span class="sc-pnl-lbl">Lợi nhuận hiện tại</span>
-            <span class="sc-pnl-note">Từng đạt +300% trong một giai đoạn trước đó</span>
-          </div>
-        </div>
-        <div class="sc-body">
-          <div class="sc-stats">
-            <div class="sc-s"><span class="sc-sv">72%</span><span class="sc-sl">Win Rate</span></div>
-            <div class="sc-s"><span class="sc-sv">15%</span><span class="sc-sl">Max DD</span></div>
-            <div class="sc-s"><span class="sc-sv" style="font-size:1rem">Cao</span><span class="sc-sl">Tần suất</span></div>
-            <div class="sc-s"><span class="sc-sv" style="font-size:1rem">Binance</span><span class="sc-sl">Nền tảng</span></div>
-          </div>
-          <div class="sc-notes" style="border-left-color:#f59e0b">
-            <div class="sc-notes-t" style="color:#fbbf24">Thông Số Vận Hành</div>
-            <ul style="list-style:none">
-              <li>Nền tảng: <strong style="color:#fbbf24">Binance CopyTrade</strong></li>
-              <li>Lợi nhuận mục tiêu: <strong style="color:#fbbf24">5% – 10% mỗi ngày</strong></li>
-              <li>Max Drawdown cho phép: <strong style="color:#fbbf24">35%</strong></li>
-              <li>Phù hợp nhà đầu tư chấp nhận <strong style="color:#fbbf24">rủi ro trung bình – cao</strong></li>
-            </ul>
-          </div>
-          <div class="sc-cta">
-            <div class="sc-cta-txt">Kết nối tài khoản Binance và bắt đầu CopyTrade chiến lược Crypto của XTO Capital.</div>
-            <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-              <a href="https://www.binance.com/register?ref=13632985" target="_blank" rel="noopener" class="abtn abtn-gold" style="background:linear-gradient(135deg,#92400e,#f59e0b,#fbbf24);box-shadow:0 0 24px rgba(245,158,11,.4)"><span class="abtn-border"></span><span class="abtn-label">Mở Tài Khoản & CopyTrade</span></a>
-              <a href="https://www.binance.com/register?ref=13632985" target="_blank" rel="noopener" class="abtn abtn-ghost" style="font-size:.7rem;padding:10px 24px;border-color:rgba(245,158,11,.4);color:#fbbf24"><span class="abtn-border"></span><span class="abtn-label">Copy Ngay →</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="vid-ph"><span style="font-size:1.6rem">📹</span><p>Video phân tích · XTO Capital Crypto — Sắp ra mắt</p></div>
-    </div>
-  </div>
-  <div class="ctp-contact">
-    <h3>Cần Tư Vấn?</h3>
-    <p>Liên hệ trực tiếp để được hướng dẫn chọn chiến lược phù hợp</p>
-    <div class="llist">
-      <a href="https://youtube.com/@tcode.tradingtech?si=0rEJGnZu0V4AQXnC" target="_blank" rel="noopener" class="litem"><span>Youtube — @tcode.tradingtech</span><span class="ar">→</span></a>
-      <a href="https://t.me/tCode_T95" target="_blank" rel="noopener" class="litem"><span>Telegram — @tCode_T95</span><span class="ar">→</span></a>
-      <a href="https://zalo.me/0964822327" target="_blank" rel="noopener" class="litem"><span>Zalo — 0964 822 327</span><span class="ar">→</span></a>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════
      BOT SERVICE FULLPAGE
 ══════════════════════ -->
 <div class="bsp" id="botPage">
@@ -698,50 +608,74 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
     <button class="bsp-back" onclick="closeBSP()">← Quay Lại</button>
   </div>
   <div class="bsp-hero">
-    <h1>Dịch Vụ Viết Bot<br>Theo Yêu Cầu</h1>
-    <p>Bot giao dịch tự động được lập trình theo đúng chiến lược và yêu cầu riêng của bạn. Hỗ trợ MT4/MT5, Binance, Bybit và các sàn phổ biến — bàn giao mã nguồn, hỗ trợ sau triển khai.</p>
+    <h1>T CODE – Viết Bot Trade<br>&amp; Tool Theo Yêu Cầu</h1>
+    <p>Tự động hóa chiến lược trading theo đúng yêu cầu riêng của bạn — từ bot giao dịch, indicator, đến hệ thống copy trading đa tài khoản. Bàn giao mã nguồn, hỗ trợ sau triển khai 24/7.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="https://t.me/tCode_T95" target="_blank" rel="noopener" class="abtn abtn-blue"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Telegram →</span></a>
       <a href="https://zalo.me/0964822327" target="_blank" rel="noopener" class="abtn abtn-ghost" style="border-color:rgba(59,130,246,.4);color:#93c5fd"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Zalo →</span></a>
     </div>
   </div>
   <div class="bsp-body">
-    <!-- SERVICES -->
+
+    <!-- DỊCH VỤ CHÍNH: 3 CATEGORIES + DETAILED LISTS -->
     <div class="bsp-section">
-      <div class="bsp-section-title">Dịch Vụ Chính</div>
-      <div class="bsp-services-grid">
-        <div class="bsp-svc">
-          <span class="bsp-svc-icon">🤖</span>
-          <div class="bsp-svc-name">Auto Trade Bot</div>
-          <div class="bsp-svc-tags">
-            <span class="bsp-tag">Auto Trade</span>
-            <span class="bsp-tag">Copy</span>
-            <span class="bsp-tag">DCA</span>
-            <span class="bsp-tag">FTMO</span>
+      <div class="bsp-section-title">Tự Động Hóa Chiến Lược</div>
+      <div class="bsp-cat-grid">
+        <div class="bsp-cat">
+          <div class="bsp-cat-accent"></div>
+          <div class="bsp-cat-header">
+            <span class="bsp-cat-icon">🤖</span>
+            <div class="bsp-cat-title">Bot Trading Tự Động</div>
           </div>
-          <p class="bsp-svc-desc">Bot tự động giao dịch hoàn toàn theo chiến lược của bạn — từ scalping, swing, DCA đến các bot đặc thù cho prop firm như FTMO. Hỗ trợ MT4/MT5 và các sàn Crypto phổ biến.</p>
+          <ul class="bsp-cat-list">
+            <li>DCA – Dollar Cost Averaging tự động theo điều kiện thị trường</li>
+            <li>Martingale – quản lý lưới lệnh, giới hạn level và bảo vệ vốn</li>
+            <li>Hedging – đánh hai chiều, lock lợi nhuận và xử lý rủi ro</li>
+            <li>Trailing Stop / Trailing TP – bám trend, chốt lời động</li>
+            <li>Copy Trading đa tài khoản – một lệnh nhân ra nhiều account</li>
+            <li>Quản lý SL theo % Risk – chuẩn rule FTMO / Prop Firm</li>
+          </ul>
         </div>
-        <div class="bsp-svc">
-          <span class="bsp-svc-icon">📊</span>
-          <div class="bsp-svc-name">Scanner & Dashboard</div>
-          <div class="bsp-svc-tags">
-            <span class="bsp-tag">Scanner</span>
-            <span class="bsp-tag">Alert</span>
-            <span class="bsp-tag">Panel</span>
-            <span class="bsp-tag">Dashboard</span>
+        <div class="bsp-cat">
+          <div class="bsp-cat-accent"></div>
+          <div class="bsp-cat-header">
+            <span class="bsp-cat-icon">📊</span>
+            <div class="bsp-cat-title">Indicator &amp; Tool Hỗ Trợ</div>
           </div>
-          <p class="bsp-svc-desc">Công cụ quét thị trường realtime, cảnh báo tín hiệu, panel điều khiển trực quan và dashboard theo dõi portfolio — hiển thị trực tiếp trên chart MetaTrader.</p>
+          <ul class="bsp-cat-list">
+            <li>Indicator custom theo logic riêng – hiển thị trên chart MT4/MT5</li>
+            <li>Signal scanner đa khung thời gian – quét M1 đến MN</li>
+            <li>Gửi tín hiệu về Telegram real-time – alert tức thì</li>
+            <li>Dashboard quản lý: Equity · Drawdown · Risk · P&amp;L</li>
+            <li>Panel điều khiển trực quan ngay trên MetaTrader</li>
+            <li>Trade Journal tự động – lưu lịch sử, thống kê hiệu suất</li>
+          </ul>
         </div>
-        <div class="bsp-svc">
-          <span class="bsp-svc-icon">🛠️</span>
-          <div class="bsp-svc-name">Tư Vấn & Hỗ Trợ</div>
-          <div class="bsp-svc-tags">
-            <span class="bsp-tag">Consulting</span>
-            <span class="bsp-tag">VPS</span>
-            <span class="bsp-tag">Debug</span>
-            <span class="bsp-tag">Support</span>
-          </div>
-          <p class="bsp-svc-desc">Tư vấn chiến lược, hỗ trợ cài đặt VPS, debug và tối ưu bot hiện có, hỗ trợ 24/7 sau khi bàn giao. Cam kết đồng hành xuyên suốt quá trình triển khai.</p>
+      </div>
+
+      <div class="bsp-cat" style="margin-bottom:3px">
+        <div class="bsp-cat-accent"></div>
+        <div class="bsp-cat-header">
+          <span class="bsp-cat-icon">🧠</span>
+          <div class="bsp-cat-title">Tư Vấn &amp; Vận Hành Hệ Thống</div>
+        </div>
+        <ul class="bsp-cat-list" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 20px">
+          <li>Thiết kế chiến lược auto trading từ đầu</li>
+          <li>Backtest · Optimize · Forward test</li>
+          <li>Debug &amp; xử lý logic lệnh phức tạp</li>
+          <li>Setup VPS chạy 24/7 ổn định</li>
+          <li>Hỗ trợ sau bàn giao không giới hạn thời gian</li>
+          <li>Cập nhật bot khi thị trường thay đổi</li>
+        </ul>
+      </div>
+
+      <!-- TARGET AUDIENCE -->
+      <div class="bsp-audience">
+        <div class="bsp-audience-title">Phù Hợp Cho</div>
+        <div class="bsp-audience-grid">
+          <div class="bsp-aud-item"><strong>Trader Cá Nhân</strong>Muốn tự động hóa chiến lược, giải phóng khỏi màn hình giao dịch</div>
+          <div class="bsp-aud-item"><strong>IB / Team</strong>Muốn build hệ thống riêng — copy trade, quản lý nhiều tài khoản</div>
+          <div class="bsp-aud-item"><strong>Scale Trading</strong>Người muốn biến trading thành mô hình kinh doanh có hệ thống</div>
         </div>
       </div>
     </div>
@@ -808,106 +742,6 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
   </div>
 </div>
 
-<!-- ══════════════════════
-     EA DETAIL FULLPAGE
-══════════════════════ -->
-<div class="esp" id="eaPage">
-  <div class="esp-nav">
-    <div class="logo" style="font-size:1.1rem">tCode<span class="logo-sub">XTO SPEED AI · EA CHUYÊN NGHIỆP</span></div>
-    <button class="esp-back" onclick="closeESP()">← Quay Lại</button>
-  </div>
-  <div class="esp-hero">
-    <h1>XTO Speed AI<br>Expert Advisor</h1>
-    <p>Expert Advisor độc quyền tích hợp trí tuệ nhân tạo — giao dịch tự động 24/7, tốc độ dưới 1ms, win rate ổn định trên 72%. Đã pass quỹ quốc tế FTMO và E8.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="abtn abtn-gold" onclick="openCT()"><span class="abtn-border"></span><span class="abtn-label">Xem CopyTrade →</span></button>
-      <button class="abtn abtn-ghost" onclick="openContact()"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Ngay</span></button>
-    </div>
-  </div>
-  <div class="esp-body">
-    <!-- METRICS -->
-    <div class="esp-section">
-      <div class="esp-section-title">Chỉ Số Hiệu Suất</div>
-      <div class="esp-metrics">
-        <div class="esp-metric"><span class="esp-mv">360<sup style="font-size:.8rem;color:rgba(240,192,74,.55)">+</sup></span><span class="esp-ml">Lệnh / Ngày</span></div>
-        <div class="esp-metric"><span class="esp-mv">72<sup style="font-size:.8rem;color:rgba(240,192,74,.55)">%</sup></span><span class="esp-ml">Win Rate</span></div>
-        <div class="esp-metric"><span class="esp-mv">24<sup style="font-size:.8rem;color:rgba(240,192,74,.55)">/7</sup></span><span class="esp-ml">Hoạt động</span></div>
-        <div class="esp-metric"><span class="esp-mv">16<sup style="font-size:.8rem;color:rgba(240,192,74,.55)">%</sup></span><span class="esp-ml">Max DD</span></div>
-        <div class="esp-metric"><span class="esp-mv">&lt;1<sup style="font-size:.8rem;color:rgba(240,192,74,.55)">ms</sup></span><span class="esp-ml">Tốc độ lệnh</span></div>
-      </div>
-    </div>
-
-    <!-- FEATURES -->
-    <div class="esp-section">
-      <div class="esp-section-title">Tính Năng Nổi Bật</div>
-      <div class="esp-feats">
-        <div class="esp-feat">
-          <span class="esp-feat-icon">🧠</span>
-          <div class="esp-feat-name">AI Decision Engine</div>
-          <p class="esp-feat-desc">Trí tuệ nhân tạo phân tích hàng triệu điểm dữ liệu realtime — nhận diện pattern, tối ưu điểm vào lệnh và quản lý rủi ro tự động.</p>
-        </div>
-        <div class="esp-feat">
-          <span class="esp-feat-icon">⚡</span>
-          <div class="esp-feat-name">Tốc Độ Khớp Lệnh &lt;1ms</div>
-          <p class="esp-feat-desc">Thực thi lệnh trong dưới 1 millisecond — không trượt giá, không lag, không cảm xúc. Lợi thế cạnh tranh tuyệt đối trên thị trường.</p>
-        </div>
-        <div class="esp-feat">
-          <span class="esp-feat-icon">🛡️</span>
-          <div class="esp-feat-name">Risk Management</div>
-          <p class="esp-feat-desc">Hệ thống quản lý rủi ro nhiều lớp — stop loss tự động, drawdown control, position sizing thông minh theo biến động thị trường.</p>
-        </div>
-        <div class="esp-feat">
-          <span class="esp-feat-icon">📡</span>
-          <div class="esp-feat-name">Market Intelligence</div>
-          <p class="esp-feat-desc">Thu thập và phân tích dữ liệu thị trường realtime — giá, khối lượng, biến động, sentiment — làm đầu vào liên tục cho AI engine.</p>
-        </div>
-        <div class="esp-feat">
-          <span class="esp-feat-icon">🏆</span>
-          <div class="esp-feat-name">Đã Pass Quỹ Quốc Tế</div>
-          <p class="esp-feat-desc">Chiến lược đã được kiểm chứng qua các quỹ quốc tế FTMO và E8 — xác nhận tính ổn định và hiệu suất thực tế trong điều kiện thị trường thực.</p>
-        </div>
-        <div class="esp-feat">
-          <span class="esp-feat-icon">📲</span>
-          <div class="esp-feat-name">Cài Đặt Đơn Giản</div>
-          <p class="esp-feat-desc">Tương thích MT4/MT5, cài đặt trong vài bước đơn giản. Có video hướng dẫn chi tiết và hỗ trợ trực tiếp từ tCode.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- PERFORMANCE -->
-    <div class="esp-section">
-      <div class="esp-section-title">Kết Quả Thực Tế</div>
-      <div style="background:var(--b3);border:1px solid rgba(201,151,42,.15);padding:24px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-          <div style="border-left:3px solid var(--gold);padding-left:16px">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#4ade80;line-height:1">+52%</div>
-            <div style="font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px">Lợi nhuận hiện tại · An Toàn</div>
-            <p style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5">Mục tiêu 1.5–3%/ngày · SL max 15% · Drawdown 16% · Phù hợp đầu tư dài hạn, thận trọng.</p>
-          </div>
-          <div style="border-left:3px solid #ef4444;padding-left:16px">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#f87272;line-height:1">+103%</div>
-            <div style="font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px">Lợi nhuận hiện tại · Tốc Độ</div>
-            <p style="font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.5">Mục tiêu 5–10%/ngày · Drawdown max 35% · Phù hợp nhà đầu tư chấp nhận rủi ro cao.</p>
-          </div>
-        </div>
-        <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(201,151,42,.1);font-size:.72rem;color:rgba(255,255,255,.3);font-style:italic;text-align:center">
-          Từng đạt +300% trong vòng 1 năm (2023–2024). Kết quả quá khứ không đảm bảo lợi nhuận tương lai.
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="esp-cta-box">
-      <h3>Bắt Đầu Với XTO Speed</h3>
-      <p>Mở tài khoản Vantage Markets và kết nối CopyTrade — hoặc liên hệ để được hỗ trợ cài đặt EA trực tiếp.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="abtn abtn-gold" onclick="openCT()"><span class="abtn-border"></span><span class="abtn-label">Xem CopyTrade →</span></button>
-        <button class="abtn abtn-ghost" onclick="openContact()"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Tư Vấn</span></button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- NAV -->
 <nav id="nav">
   <div class="logo">tCode<span class="logo-sub">Trading Tech</span></div>
@@ -939,7 +773,7 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
       <span class="hero-x">T</span>
       <span class="hero-back"><span class="ch">C</span><span class="ch">O</span><span class="ch">D</span><span class="ch">E</span></span>
     </div>
-    <p class="hero-tagline">Bot Dev · XTO Speed AI · CopyTrade</p>
+    <p class="hero-tagline">Bot Dev · XTO Speeder · CopyTrade</p>
     <div class="hero-btns">
       <button class="abtn abtn-gold" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})"><span class="abtn-border"></span><span class="abtn-label">Khám Phá Dịch Vụ</span></button>
       <button class="abtn abtn-ghost" onclick="openContact()"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Ngay</span></button>
@@ -957,7 +791,7 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
         <div class="hs-item ea" onclick="openESP()">
           <span class="hs-icon">⚡</span>
           <div>
-            <span class="hs-name">XTO Speed AI</span>
+            <span class="hs-name">XTO Speeder</span>
             <span class="hs-desc">Expert Advisor chuyên nghiệp · AI · >360 lệnh/ngày</span>
           </div>
         </div>
@@ -981,7 +815,7 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
 <section class="services-section ain" id="services">
   <div class="sec-header">
     <span class="sec-tag">Dịch Vụ Chính</span>
-    <h2 class="sec-title"><span class="w">Ba Giải Pháp</span> <span class="g">Trading Toàn Diện</span></h2>
+    <h2 class="sec-title"><span class="w">Giải Pháp</span> <span class="g">Trading Toàn Diện</span></h2>
     <div class="sec-line"></div>
   </div>
   <div class="svc-grid">
@@ -1014,13 +848,13 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
       </div>
     </div>
 
-    <!-- SERVICE 2: EA XTO SPEED -->
+    <!-- SERVICE 2: EA XTO SPEED — links to external page -->
     <div class="svc-card svc-ea">
       <div class="svc-head">
         <span class="svc-num">02</span>
         <span class="svc-icon">⚡</span>
         <span class="svc-badge">Bot Trade Chủ Lực</span>
-        <h3 class="svc-title">XTO Speed AI<br> </h3>
+        <h3 class="svc-title">XTO Speeder<br> </h3>
         <p class="svc-sub">Expert Advisor độc quyền tích hợp AI — tự động giao dịch 24/7 với tốc độ dưới 1ms, win rate ổn định trên 70%.</p>
       </div>
       <div class="svc-divider"></div>
@@ -1039,36 +873,39 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
         <div class="svc-stat"><span class="svc-sv">&lt;1ms</span><span class="svc-sl">Tốc Độ</span></div>
       </div>
       <div class="svc-cta">
-        <button class="abtn abtn-gold" onclick="openESP()"><span class="abtn-border"></span><span class="abtn-label">Xem Chi Tiết →</span></button>
+        <!-- YÊU CẦU 1: Nút XTO Speeder trỏ về link ngoài -->
+        <a href="https://tcodedang.github.io/XTO-Project/" target="_blank" rel="noopener" class="abtn abtn-gold" style="width:100%;text-align:center;display:block;padding:13px 20px;font-size:.75rem"><span class="abtn-border"></span><span class="abtn-label">Xem Chi Tiết →</span></a>
       </div>
     </div>
 
-    <!-- SERVICE 3: COPYTRADE -->
+    <!-- SERVICE 3: KHO BOT -->
     <div class="svc-card svc-ct">
       <div class="svc-head">
         <span class="svc-num">03</span>
-        <span class="svc-icon">📈</span>
+        <span class="svc-icon">🤖</span>
         <span class="svc-badge">● Live Now</span>
-        <h3 class="svc-title">CopyTrade<br>Tự Động</h3>
-        <p class="svc-sub">Sao chép 100% tự động từ trader đã pass quỹ quốc tế FTMO, E8. Không cần kinh nghiệm, không cần theo dõi thị trường.</p>
+        <h3 class="svc-title">KHO BOT và CÔNG CỤ<br>TRADING</h3>
+        <p class="svc-sub">Tổng hợp một số sản phẩm Bot hoàn chỉnh, chỉ báo, công cụ hỗ trợ trading.</p>
       </div>
       <div class="svc-divider"></div>
       <div class="svc-features">
         <ul class="svc-feat-list">
-          <li><span class="dot"></span><strong style="color:var(--gp)">Forex (XAUUSD):</strong> XTO Capital — Vantage Markets</li>
-          <li><span class="dot"></span><strong style="color:#fbbf24">Crypto:</strong> XTO Capital Crypto — Binance CopyTrade</li>
-          <li><span class="dot"></span>Sao chép 100% tự động, không cần can thiệp thủ công</li>
-          <li><span class="dot"></span>Minh bạch số liệu realtime, rút vốn bất kỳ lúc nào</li>
-          <li><span class="dot"></span>Win rate 72%+, hỗ trợ 24/7</li>
+          <li><span class="dot"></span><strong style="color:var(--gp)">TURBO_Infinity</strong> Bot Scalping siêu lãi nhanh</li>
+          <li><span class="dot"></span><strong style="color:#fbbf24">HEDGING_Master</strong> Đánh break, trend</li>
+          <li><span class="dot"></span><strong style="color:#fbbf24">XTO_Speeder</strong> Tổng hợp nhiều chiến thuật trade, xử lý lệnh đa phương thức</li>
+          <li><span class="dot"></span>Một số công cụ hỗ trợ scalping thủ công</li>
+          <li><span class="dot"></span>Quản lý vốn, hiển thị nhật ký trading...</li>
+          <li><span class="dot"></span>Chỉ báo tín hiệu...</li>
         </ul>
       </div>
       <div class="svc-stats-row">
-        <div class="svc-stat"><span class="svc-sv">+52%</span><span class="svc-sl">Forex</span></div>
-        <div class="svc-stat"><span class="svc-sv">+103%</span><span class="svc-sl">Crypto</span></div>
-        <div class="svc-stat"><span class="svc-sv">24/7</span><span class="svc-sl">Auto</span></div>
+        <div class="svc-stat"><span class="svc-sv">Kho BOT</span><span class="svc-sl"></span></div>
+        <div class="svc-stat"><span class="svc-sv">Indicator</span><span class="svc-sl"></span></div>
+        <div class="svc-stat"><span class="svc-sv">Kho TOOL</span><span class="svc-sl"></span></div>
       </div>
       <div class="svc-cta">
-        <button class="abtn abtn-gold" onclick="openCT()" style="background:linear-gradient(135deg,#14532d,#16a34a,#4ade80);color:#000;box-shadow:0 0 20px rgba(74,222,128,.3)"><span class="abtn-border"></span><span class="abtn-label">Đăng Ký CopyTrade →</span></button>
+        <!-- YÊU CẦU 2: Nút KHO BOT trỏ về Telegram -->
+        <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="abtn" style="width:100%;text-align:center;display:block;padding:13px 20px;font-size:.75rem;background:linear-gradient(135deg,#14532d,#16a34a,#4ade80);color:#000;box-shadow:0 0 20px rgba(74,222,128,.3);clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)"><span class="abtn-border"></span><span class="abtn-label">XEM CHI TIẾT →</span></a>
       </div>
     </div>
   </div>
@@ -1078,11 +915,14 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
 <section class="flow-section" id="flow">
   <div class="flow-header ain">
     <span class="flow-tag">Công Nghệ EA XTO Speed</span>
-    <h2 class="flow-title"><span class="g">AI · EA</span><br><span class="w">Biến Thị Trường Thành Lợi Nhuận</span></h2>
+    <h2 class="flow-title"><span class="g"></span><br><span class="w">Biến Thị Trường Thành Lợi Nhuận</span></h2>
     <p class="flow-desc">Hệ thống giao dịch tự động tích hợp trí tuệ nhân tạo — phân tích realtime, thực thi trong milliseconds.</p>
     <div class="flow-line"></div>
   </div>
-  <div class="flow-diagram"><canvas id="flowCanvas"></canvas></div>
+  <!-- NEW FLOW DIAGRAM: SVG Pipeline -->
+  <div class="flow-diagram">
+    <canvas id="flowCanvas"></canvas>
+  </div>
   <div class="metrics-box ain">
     <div class="metric"><span class="metric-ico">⚡</span><span class="metric-val">360<sup>+</sup></span><span class="metric-lbl">Lệnh / Ngày</span></div>
     <div class="metric"><span class="metric-ico">🎯</span><span class="metric-val">72<sup>%</sup></span><span class="metric-lbl">Tỉ lệ thắng</span></div>
@@ -1128,77 +968,6 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
   </div>
 </section>
 
-<!-- COPYTRADE SECTION -->
-<section class="copytrade-section ain" id="copytrade">
-  <div class="ct-inner">
-    <div class="ct-card-wrap ain" style="animation:flt 5s ease-in-out infinite">
-      <div class="ct-card">
-        <div class="ct-hdr">
-          <div class="ct-ident"><div class="ct-av">XC</div><div class="ct-name">XTO Capital<span>XAUUSD · Crypto · Tự động</span></div></div>
-          <div class="ct-live">● LIVE</div>
-        </div>
-        <div class="ct-stats">
-          <div class="ct-stat"><span class="ct-sv">+52%</span><span class="ct-sl">Forex</span></div>
-          <div class="ct-stat"><span class="ct-sv">+103%</span><span class="ct-sl">Crypto</span></div>
-          <div class="ct-stat"><span class="ct-sv">72%</span><span class="ct-sl">Win Rate</span></div>
-        </div>
-        <div class="ct-chart">
-          <svg viewBox="0 0 300 60" preserveAspectRatio="none"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9972A" stop-opacity=".5"/><stop offset="100%" stop-color="#C9972A" stop-opacity="0"/></linearGradient></defs><path d="M0,54 L30,48 L60,42 L90,36 L120,28 L150,22 L180,16 L210,10 L240,5 L270,2 L300,1 L300,60 L0,60Z" fill="url(#cg)"/><path d="M0,54 L30,48 L60,42 L90,36 L120,28 L150,22 L180,16 L210,10 L240,5 L270,2 L300,1" fill="none" stroke="#F0C04A" stroke-width="2"/></svg>
-        </div>
-        <button class="ct-fbtn" onclick="openCT()">Xem 2 Chiến Lược CopyTrade →</button>
-      </div>
-    </div>
-    <div class="ct-content ain">
-      <span class="flow-tag">CopyTrade · XTO Capital</span>
-      <h2><span class="w">Sao Chép Nhà Đầu Tư<br>Đã </span><span class="g">Pass Quỹ</span><span class="w"> Quốc Tế</span></h2>
-      <p>Không cần kinh nghiệm, không cần theo dõi liên tục. Kết nối trực tiếp với những nhà giao dịch chuyên nghiệp đã được kiểm chứng qua các quỹ quốc tế FTMO, E8.</p>
-      <ul class="ct-list">
-        <li><strong style="color:var(--gp)">Forex CopyTrade — XTO Capital (XAUUSD):</strong> +52% lợi nhuận, win rate 72%, drawdown 16% · Vantage Markets</li>
-        <li><strong style="color:#fbbf24">Crypto CopyTrade — XTO Capital (Crypto):</strong> +103% lợi nhuận, win rate 72%, mục tiêu 5–10%/ngày · Binance</li>
-        <li>Sao chép 100% tự động — không cần can thiệp thủ công</li>
-        <li>Minh bạch số liệu realtime, rút vốn bất kỳ lúc nào</li>
-      </ul>
-      <button class="abtn abtn-gold" onclick="openCT()" style="border:none"><span class="abtn-border"></span><span class="abtn-label">Xem Chi Tiết & Đăng Ký</span></button>
-    </div>
-  </div>
-  <div class="strategies ain">
-    <!-- Forex Strategy -->
-    <div class="strat">
-      <div class="strat-accent"></div>
-      <div class="strat-header">
-        <div class="strat-name">XTO Capital (XAUUSD)</div>
-        <span class="strat-type strat-safe">📈 Forex</span>
-      </div>
-      <span class="strat-pnl">+52%</span>
-      <span class="strat-pnl-note">Từng đạt +300% trong vòng 1 năm (2023–2024) · Nền tảng: Vantage Markets</span>
-      <div class="strat-grid">
-        <div class="strat-stat"><span class="strat-sv">72%</span><span class="strat-sl">Win Rate</span></div>
-        <div class="strat-stat"><span class="strat-sv">16%</span><span class="strat-sl">Drawdown</span></div>
-        <div class="strat-stat"><span class="strat-sv">360</span><span class="strat-sl">Lệnh/Ngày</span></div>
-      </div>
-      <div class="strat-notes"><p>Mục tiêu <strong style="color:var(--gl)">1.5–3%/ngày</strong> · SL max <strong style="color:var(--gl)">15%</strong> · Phù hợp nhà đầu tư thận trọng</p></div>
-      <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="strat-btn btn-safe">Mở Tài Khoản Vantage & CopyTrade</a>
-    </div>
-    <!-- Crypto Strategy -->
-    <div class="strat">
-      <div class="strat-accent" style="background:linear-gradient(90deg,transparent,#f59e0b,transparent)"></div>
-      <div class="strat-header">
-        <div class="strat-name">XTO Capital (Crypto)</div>
-        <span class="strat-type" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#fbbf24">₿ Crypto</span>
-      </div>
-      <span class="strat-pnl" style="color:#fbbf24">+103%</span>
-      <span class="strat-pnl-note">Từng đạt +300% trong một giai đoạn trước đó · Nền tảng: Binance</span>
-      <div class="strat-grid">
-        <div class="strat-stat"><span class="strat-sv">72%</span><span class="strat-sl">Win Rate</span></div>
-        <div class="strat-stat"><span class="strat-sv">15%</span><span class="strat-sl">Drawdown</span></div>
-        <div class="strat-stat"><span class="strat-sv" style="font-size:.9rem">Cao</span><span class="strat-sl">Tần suất</span></div>
-      </div>
-      <div class="strat-notes" style="border-left-color:#f59e0b"><p>Mục tiêu <strong style="color:#fbbf24">5–10%/ngày</strong> · Drawdown max <strong style="color:#fbbf24">35%</strong> · Chấp nhận rủi ro cao</p></div>
-      <a href="https://www.binance.com/register?ref=13632985" target="_blank" rel="noopener" class="strat-btn" style="background:linear-gradient(135deg,#92400e,#f59e0b,#fbbf24);color:#000">Mở Tài Khoản Binance & CopyTrade</a>
-    </div>
-  </div>
-</section>
-
 <!-- HOW -->
 <section class="how ain" id="how">
   <div class="flow-header">
@@ -1215,7 +984,6 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
 
 <!-- CTA -->
 <section class="cta-section ain">
-  <h2>Bắt Đầu<br>Hôm Nay</h2>
   <p>Chọn dịch vụ phù hợp — viết bot tùy biến, dùng EA XTO Speed, hoặc CopyTrade tự động. Tất cả đều được hỗ trợ 24/7.</p>
   <div class="cta-btns">
     <button class="abtn abtn-gold" onclick="openCT()"><span class="abtn-border"></span><span class="abtn-label">Khám Phá CopyTrade</span></button>
@@ -1229,12 +997,12 @@ footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48p
   <div class="ft-inner">
     <div class="ft-brand">
       <div class="logo">tCode<span class="logo-sub">TRADING TECH</span></div>
-      <p>Bot Trading theo yêu cầu · XTO Speed AI · CopyTrade từ trader đã pass quỹ quốc tế.</p>
+      <p></p>
     </div>
     <div class="ft-col"><h4>Dịch Vụ</h4><ul>
       <li><a href="#" onclick="openBSP();return false">Viết Bot Theo Yêu Cầu</a></li>
-      <li><a href="#" onclick="openESP();return false">EA XTO Speed</a></li>
-      <li><a href="#" onclick="openCT();return false">CopyTrade</a></li>
+      <li><a href="https://tcodedang.github.io/XTO-Project/" target="_blank" rel="noopener">EA XTO Speed</a></li>
+      <li><a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener">Kho Bot & Công Cụ</a></li>
       <li><a href="#how">Cách Bắt Đầu</a></li>
     </ul></div>
     <div class="ft-col"><h4>Liên Hệ</h4><ul>
@@ -1297,76 +1065,265 @@ window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',scrollY>5
 const obs=new IntersectionObserver(e=>e.forEach(e=>e.isIntersecting&&e.target.classList.add('vis')),{threshold:.08});
 document.querySelectorAll('.ain').forEach(el=>obs.observe(el));
 
-/* FLOW DIAGRAM */
-function initFlowDiagram(){
-  const canvas=document.getElementById('flowCanvas');
-  if(!canvas)return;
-  const isMob=innerWidth<700;
-  const DPR=Math.min(window.devicePixelRatio||1,2);
-  const W2=canvas.offsetWidth||900;
-  const H2=isMob?460:380;
-  canvas.width=W2*DPR; canvas.height=H2*DPR;
-  canvas.style.width=W2+'px'; canvas.style.height=H2+'px';
-  const c=canvas.getContext('2d');
-  c.scale(DPR,DPR);
-  const cx2=W2/2, cy2=H2/2;
-  const nodes = isMob ? [
-    {id:'mk', x:cx2-95, y:68,  r:42, label:'MARKET', sub:'Thị Trường',  bg:['#2a2a2a','#161616','#060606'], tc:'#F0C04A'},
-    {id:'ai', x:cx2+95, y:68,  r:42, label:'AI',     sub:'Intelligence',  bg:['#1565C0','#0D47A1','#061838'], tc:'#90CAF9'},
-    {id:'xb', x:cx2,     y:188, r:52, label:'XTO',  sub:'Speed EA',       bg:['#C9972A','#8B6914','#3d2b05'], tc:'#FFD700', diamond:true},
-    {id:'ea', x:cx2,     y:306, r:42, label:'EA',      sub:'Expert Advisor',bg:['#F0C04A','#C9972A','#7A5A10'], tc:'#111'},
-    {id:'pr', x:cx2,     y:410, r:44, label:'PROFIT',  sub:'Lợi Nhuận',    bg:['#1b5e20','#0a3d12','#031508'], tc:'#69f0ae'},
+/* ══════════════════════════════════════════════
+   FLOW DIAGRAM — REDESIGNED: Hexagonal Network
+══════════════════════════════════════════════ */
+function initFlowDiagram() {
+  const canvas = document.getElementById('flowCanvas');
+  if (!canvas) return;
+
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const isMob = innerWidth < 1700;
+  const CW = canvas.offsetWidth || 900;
+  const CH = isMob ? 320 : 940;
+  canvas.width = CW * DPR;
+  canvas.height = CH * DPR;
+  canvas.style.width = CW + 'px';
+  canvas.style.height = CH + 'px';
+  const c = canvas.getContext('2d');
+  c.scale(DPR, DPR);
+
+  // Pipeline stages: left to right
+  const stages = isMob ? [
+    { id: 'data',   x: CW * 0.12, y: CH * 0.22, label: 'MARKET\nDATA',   icon: '📡', color: '#F0C04A', glow: 'rgba(240,192,74,' },
+    { id: 'filter', x: CW * 0.38, y: CH * 0.22, label: 'XTO\nFILTER',    icon: '🔬', color: '#60a5fa', glow: 'rgba(96,165,250,' },
+    { id: 'ai',     x: CW * 0.62, y: CH * 0.22, label: 'AI\nENGINE',     icon: '🧠', color: '#c084fc', glow: 'rgba(192,132,252,' },
+    { id: 'ea',     x: CW * 0.88, y: CH * 0.22, label: 'EA\nEXECUTE',    icon: '⚙️', color: '#34d399', glow: 'rgba(52,211,153,' },
+    { id: 'profit', x: CW * 0.50, y: CH * 0.75, label: 'PROFIT\n24/7',   icon: '💰', color: '#fbbf24', glow: 'rgba(251,191,36,', isCentral: true },
   ] : [
-    {id:'mk', x:cx2-260, y:cy2-80, r:50, label:'MARKET', sub:'Thị Trường',  bg:['#2a2a2a','#161616','#060606'], tc:'#F0C04A'},
-    {id:'ai', x:cx2+260, y:cy2-80, r:50, label:'AI',     sub:'Intelligence',  bg:['#1565C0','#0D47A1','#061838'], tc:'#90CAF9'},
-    {id:'xb', x:cx2,     y:cy2-30, r:62, label:'XTO',  sub:'Speed EA',       bg:['#C9972A','#8B6914','#3d2b05'], tc:'#FFD700', diamond:true},
-    {id:'ea', x:cx2,     y:cy2+95, r:50, label:'EA',      sub:'Expert Advisor',bg:['#F0C04A','#C9972A','#7A5A10'], tc:'#111'},
-    {id:'pr', x:cx2,     y:cy2+210,r:54, label:'PROFIT',  sub:'Lợi Nhuận',    bg:['#1b5e20','#0a3d12','#031508'], tc:'#69f0ae'},
+    { id: 'data',   x: CW * 0.10, y: CH * 0.50, label: 'MARKET\nDATA',   icon: '📡', color: '#F0C04A', glow: 'rgba(240,192,74,' },
+    { id: 'filter', x: CW * 0.30, y: CH * 0.25, label: 'XTO\nFILTER',    icon: '🔬', color: '#60a5fa', glow: 'rgba(96,165,250,' },
+    { id: 'ai',     x: CW * 0.55, y: CH * 0.25, label: 'AI\nENGINE',     icon: '🧠', color: '#c084fc', glow: 'rgba(192,132,252,' },
+    { id: 'ea',     x: CW * 0.55, y: CH * 0.75, label: 'EA\nEXECUTE',    icon: '⚙️', color: '#34d399', glow: 'rgba(52,211,153,' },
+    { id: 'risk',   x: CW * 0.30, y: CH * 0.75, label: 'RISK\nMGMT',     icon: '🛡️', color: '#f87171', glow: 'rgba(248,113,113,' },
+    { id: 'profit', x: CW * 0.82, y: CH * 0.50, label: 'PROFIT\n24/7',   icon: '💰', color: '#fbbf24', glow: 'rgba(251,191,36,', isCentral: true },
   ];
-  const mainEdges=[
-    {from:'mk',to:'xb', color:'#F0C04A', label:'Data'},
-    {from:'ai',to:'xb', color:'#90CAF9', label:'Signal'},
-    {from:'xb',to:'ea', color:'#FFD700', label:'Command'},
-    {from:'ea',to:'pr', color:'#69f0ae', label:'Order'},
+
+  const edges = isMob ? [
+    { from: 'data',   to: 'filter', label: 'Feed' },
+    { from: 'filter', to: 'ai',     label: 'Signal' },
+    { from: 'ai',     to: 'ea',     label: 'Order' },
+    { from: 'ea',     to: 'profit', label: 'P&L' },
+    { from: 'data',   to: 'profit', label: '', dashed: true },
+  ] : [
+    { from: 'data',   to: 'filter', label: 'Feed' },
+    { from: 'data',   to: 'risk',   label: 'Vol',   dashed: true },
+    { from: 'filter', to: 'ai',     label: 'Signal' },
+    { from: 'ai',     to: 'ea',     label: 'Order' },
+    { from: 'risk',   to: 'ea',     label: 'SL/TP' },
+    { from: 'ea',     to: 'profit', label: 'Trade' },
+    { from: 'risk',   to: 'profit', label: '',      dashed: true },
   ];
-  const supportEdge={from:'ai', to:'ea', color:'#4FC3F7'};
-  const pkts=[];
-  mainEdges.forEach((e,ei)=>{
-    const nA=nodes.find(n=>n.id===e.from), nB=nodes.find(n=>n.id===e.to);
-    for(let i=0;i<5;i++) pkts.push({ax:nA.x,ay:nA.y,bx:nB.x,by:nB.y,t:(i/5)%1,spd:.0035+Math.random()*.003,col:e.color,main:true});
+
+  // Moving particles along edges
+  const particles = [];
+  edges.forEach(e => {
+    const A = stages.find(s => s.id === e.from);
+    const B = stages.find(s => s.id === e.to);
+    const count = e.dashed ? 2 : 4;
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        ax: A.x, ay: A.y, bx: B.x, by: B.y,
+        t: (i / count),
+        spd: 0.004 + Math.random() * 0.003,
+        col: A.color,
+        dashed: e.dashed
+      });
+    }
   });
-  {
-    const nA=nodes.find(n=>n.id===supportEdge.from), nB=nodes.find(n=>n.id===supportEdge.to);
-    for(let i=0;i<3;i++) pkts.push({ax:nA.x,ay:nA.y,bx:nB.x,by:nB.y,t:(i/3)%1,spd:.002+Math.random()*.002,col:supportEdge.color,main:false});
+
+  // Hexagon shape helper
+  function hexPath(ctx, x, y, r) {
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      const a = (Math.PI / 3) * i - Math.PI / 6;
+      const px = x + r * Math.cos(a), py = y + r * Math.sin(a);
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.closePath();
   }
-  let fr=0;
-  function arrowHead(x,y,angle,col,size=9){c.save();c.translate(x,y);c.rotate(angle);c.beginPath();c.moveTo(0,0);c.lineTo(-size,size*.55);c.lineTo(-size,-size*.55);c.closePath();c.fillStyle=col+'BB';c.fill();c.restore()}
-  function getEdgePts(nA,nB){const angle=Math.atan2(nB.y-nA.y,nB.x-nA.x);return{x1:nA.x+Math.cos(angle)*nA.r,y1:nA.y+Math.sin(angle)*nA.r,x2:nB.x-Math.cos(angle)*nB.r,y2:nB.y-Math.sin(angle)*nB.r,angle}}
-  function drawMainEdges(){mainEdges.forEach(e=>{const nA=nodes.find(n=>n.id===e.from),nB=nodes.find(n=>n.id===e.to);const{x1,y1,x2,y2,angle}=getEdgePts(nA,nB);c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.strokeStyle=e.color+'35';c.lineWidth=2.5;c.setLineDash([]);c.stroke();arrowHead(x2,y2,angle,e.color,10)})}
-  function drawSupportEdge(){const nA=nodes.find(n=>n.id===supportEdge.from),nB=nodes.find(n=>n.id===supportEdge.to);const{x1,y1,x2,y2,angle}=getEdgePts(nA,nB);c.beginPath();const mx=(x1+x2)/2+(isMob?65:120),my=(y1+y2)/2;c.moveTo(x1,y1);c.quadraticCurveTo(mx,my,x2,y2);c.strokeStyle=supportEdge.color+'55';c.lineWidth=1.5;c.setLineDash([5,7]);c.stroke();c.setLineDash([]);arrowHead(x2,y2,angle,supportEdge.color,7);c.save();c.fillStyle=supportEdge.color+'88';c.font=`600 ${isMob?8:10}px Inter,sans-serif`;c.textAlign='center';c.fillText('AI Support',mx+(isMob?8:14),my);c.restore()}
-  function drawPackets(){pkts.forEach(p=>{p.t=(p.t+p.spd)%1;const x=p.ax+(p.bx-p.ax)*p.t,y=p.ay+(p.by-p.ay)*p.t;c.beginPath();c.arc(x,y,p.main?3.5:2.5,0,Math.PI*2);c.fillStyle=p.col;c.globalAlpha=Math.sin(p.t*Math.PI)*(p.main?.88:.65);c.fill();c.globalAlpha=1})}
-  function drawNode(n,pulse){c.beginPath();c.arc(n.x,n.y,n.r+7+Math.sin(pulse)*.3*n.r,0,Math.PI*2);c.strokeStyle=n.bg[0]+'30';c.lineWidth=2;c.stroke();const g=c.createRadialGradient(n.x-n.r*.32,n.y-n.r*.32,n.r*.08,n.x,n.y,n.r*1.1);g.addColorStop(0,n.bg[0]);g.addColorStop(.5,n.bg[1]);g.addColorStop(1,n.bg[2]);if(n.diamond){const s=n.r*1.08;c.beginPath();c.moveTo(n.x,n.y-s);c.lineTo(n.x+s,n.y);c.lineTo(n.x,n.y+s);c.lineTo(n.x-s,n.y);c.closePath();c.fillStyle=g;c.fill();c.strokeStyle=n.bg[0]+'AA';c.lineWidth=2;c.stroke();c.beginPath();c.moveTo(n.x,n.y-s*.6);c.lineTo(n.x+s*.6,n.y);c.strokeStyle='rgba(255,255,200,.15)';c.lineWidth=1;c.stroke()}else{c.beginPath();c.arc(n.x,n.y,n.r,0,Math.PI*2);c.fillStyle=g;c.fill();c.strokeStyle=n.bg[0]+'99';c.lineWidth=1.5;c.stroke()}}
-  function drawLabels(){nodes.forEach(n=>{c.save();c.fillStyle=n.tc;const maxW=n.r*(n.diamond?1.4:1.65);let fs=Math.floor(n.r*(n.diamond?.34:.36));c.font=`900 ${fs}px Montserrat,sans-serif`;while(c.measureText(n.label).width>maxW&&fs>7){fs--;c.font=`900 ${fs}px Montserrat,sans-serif`}c.textAlign='center';c.textBaseline='middle';c.fillText(n.label,n.x,n.y-(n.sub?fs*.38:0));if(n.sub){const ss=Math.max(7,Math.floor(n.r*.18));c.font=`500 ${ss}px Inter,sans-serif`;c.globalAlpha=.55;c.fillText(n.sub,n.x,n.y+fs*.52)}c.restore()})}
-  function drawEdgeLabels(){if(isMob)return;mainEdges.forEach(e=>{const nA=nodes.find(n=>n.id===e.from),nB=nodes.find(n=>n.id===e.to);const mx=(nA.x+nB.x)/2,my=(nA.y+nB.y)/2;c.save();c.fillStyle=e.color+'99';c.font='600 10px Inter,sans-serif';c.textAlign='center';const angle=Math.atan2(nB.y-nA.y,nB.x-nA.x);const ox=Math.sin(angle)*14,oy=-Math.cos(angle)*14;c.fillText(e.label,mx+ox,my+oy);c.restore()})}
-  function animate(){c.clearRect(0,0,W2,H2);fr++;const pulse=fr*.04;drawSupportEdge();drawMainEdges();drawPackets();nodes.forEach(n=>drawNode(n,pulse+nodes.indexOf(n)*1.1));drawLabels();drawEdgeLabels();requestAnimationFrame(animate)}
-  animate();
+
+  let frame = 0;
+
+  function draw() {
+    c.clearRect(0, 0, CW, CH);
+    frame++;
+    const pulse = frame * 0.03;
+
+    // ── BACKGROUND GRID (subtle) ──
+    c.save();
+    c.strokeStyle = 'rgba(201,151,42,0.04)';
+    c.lineWidth = 1;
+    const gSize = 30;
+    for (let gx = 0; gx < CW; gx += gSize) {
+      c.beginPath(); c.moveTo(gx, 0); c.lineTo(gx, CH); c.stroke();
+    }
+    for (let gy = 0; gy < CH; gy += gSize) {
+      c.beginPath(); c.moveTo(0, gy); c.lineTo(CW, gy); c.stroke();
+    }
+    c.restore();
+
+    // ── EDGES ──
+    edges.forEach(e => {
+      const A = stages.find(s => s.id === e.from);
+      const B = stages.find(s => s.id === e.to);
+      // Gradient stroke
+      const gr = c.createLinearGradient(A.x, A.y, B.x, B.y);
+      gr.addColorStop(0, A.color + '50');
+      gr.addColorStop(1, B.color + '50');
+      c.save();
+      c.beginPath();
+      c.moveTo(A.x, A.y);
+      c.lineTo(B.x, B.y);
+      c.strokeStyle = gr;
+      c.lineWidth = e.dashed ? 1.5 : 2.5;
+      if (e.dashed) c.setLineDash([5, 8]);
+      c.stroke();
+      c.setLineDash([]);
+      // Arrow tip
+      const angle = Math.atan2(B.y - A.y, B.x - A.x);
+      const tipX = B.x - Math.cos(angle) * (B.isCentral ? 30 : 24);
+      const tipY = B.y - Math.sin(angle) * (B.isCentral ? 30 : 24);
+      c.beginPath();
+      c.moveTo(tipX, tipY);
+      c.lineTo(tipX - 10 * Math.cos(angle - 0.4), tipY - 10 * Math.sin(angle - 0.4));
+      c.lineTo(tipX - 10 * Math.cos(angle + 0.4), tipY - 10 * Math.sin(angle + 0.4));
+      c.closePath();
+      c.fillStyle = B.color + 'CC';
+      c.fill();
+      // Edge label
+      if (e.label && !isMob) {
+        const mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
+        const nx = Math.sin(angle) * 13, ny = -Math.cos(angle) * 13;
+        c.fillStyle = 'rgba(255,255,255,0.3)';
+        c.font = '600 9px Inter,sans-serif';
+        c.textAlign = 'center';
+        c.fillText(e.label, mx + nx, my + ny + 3);
+      }
+      c.restore();
+    });
+
+    // ── PARTICLES ──
+    particles.forEach(p => {
+      p.t = (p.t + p.spd) % 1;
+      const x = p.ax + (p.bx - p.ax) * p.t;
+      const y = p.ay + (p.by - p.ay) * p.t;
+      const alpha = Math.sin(p.t * Math.PI) * (p.dashed ? 0.5 : 0.9);
+      c.save();
+      c.globalAlpha = alpha;
+      // Glow
+      const grad = c.createRadialGradient(x, y, 0, x, y, 5);
+      grad.addColorStop(0, p.col);
+      grad.addColorStop(1, p.col + '00');
+      c.fillStyle = grad;
+      c.beginPath();
+      c.arc(x, y, 5, 0, Math.PI * 2);
+      c.fill();
+      // Core dot
+      c.globalAlpha = alpha;
+      c.fillStyle = p.col;
+      c.beginPath();
+      c.arc(x, y, 2.5, 0, Math.PI * 2);
+      c.fill();
+      c.restore();
+    });
+
+    // ── NODES ──
+stages.forEach((s, si) => {
+  const r = s.isCentral ? (isMob ? 48 : 56) : (isMob ? 38 : 44);
+  const pulseFactor = 1 + Math.sin(pulse + si * 1.1) * 0.04;
+
+      // Outer glow ring
+      c.save();
+      c.beginPath();
+      hexPath(c, s.x, s.y, r * 1.55 * pulseFactor);
+      c.strokeStyle = s.color + '18';
+      c.lineWidth = 10;
+      c.stroke();
+      c.restore();
+
+      // Mid ring
+      c.save();
+      c.beginPath();
+      hexPath(c, s.x, s.y, r * 1.25 * pulseFactor);
+      c.strokeStyle = s.color + '35';
+      c.lineWidth = 2;
+      c.stroke();
+      c.restore();
+
+      // Node body (filled hex)
+      const bg = c.createRadialGradient(s.x - r * 0.3, s.y - r * 0.3, r * 0.05, s.x, s.y, r * 1.1);
+      bg.addColorStop(0, s.color + '33');
+      bg.addColorStop(0.6, s.color + '18');
+      bg.addColorStop(1, s.color + '05');
+      c.save();
+      hexPath(c, s.x, s.y, r);
+      c.fillStyle = bg;
+      c.fill();
+      c.strokeStyle = s.color + 'AA';
+      c.lineWidth = s.isCentral ? 2.5 : 1.5;
+      c.stroke();
+      c.restore();
+
+      // Icon
+      c.save();
+      c.font = `${s.isCentral ? (isMob ? 16 : 18) : (isMob ? 13 : 14)}px serif`;
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.fillText(s.icon, s.x, s.y - (isMob ? 5 : 6));
+      c.restore();
+
+      // Label (two lines)
+      const lines = s.label.split('\n');
+      lines.forEach((line, li) => {
+        const fs = s.isCentral ? (isMob ? 8.5 : 9.5) : (isMob ? 7.5 : 8);
+        c.save();
+        c.fillStyle = s.color;
+        c.font = `800 ${fs}px Montserrat,sans-serif`;
+        c.textAlign = 'center';
+        c.textBaseline = 'top';
+        const lh = fs + 2;
+        const startY = s.y + (s.isCentral ? (isMob ? 6 : 7) : (isMob ? 5 : 6));
+        c.fillText(line, s.x, startY + li * lh);
+        c.restore();
+      });
+    });
+
+    // ── SCAN LINE (cinematic sweep) ──
+    const scanX = (Math.sin(pulse * 0.4) * 0.5 + 0.5) * CW;
+    const sg = c.createLinearGradient(scanX - 40, 0, scanX + 40, 0);
+    sg.addColorStop(0, 'rgba(240,192,74,0)');
+    sg.addColorStop(0.5, 'rgba(240,192,74,0.03)');
+    sg.addColorStop(1, 'rgba(240,192,74,0)');
+    c.fillStyle = sg;
+    c.fillRect(scanX - 40, 0, 80, CH);
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
 }
-const flowObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){initFlowDiagram();flowObs.unobserve(en.target)}})},{threshold:.1});
-const flowSec=document.getElementById('flow');
-if(flowSec)flowObs.observe(flowSec);
+
+const flowObs = new IntersectionObserver(e => {
+  e.forEach(en => {
+    if (en.isIntersecting) { initFlowDiagram(); flowObs.unobserve(en.target); }
+  });
+}, { threshold: 0.1 });
+const flowSec = document.getElementById('flow');
+if (flowSec) flowObs.observe(flowSec);
 
 /* MODALS */
 function openContact(){document.getElementById('contactModal').classList.add('open');document.body.style.overflow='hidden'}
 function closeContact(){document.getElementById('contactModal').classList.remove('open');document.body.style.overflow=''}
 
-function openCT(){document.getElementById('ctPage').classList.add('open');document.body.style.overflow='hidden';document.getElementById('ctPage').scrollTop=0}
-function closeCT(){document.getElementById('ctPage').classList.remove('open');document.body.style.overflow=''}
+function openCT(){document.getElementById('ctPage')&&(document.getElementById('ctPage').classList.add('open'),document.body.style.overflow='hidden',document.getElementById('ctPage').scrollTop=0)}
+function closeCT(){document.getElementById('ctPage')&&(document.getElementById('ctPage').classList.remove('open'),document.body.style.overflow='')}
 
 function openBSP(){document.getElementById('botPage').classList.add('open');document.body.style.overflow='hidden';document.getElementById('botPage').scrollTop=0}
 function closeBSP(){document.getElementById('botPage').classList.remove('open');document.body.style.overflow=''}
 
-function openESP(){document.getElementById('eaPage').classList.add('open');document.body.style.overflow='hidden';document.getElementById('eaPage').scrollTop=0}
-function closeESP(){document.getElementById('eaPage').classList.remove('open');document.body.style.overflow=''}
+function openESP(){document.getElementById('eaPage')&&(document.getElementById('eaPage').classList.add('open'),document.body.style.overflow='hidden',document.getElementById('eaPage').scrollTop=0)}
+function closeESP(){document.getElementById('eaPage')&&(document.getElementById('eaPage').classList.remove('open'),document.body.style.overflow='')}
 
 function switchTab(i){document.querySelectorAll('.ctab').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelectorAll('.cpanel').forEach((p,j)=>p.classList.toggle('active',j===i))}
 
@@ -1379,7 +1336,7 @@ function closeMob(){mobNav.classList.remove('open');hamBtn.classList.remove('ope
 let fabOpen=false;
 function toggleFab(){fabOpen=!fabOpen;document.getElementById('fabMenu').classList.toggle('open',fabOpen);document.getElementById('fabBtn').style.background=fabOpen?'linear-gradient(135deg,#333,#555)':'linear-gradient(135deg,var(--gd),var(--gold),var(--gl))'}
 document.addEventListener('click',e=>{const f=document.getElementById('mobFab');if(fabOpen&&f&&!f.contains(e.target)){fabOpen=false;document.getElementById('fabMenu').classList.remove('open');document.getElementById('fabBtn').style.background=''}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCT();closeBSP();closeESP();closeContact();closeMob()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeBSP();closeContact();closeMob()}});
 
 /* FLOAT ANIMATION */
 const style=document.createElement('style');
