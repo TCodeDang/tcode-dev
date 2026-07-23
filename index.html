@@ -3,1345 +3,948 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tCode – Dev · XTOSpeed AI · CopyTrade</title>
+<title>CityBot — Nền tảng Trading Bot MT5 | TCode</title>
+<meta name="description" content="CityBot - Hệ thống Expert Advisor đa module cho MT5. Phát triển bởi TCode. Hedging, SeasonX, MoneyTick, Tỉa lệnh, Thoát lệnh và Rải lệnh Zone.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --gold:#C9972A;--gl:#F0C04A;--gb:#FFD700;--gp:#E8C56A;--gd:#7A5A10;
-  --b:#000;--b2:#060606;--b3:#0C0C0C;--b4:#111;--b5:#161616;
-  --w:#fff;--w8:rgba(255,255,255,.8);--w5:rgba(255,255,255,.5);--w3:rgba(255,255,255,.3);
-  --glow:0 0 28px rgba(201,151,42,.45),0 0 56px rgba(201,151,42,.18);
-  --red:#ef4444;--blue:#3b82f6;
+/* ─── ROOT ─── */
+:root {
+  --bg-primary: #05080f;
+  --bg-secondary: #0a0f1a;
+  --bg-card: #0d1422;
+  --bg-card-hover: #121c30;
+  --border-color: #1a2740;
+  --border-light: #243353;
+  --text-primary: #e8edf5;
+  --text-secondary: #8ea4c8;
+  --text-muted: #4a5a7a;
+  --accent-gold: #f5b342;
+  --accent-gold-glow: rgba(245, 179, 66, 0.10);
+  --accent-blue: #4a8bf7;
+  --accent-purple: #8b5cf6;
+  --accent-cyan: #22d3ee;
+  --accent-green: #2ed198;
+  --accent-red: #ef5a6a;
+  --gradient-gold: linear-gradient(135deg, #f5b342, #e08a2e);
+  --gradient-cyber: linear-gradient(135deg, #22d3ee, #8b5cf6);
+  --shadow-card: 0 8px 40px rgba(0,0,0,0.6);
+  --radius: 12px;
+  --radius-lg: 24px;
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Sora', sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--b);color:var(--w);font-family:'Inter',sans-serif;overflow-x:hidden}
-#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
-#coins{position:fixed;inset:0;z-index:0;pointer-events:none}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+body { background:var(--bg-primary); color:var(--text-primary); font-family:var(--font-body); line-height:1.6; overflow-x:hidden; min-height:100vh; letter-spacing:-0.01em; }
+::selection { background:var(--accent-gold); color:#05080f; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--accent-gold); border-radius:10px; }
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 60px;background:rgba(0,0,0,.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,151,42,.18);transition:padding .3s}
-nav.scrolled{padding:11px 60px}
-.logo{font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--gl),var(--gb),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:5px;filter:drop-shadow(0 0 10px rgba(240,192,74,.5));text-decoration:none;line-height:1;text-transform:uppercase}
-.logo-sub{display:block;font-family:'Inter',sans-serif;font-size:.5rem;font-weight:500;letter-spacing:4px;margin-top:3px;-webkit-text-fill-color:rgba(240,192,74,.45);text-transform:uppercase}
-.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
-.nav-links a{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--w5);text-decoration:none;position:relative;transition:color .25s}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gl);transition:width .25s}
-.nav-links a:hover{color:var(--gl)}.nav-links a:hover::after{width:100%}
-.nav-cta{background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));color:var(--b)!important;padding:9px 22px;font-weight:700!important;letter-spacing:2px;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:filter .25s,transform .2s!important}
-.nav-cta:hover{filter:brightness(1.18);transform:scale(1.03)!important}.nav-cta::after{display:none!important}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
-.ham span{width:22px;height:2px;background:var(--gl);display:block;transition:all .3s}
-.ham.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-.ham.open span:nth-child(2){opacity:0}
-.ham.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
-.mob-nav{display:none;position:fixed;inset:0;z-index:190;background:rgba(0,0,0,.97);backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:32px;padding:60px 24px}
-.mob-nav.open{display:flex;animation:fadein .25s ease}
-.mob-nav a{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:800;color:var(--gp);text-decoration:none;letter-spacing:4px;text-transform:uppercase;transition:color .2s}
-.mob-nav a:hover{color:var(--gl)}
-.mob-nav .mob-cta{color:var(--b)!important;background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));padding:14px 40px;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
-
-/* CONTACT MODAL */
-.contact-modal{display:none;position:fixed;inset:0;z-index:600;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(8px)}
-.contact-modal.open{display:flex}
-.cm-box{background:var(--b3);border:1px solid rgba(201,151,42,.35);padding:44px 48px;max-width:440px;width:90%;position:relative;animation:scaleIn .25s ease}
-@keyframes scaleIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
-.cm-close{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--w5);font-size:1.4rem;cursor:pointer;transition:color .2s}
-.cm-close:hover{color:var(--gl)}
-.cm-title{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:800;color:var(--gp);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
-.cm-sub{font-size:.85rem;color:var(--w3);margin-bottom:28px;line-height:1.5}
-.cm-links{display:flex;flex-direction:column;gap:10px}
-.cm-link{display:flex;align-items:center;gap:14px;padding:13px 16px;background:var(--b4);border:1px solid rgba(201,151,42,.15);text-decoration:none;color:var(--w8);transition:all .22s}
-.cm-link:hover{border-color:var(--gold);background:rgba(201,151,42,.07);color:var(--gl)}
-.cm-link-ico{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ico-yt{background:#FF0000}.ico-tele{background:#229ED9}.ico-zalo{background:#0068FF}
-.cm-link-label{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--w3);display:block;line-height:1;margin-bottom:2px}
-.cm-link-val{font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;color:inherit;line-height:1}
-
-/* ANIMATED BORDER BUTTONS */
-.abtn{position:relative;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.82rem;letter-spacing:3px;text-transform:uppercase;padding:15px 40px;border:none;cursor:pointer;text-decoration:none;display:inline-block;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:transform .2s,filter .2s}
-.abtn:hover{transform:scale(1.04);filter:brightness(1.13)}
-.abtn-label{position:relative;z-index:2}
-.abtn-border{position:absolute;inset:0;z-index:1;overflow:hidden;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
-.abtn-border::before{content:'';position:absolute;inset:-3px;background:linear-gradient(90deg,transparent,#fff 30%,var(--gb) 50%,#fff 70%,transparent);background-size:300% 100%;animation:brun 2.2s linear infinite;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
-.abtn-gold{color:var(--b);background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));box-shadow:var(--glow)}
-.abtn-gold .abtn-border::after{content:'';position:absolute;inset:2px;background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
-.abtn-ghost{color:var(--gl);background:transparent;border:1px solid rgba(201,151,42,.4)}
-.abtn-ghost .abtn-border::after{content:'';position:absolute;inset:2px;background:rgba(201,151,42,.05);clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
-.abtn-red{color:var(--w);background:linear-gradient(135deg,#7f1d1d,var(--red),#f87272);box-shadow:0 0 20px rgba(239,68,68,.3)}
-.abtn-red .abtn-border::after{content:'';position:absolute;inset:2px;background:linear-gradient(135deg,#7f1d1d,var(--red),#f87272);clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
-.abtn-blue{color:var(--w);background:linear-gradient(135deg,#1e3a8a,var(--blue),#93c5fd);box-shadow:0 0 20px rgba(59,130,246,.3)}
-.abtn-blue .abtn-border::after{content:'';position:absolute;inset:2px;background:linear-gradient(135deg,#1e3a8a,var(--blue),#93c5fd);clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
-@keyframes brun{0%{background-position:150% 0}100%{background-position:-150% 0}}
-
-/* ── HERO ── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;z-index:1;padding-top:70px}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,151,42,.1),transparent 70%),var(--b)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,151,42,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,151,42,.05) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 20%,transparent 80%)}
-.hero-content{position:relative;z-index:2;max-width:980px;padding:0 20px;width:100%}
-.hero-title{font-family:'Montserrat',sans-serif;font-size:clamp(3.8rem,20vw,9rem);font-weight:900;line-height:1;letter-spacing:8px;display:flex;align-items:baseline;justify-content:center;text-transform:uppercase;margin-bottom:0}
-.hero-x{background:linear-gradient(135deg,var(--gl),var(--gb),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 32px rgba(240,192,74,.85));opacity:0;transform:scale(.55) translateY(24px);animation:xPop .7s cubic-bezier(.34,1.56,.64,1) forwards .3s;display:inline-block}
-.hero-back{display:inline-flex;margin-left:2px}
-.hero-back .ch{background:linear-gradient(160deg,#fff 0%,var(--gp) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;transform:translateY(40px);animation:chDrop .45s cubic-bezier(.34,1.4,.64,1) forwards;display:inline-block}
-.hero-back .ch:nth-child(1){animation-delay:.82s}
-.hero-back .ch:nth-child(2){animation-delay:.94s}
-.hero-back .ch:nth-child(3){animation-delay:1.06s}
-.hero-back .ch:nth-child(4){animation-delay:1.18s}
-@keyframes xPop{0%{opacity:0;transform:scale(.5) translateY(30px)}60%{opacity:1;transform:scale(1.1) translateY(-4px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes chDrop{0%{opacity:0;transform:translateY(40px)}70%{transform:translateY(-5px)}100%{opacity:1;transform:translateY(0)}}
-.hero-tagline{font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:6px;text-transform:uppercase;margin:10px 0 24px;opacity:0;animation:fadeUp .8s ease forwards 1.4s}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease forwards 1.6s;margin-bottom:28px}
-
-/* 3 SERVICE PILLARS IN HERO */
-.hero-services{opacity:0;animation:fadeUp 1s ease forwards 1.9s}
-.hs-label{font-size:.58rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(201,151,42,.45);margin-bottom:12px;text-align:center}
-.hs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid rgba(201,151,42,.15)}
-.hs-item{background:var(--b);padding:18px 14px;text-align:center;cursor:pointer;transition:background .25s,border-color .25s;position:relative;overflow:hidden;border:1px solid transparent}
-.hs-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transition:opacity .3s;opacity:0}
-.hs-item.bot::before{background:linear-gradient(90deg,transparent,#3b82f6,transparent)}
-.hs-item.ea::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.hs-item.ct::before{background:linear-gradient(90deg,transparent,#4ade80,transparent)}
-.hs-item:hover::before{opacity:1}
-.hs-item:hover{background:rgba(255,255,255,.03)}
-.hs-icon{font-size:1.4rem;display:block;margin-bottom:6px}
-.hs-name{font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:4px}
-.hs-item.bot .hs-name{color:#93c5fd}
-.hs-item.ea .hs-name{color:var(--gl)}
-.hs-item.ct .hs-name{color:#4ade80}
-.hs-desc{font-size:.6rem;color:rgba(255,255,255,.32);letter-spacing:.5px;line-height:1.4}
-
-/* Scroll hint */
-.scroll-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:2;opacity:0;animation:fadeUp .8s ease forwards 2.4s}
-.scroll-hint span{display:block;width:1px;height:36px;background:linear-gradient(180deg,var(--gold),transparent);margin:0 auto;animation:scrollPulse 1.8s ease-in-out infinite}
-.scroll-hint p{font-size:.52rem;letter-spacing:3px;color:rgba(255,255,255,.22);text-transform:uppercase;margin-top:6px;text-align:center}
-@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
-
-/* ══════════════════════════════
-   3 SERVICES SECTION (NEW)
-══════════════════════════════ */
-.services-section{position:relative;z-index:1;padding:80px 20px 90px;background:var(--b2)}
-.services-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(201,151,42,.04),transparent);pointer-events:none}
-.sec-header{text-align:center;margin-bottom:56px}
-.sec-tag{font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
-.sec-title{font-family:'Montserrat',sans-serif;font-size:clamp(1.6rem,5vw,2.8rem);font-weight:900;line-height:1.1;text-transform:uppercase;letter-spacing:2px}
-.sec-title .g{background:linear-gradient(135deg,var(--gl),var(--gb));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sec-title .w{background:linear-gradient(135deg,var(--w),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.sec-line{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto 0;box-shadow:0 0 8px var(--gold)}
-
-/* SERVICE CARDS GRID */
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;max-width:1200px;margin:0 auto}
-
-/* Shared service card styles */
-.svc-card{position:relative;background:var(--b3);border:1px solid rgba(201,151,42,.1);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
-.svc-card:hover{transform:translateY(-4px)}
-.svc-card-top{position:absolute;top:0;left:0;right:0;height:3px;transition:opacity .3s}
-.svc-card:hover .svc-card-top{opacity:1}
-
-/* Card 1: Bot Trading */
-.svc-bot{border-top:3px solid #3b82f6}
-.svc-bot .svc-card-top{background:linear-gradient(90deg,#1e3a8a,#3b82f6,#93c5fd);opacity:1}
-.svc-bot:hover{border-color:rgba(59,130,246,.5)}
-
-/* Card 2: EA XTO Speed */
-.svc-ea{border-top:3px solid var(--gold)}
-.svc-ea .svc-card-top{background:linear-gradient(90deg,var(--gd),var(--gold),var(--gl));opacity:1}
-.svc-ea:hover{border-color:rgba(201,151,42,.5)}
-
-/* Card 3: CopyTrade */
-.svc-ct{border-top:3px solid #4ade80}
-.svc-ct .svc-card-top{background:linear-gradient(90deg,#14532d,#4ade80,#86efac);opacity:1}
-.svc-ct:hover{border-color:rgba(74,222,128,.5)}
-
-.svc-head{padding:28px 24px 20px}
-.svc-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;line-height:1;opacity:.07;position:absolute;top:14px;right:16px}
-.svc-icon{font-size:2rem;margin-bottom:14px;display:block;filter:drop-shadow(0 0 10px currentColor)}
-.svc-bot .svc-icon{color:#3b82f6}
-.svc-ea .svc-icon{color:var(--gold)}
-.svc-ct .svc-icon{color:#4ade80}
-.svc-badge{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:10px}
-.svc-bot .svc-badge{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#93c5fd}
-.svc-ea .svc-badge{background:rgba(201,151,42,.12);border:1px solid rgba(201,151,42,.35);color:var(--gl)}
-.svc-ct .svc-badge{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3);color:#4ade80}
-.svc-title{font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;line-height:1.1}
-.svc-bot .svc-title{color:#93c5fd}
-.svc-ea .svc-title{color:var(--gp)}
-.svc-ct .svc-title{color:#86efac}
-.svc-sub{font-size:.8rem;color:rgba(255,255,255,.42);line-height:1.6;margin-bottom:0}
-.svc-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,42,.15),transparent);margin:0 24px}
-.svc-features{padding:20px 24px;flex:1}
-.svc-feat-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.svc-feat-list li{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.5}
-.svc-feat-list li .dot{flex-shrink:0;margin-top:5px;width:5px;height:5px;border-radius:50%}
-.svc-bot .dot{background:#3b82f6}
-.svc-ea .dot{background:var(--gold)}
-.svc-ct .dot{background:#4ade80}
-.svc-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:rgba(0,0,0,.4);border-top:1px solid rgba(201,151,42,.1);border-bottom:1px solid rgba(201,151,42,.1)}
-.svc-stat{padding:12px 8px;text-align:center;border-right:1px solid rgba(201,151,42,.08)}
-.svc-stat:last-child{border-right:none}
-.svc-sv{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;display:block;line-height:1}
-.svc-bot .svc-sv{color:#93c5fd}
-.svc-ea .svc-sv{color:var(--gl)}
-.svc-ct .svc-sv{color:#4ade80}
-.svc-sl{font-size:.5rem;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:3px;display:block}
-.svc-cta{padding:20px 24px;margin-top:auto}
-.svc-cta .abtn{width:100%;text-align:center;display:block;padding:13px 20px;font-size:.75rem}
-
-/* ── FLOW DIAGRAM SECTION ── */
-.flow-section{position:relative;z-index:1;padding:72px 20px 80px;background:var(--b)}
-.flow-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(201,151,42,.055),transparent 70%);pointer-events:none}
-.flow-header{text-align:center;margin-bottom:40px}
-.flow-tag{font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
-.flow-title{font-family:'Montserrat',sans-serif;font-size:clamp(1.6rem,6vw,3rem);font-weight:900;line-height:1.1;text-transform:uppercase;letter-spacing:2px}
-.flow-title .g{background:linear-gradient(135deg,var(--gl),var(--gb));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.flow-title .w{background:linear-gradient(135deg,var(--w),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.flow-desc{font-size:.9rem;color:var(--w5);max-width:480px;margin:12px auto 0;line-height:1.75}
-.flow-line{width:50px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:16px auto 0;box-shadow:0 0 8px var(--gold)}
-
-/* ── NEW FLOW DIAGRAM: PIPELINE STYLE ── */
-.flow-diagram{max-width:1000px;margin:0 auto 48px;position:relative;padding:0 8px; display: flex; justify-content: center; align-items: center; width: 100%;}
-.pipeline-wrapper{width:100%;overflow:hidden}
-.pipeline-svg{width:100%;display:block}
-
-.metrics-box{max-width:960px;margin:0 auto 56px;border:1px solid rgba(201,151,42,.22);background:rgba(0,0,0,.6);display:grid;grid-template-columns:repeat(5,1fr);position:relative}
-.metrics-box::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 12px var(--gold)}
-.metric{padding:28px 12px;text-align:center;border-right:1px solid rgba(201,151,42,.12);transition:background .2s;position:relative;overflow:hidden}
-.metric:last-child{border-right:none}
-.metric::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,42,.3),transparent);opacity:0;transition:opacity .2s}
-.metric:hover{background:rgba(201,151,42,.05)}
-.metric:hover::after{opacity:1}
-.metric-ico{font-size:1.1rem;margin-bottom:8px;display:block}
-.metric-val{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gl);line-height:1;display:block}
-.metric-val sup{font-size:.9rem;color:rgba(240,192,74,.55);vertical-align:super}
-.metric-lbl{font-size:.55rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:6px;display:block;line-height:1.4}
-
-/* FEATURE CARDS */
-.feature-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:0 auto}
-.feat{background:var(--b3);border:1px solid rgba(201,151,42,.1);padding:32px 24px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s}
-.feat:hover{border-color:rgba(201,151,42,.4);transform:translateY(-3px)}
-.feat-num{position:absolute;top:16px;right:16px;font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(201,151,42,.06);line-height:1}
-.feat-icon{font-size:1.6rem;margin-bottom:14px;filter:drop-shadow(0 0 8px rgba(201,151,42,.45))}
-.feat h3{font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:800;color:var(--gp);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase}
-.feat p{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.65}
-.feat-bar{position:absolute;top:0;left:0;width:3px;height:0;background:linear-gradient(180deg,var(--gold),transparent);transition:height .4s ease}
-.feat:hover .feat-bar{height:100%}
-
-/* ── PARTNERS ── */
-.partners{position:relative;z-index:1;padding:52px 20px;background:var(--b2)}
-.partners-label{text-align:center;font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
-.partners-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;max-width:1100px;margin:0 auto}
-.pcard{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px 12px;background:var(--b4);border:1px solid rgba(201,151,42,.18);transition:border-color .25s,background .25s,transform .2s;text-decoration:none;cursor:pointer}
-.pcard:hover{border-color:var(--gold);background:rgba(201,151,42,.07);transform:translateY(-2px)}
-.pcard svg{transition:filter .25s}
-.pcard:hover svg{filter:drop-shadow(0 0 8px currentColor)}
-.pcard .pn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:.7rem;letter-spacing:2px;text-transform:uppercase}
-.p-bin .pn{color:#F3BA2F}.p-byb .pn{color:#F7A600}.p-exn .pn{color:#FF6600}
-.p-van .pn{color:#FF3B30}.p-pup .pn{color:#0033CC}.p-okx .pn{color:#bbb}
-
-/* ── COPYTRADE ── */
-.copytrade-section{position:relative;z-index:1;padding:80px 20px;background:var(--b3)}
-.copytrade-section::before{content:'';position:absolute;right:-200px;top:50%;transform:translateY(-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(201,151,42,.06),transparent 70%);pointer-events:none}
-.ct-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1200px;margin:0 auto;align-items:center}
-.ct-card-wrap{position:relative}
-.ct-card{background:linear-gradient(135deg,var(--b4),var(--b5));border:1px solid rgba(201,151,42,.28);padding:24px;animation:pgold 3s ease-in-out infinite}
-@keyframes pgold{0%,100%{box-shadow:0 0 8px rgba(201,151,42,.18)}50%{box-shadow:0 0 30px rgba(201,151,42,.55),0 0 60px rgba(201,151,42,.18)}}
-.ct-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.ct-ident{display:flex;align-items:center;gap:10px}
-.ct-av{width:40px;height:40px;background:linear-gradient(135deg,var(--gd),var(--gold));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--b)}
-.ct-name{font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:800;color:var(--gp);line-height:1.1}
-.ct-name span{display:block;font-size:.62rem;font-weight:500;color:var(--w3);margin-top:3px;letter-spacing:2px}
-.ct-live{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:#4ade80;font-size:.6rem;font-weight:700;letter-spacing:2px;padding:4px 10px;text-transform:uppercase}
-.ct-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(201,151,42,.12);margin-bottom:16px}
-.ct-stat{padding:12px 8px;text-align:center;border-right:1px solid rgba(201,151,42,.12)}
-.ct-stat:last-child{border-right:none}
-.ct-sv{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;background:linear-gradient(135deg,var(--gb),var(--gl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1}
-.ct-sl{font-size:.58rem;font-weight:600;letter-spacing:1.5px;color:rgba(255,255,255,.32);text-transform:uppercase;margin-top:3px;display:block}
-.ct-chart{height:55px;margin-bottom:14px}
-.ct-chart svg{width:100%;height:100%}
-.ct-fbtn{width:100%;background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));border:none;color:var(--b);font-family:'Montserrat',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:2.5px;text-transform:uppercase;padding:13px;cursor:pointer;transition:filter .2s,transform .2s}
-.ct-fbtn:hover{filter:brightness(1.12);transform:scale(1.015)}
-.ct-content .flow-tag{text-align:left}
-.ct-content h2{font-family:'Montserrat',sans-serif;font-size:clamp(1.5rem,3vw,2.4rem);font-weight:900;line-height:1.12;margin-bottom:14px;text-transform:uppercase;letter-spacing:1px}
-.ct-content h2 .w{background:linear-gradient(135deg,var(--w),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.ct-content h2 .g{background:linear-gradient(135deg,var(--gl),var(--gb));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.ct-content>p{font-size:.88rem;color:var(--w5);line-height:1.75;margin-bottom:24px}
-.ct-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
-.ct-list li{display:flex;align-items:flex-start;gap:10px;font-size:.86rem;color:rgba(255,255,255,.6);line-height:1.5}
-.ct-list li::before{content:'◆';color:var(--gold);font-size:.52rem;margin-top:5px;flex-shrink:0}
-.strategies{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1200px;margin:48px auto 0}
-.strat{background:var(--b4);border:1px solid rgba(201,151,42,.16);padding:28px 24px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s}
-.strat:hover{border-color:rgba(201,151,42,.45);transform:translateY(-3px)}
-.strat-accent{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 14px var(--gold);opacity:0;transition:opacity .25s}
-.strat:hover .strat-accent{opacity:1}
-.strat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.strat-name{font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:900;color:var(--gp);letter-spacing:1px;text-transform:uppercase}
-.strat-type{font-size:.58rem;font-weight:700;letter-spacing:2px;padding:3px 10px;text-transform:uppercase}
-.strat-safe{background:rgba(201,151,42,.12);border:1px solid rgba(201,151,42,.3);color:var(--gl)}
-.strat-speed{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87272}
-.strat-pnl{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:#4ade80;line-height:1;display:block;margin-bottom:3px}
-.strat-pnl-note{font-size:.68rem;color:rgba(255,255,255,.3);font-style:italic}
-.strat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(201,151,42,.1);margin:14px 0}
-.strat-stat{padding:10px 6px;text-align:center;border-right:1px solid rgba(201,151,42,.1)}
-.strat-stat:last-child{border-right:none}
-.strat-sv{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;background:linear-gradient(135deg,var(--gb),var(--gl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1}
-.strat-sl{font-size:.56rem;font-weight:600;letter-spacing:1.5px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-top:3px}
-.strat-notes{background:rgba(201,151,42,.04);border-left:2px solid var(--gold);padding:10px 12px;margin-bottom:18px}
-.strat-notes p{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.5}
-.strat-btn{width:100%;padding:12px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;border:none;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:filter .2s,transform .2s;text-decoration:none;display:block;text-align:center}
-.strat-btn:hover{filter:brightness(1.12);transform:scale(1.015)}
-.btn-safe{background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));color:var(--b)}
-.btn-speed{background:linear-gradient(135deg,#7f1d1d,#ef4444,#f87272);color:var(--w);box-shadow:0 0 20px rgba(239,68,68,.3)}
-
-/* ── HOW ── */
-.how{position:relative;z-index:1;padding:80px 20px;background:var(--b2)}
-.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1000px;margin:0 auto;position:relative}
-.steps-row::before{content:'';position:absolute;top:48px;left:calc(16% + 20px);right:calc(16% + 20px);height:1px;background:linear-gradient(90deg,var(--gold),rgba(201,151,42,.3),var(--gold));opacity:.25;z-index:0}
-.step{text-align:center;padding:0 16px;position:relative;z-index:1}
-.step-n{width:96px;height:96px;border:1px solid rgba(201,151,42,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;background:var(--b4);clip-path:polygon(14px 0%,100% 0%,calc(100% - 14px) 100%,0% 100%);transition:border-color .25s}
-.step:hover .step-n{border-color:var(--gold)}
-.step-n span{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;background:linear-gradient(135deg,var(--gb),var(--gl));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.step h3{font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:800;color:var(--gp);margin-bottom:9px;letter-spacing:1px;text-transform:uppercase}
-.step p{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.6}
-
-/* ── CTA ── */
-.cta-section{position:relative;z-index:1;padding:80px 20px;background:var(--b);text-align:center;overflow:hidden}
-.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 100% at 50% 50%,rgba(201,151,42,.08),transparent 70%)}
-.cta-section h2{font-family:'Montserrat',sans-serif;font-size:clamp(2rem,5vw,4rem);font-weight:900;background:linear-gradient(135deg,var(--gl),var(--gb),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 24px rgba(240,192,74,.35));margin-bottom:14px;text-transform:uppercase;line-height:1.05;position:relative}
-.cta-section p{font-size:.9rem;color:var(--w3);line-height:1.7;margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto;position:relative}
-.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;margin-bottom:36px}
-.cta-note{font-size:.62rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.18);position:relative}
-
-/* ── FOOTER ── */
-footer{background:var(--b2);border-top:1px solid rgba(201,151,42,.1);padding:48px 20px 32px;position:relative;z-index:1}
-.ft-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px}
-.ft-brand .logo{font-size:1.3rem}
-.ft-brand p{margin-top:12px;font-size:.8rem;color:rgba(255,255,255,.3);line-height:1.7;max-width:240px}
-.ft-col h4{font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:800;color:var(--gp);letter-spacing:3px;margin-bottom:16px;text-transform:uppercase}
-.ft-col ul{list-style:none}
-.ft-col ul li{margin-bottom:8px}
-.ft-col ul li a{color:rgba(255,255,255,.34);text-decoration:none;font-size:.8rem;transition:color .2s}
-.ft-col ul li a:hover{color:var(--gl)}
-.ft-bot{border-top:1px solid rgba(201,151,42,.08);padding-top:22px;display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto}
-.ft-bot p{font-size:.7rem;color:rgba(255,255,255,.18);letter-spacing:.5px}
-.ft-soc{display:flex;gap:8px}
-.soc-btn{width:32px;height:32px;border:1px solid rgba(201,151,42,.2);display:flex;align-items:center;justify-content:center;color:var(--w3);font-size:.75rem;text-decoration:none;transition:all .2s}
-.soc-btn:hover{border-color:var(--gold);color:var(--gl);background:rgba(201,151,42,.07)}
-
-/* FAB */
-.mob-fab{display:none;position:fixed;bottom:24px;right:20px;z-index:400;flex-direction:column;align-items:flex-end;gap:12px}
-.fab-main{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gd),var(--gold),var(--gl));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,151,42,.55),0 2px 8px rgba(0,0,0,.5);transition:transform .2s,filter .2s;position:relative;z-index:2}
-.fab-main:hover{transform:scale(1.08);filter:brightness(1.15)}
-.fab-main svg{width:24px;height:24px;fill:var(--b)}
-.fab-main::before{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(240,192,74,.45);animation:fabPulse 2.2s ease-in-out infinite}
-@keyframes fabPulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.18);opacity:0}}
-.fab-menu{display:flex;flex-direction:column;gap:10px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(12px) scale(.95);transition:opacity .22s,transform .22s}
-.fab-menu.open{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
-.fab-item{display:flex;align-items:center;gap:10px;text-decoration:none;background:rgba(0,0,0,.93);border:1px solid rgba(201,151,42,.28);padding:10px 16px 10px 12px;border-radius:28px;backdrop-filter:blur(12px);transition:border-color .2s,background .2s;white-space:nowrap}
-.fab-item:hover{border-color:var(--gold);background:rgba(201,151,42,.1)}
-.fab-item-ico{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.fab-yt{background:#FF0000}.fab-tele{background:#229ED9}.fab-zalo{background:#0068FF}
-.fab-item-name{font-family:'Montserrat',sans-serif;font-size:.82rem;font-weight:700;color:var(--gl);display:block;line-height:1}
-.fab-item-val{font-size:.65rem;color:var(--w3);display:block;margin-top:1px}
-
-/* COPYTRADE FULLPAGE */
-.ctp{display:none;position:fixed;inset:0;z-index:500;background:var(--b);overflow-y:auto}
-.ctp.open{display:block;animation:fadein .3s ease}
-@keyframes fadein{from{opacity:0}to{opacity:1}}
-.ctp-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(0,0,0,.96);border-bottom:1px solid rgba(201,151,42,.18);position:sticky;top:0;z-index:10;backdrop-filter:blur(16px)}
-.ctp-back{background:none;border:1px solid rgba(201,151,42,.35);color:var(--gl);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
-.ctp-back:hover{background:rgba(201,151,42,.09);border-color:var(--gold)}
-.ctp-hero{padding:48px 20px 36px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,151,42,.08),transparent 70%)}
-.ctp-hero h1{font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,6vw,3.2rem);font-weight:900;background:linear-gradient(135deg,var(--gl),var(--gb),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;line-height:1;text-transform:uppercase;letter-spacing:3px}
-.ctp-hero p{font-size:.88rem;color:var(--w5);max-width:520px;margin:0 auto 24px;line-height:1.7}
-.ctp-tabs{display:flex;max-width:1100px;margin:0 auto;padding:0 16px;border-bottom:1px solid rgba(201,151,42,.15)}
-.ctab{flex:1;padding:14px 16px;background:none;border:none;border-bottom:2px solid transparent;color:var(--w5);font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .22s;text-align:center}
-.ctab:hover{color:var(--gl)}
-.ctab.active{color:var(--gl);border-bottom-color:var(--gold);background:rgba(201,151,42,.04)}
-.ctp-panels{max-width:1100px;margin:0 auto;padding:32px 16px 48px}
-.cpanel{display:none}.cpanel.active{display:block;animation:fadein .3s ease}
-.sc-card{background:linear-gradient(135deg,var(--b3),var(--b4));border:1px solid rgba(201,151,42,.22);overflow:hidden;margin-bottom:24px}
-.sc-head{padding:22px 20px 18px;background:rgba(201,151,42,.04);border-bottom:1px solid rgba(201,151,42,.12);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.sc-ident{display:flex;align-items:center;gap:12px}
-.sc-av{width:44px;height:44px;background:linear-gradient(135deg,var(--gd),var(--gold));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--b);flex-shrink:0}
-.sc-name{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:900;color:var(--gp);line-height:1;text-transform:uppercase;letter-spacing:1px}
-.sc-tag{font-size:.62rem;font-weight:600;color:var(--w3);letter-spacing:2px;margin-top:3px}
-.sc-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.badge{font-size:.58rem;font-weight:700;letter-spacing:1.5px;padding:3px 8px;text-transform:uppercase}
-.badge-live{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:#4ade80}
-.badge-safe{background:rgba(201,151,42,.12);border:1px solid rgba(201,151,42,.38);color:var(--gl)}
-.badge-speed{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.32);color:#f87272}
-.badge-crypto{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.38);color:#93c5fd}
-.sc-pnl{text-align:right;flex-shrink:0}
-.sc-pnl-val{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1;display:block}
-.sc-pnl-val.grn{color:#4ade80}
-.sc-pnl-lbl{font-size:.58rem;font-weight:600;letter-spacing:2px;color:var(--w3);text-transform:uppercase;margin-top:2px;display:block}
-.sc-pnl-note{font-size:.65rem;color:rgba(255,255,255,.3);margin-top:3px;font-style:italic}
-.sc-body{padding:20px}
-.sc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(201,151,42,.12);margin-bottom:18px}
-.sc-s{padding:14px 10px;text-align:center;border-right:1px solid rgba(201,151,42,.12)}
-.sc-s:last-child{border-right:none}
-.sc-sv{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;background:linear-gradient(135deg,var(--gb),var(--gl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;line-height:1}
-.sc-sl{font-size:.56rem;font-weight:600;letter-spacing:2px;color:var(--w3);text-transform:uppercase;margin-top:3px;display:block}
-.sc-notes{background:rgba(201,151,42,.045);border:1px solid rgba(201,151,42,.12);border-left:3px solid var(--gold);padding:12px 16px;margin-bottom:18px}
-.sc-notes-t{font-size:.6rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
-.sc-notes li{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:4px;padding-left:12px;position:relative}
-.sc-notes li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-size:1rem;top:-1px}
-.sc-cta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.sc-cta-txt{font-size:.78rem;color:var(--w3);line-height:1.5;max-width:360px}
-.vid-ph{background:var(--b5);border:1px solid rgba(201,151,42,.12);height:100px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;margin-bottom:24px}
-.vid-ph p{font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.22)}
-.ctp-contact{max-width:1100px;margin:0 auto;padding:0 16px 60px;text-align:center;border-top:1px solid rgba(201,151,42,.1);padding-top:40px}
-.ctp-contact h3{font-family:'Montserrat',sans-serif;font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,var(--gl),var(--gb));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;text-transform:uppercase;letter-spacing:2px}
-.ctp-contact p{font-size:.84rem;color:var(--w3);margin-bottom:24px}
-.llist{display:flex;flex-direction:column;gap:7px;max-width:400px;margin:0 auto}
-.litem{display:flex;align-items:center;justify-content:space-between;background:var(--b4);border:1px solid rgba(201,151,42,.16);padding:12px 16px;text-decoration:none;color:var(--w8);transition:all .2s;font-size:.82rem;font-weight:500}
-.litem:hover{border-color:var(--gold);color:var(--gl);background:rgba(201,151,42,.05)}
-.litem .ar{color:var(--gold)}
-
-/* BOT SERVICE FULLPAGE */
-.bsp{display:none;position:fixed;inset:0;z-index:500;background:var(--b);overflow-y:auto}
-.bsp.open{display:block;animation:fadein .3s ease}
-.bsp-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(0,0,0,.96);border-bottom:1px solid rgba(59,130,246,.25);position:sticky;top:0;z-index:10;backdrop-filter:blur(16px)}
-.bsp-back{background:none;border:1px solid rgba(59,130,246,.4);color:#93c5fd;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
-.bsp-back:hover{background:rgba(59,130,246,.09);border-color:#3b82f6}
-.bsp-hero{padding:56px 20px 40px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(59,130,246,.08),transparent 70%)}
-.bsp-hero h1{font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,6vw,3.2rem);font-weight:900;background:linear-gradient(135deg,#93c5fd,#3b82f6,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;line-height:1;text-transform:uppercase;letter-spacing:3px}
-.bsp-hero p{font-size:.92rem;color:var(--w5);max-width:560px;margin:0 auto 28px;line-height:1.75}
-.bsp-body{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
-.bsp-section{margin-bottom:44px}
-.bsp-section-title{font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:#3b82f6;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.bsp-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(59,130,246,.3),transparent)}
-
-/* ── BSP SERVICES: NEW EXPANDED LAYOUT ── */
-.bsp-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:0}
-.bsp-svc{background:var(--b3);border:1px solid rgba(59,130,246,.15);padding:22px 18px;transition:border-color .25s,transform .25s}
-.bsp-svc:hover{border-color:rgba(59,130,246,.5);transform:translateY(-3px)}
-.bsp-svc-icon{font-size:1.6rem;margin-bottom:10px;display:block}
-.bsp-svc-name{font-family:'Montserrat',sans-serif;font-size:.8rem;font-weight:800;color:#93c5fd;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.bsp-svc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
-.bsp-tag{font-size:.58rem;font-weight:700;letter-spacing:1px;padding:2px 8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#93c5fd;text-transform:uppercase}
-.bsp-svc-desc{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.55}
-
-/* NEW: Category blocks for detailed services */
-.bsp-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;margin-bottom:3px}
-.bsp-cat{background:var(--b3);border:1px solid rgba(59,130,246,.13);padding:24px 20px;position:relative;overflow:hidden;transition:border-color .25s}
-.bsp-cat:hover{border-color:rgba(59,130,246,.4)}
-.bsp-cat-accent{position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);opacity:0;transition:opacity .25s}
-.bsp-cat:hover .bsp-cat-accent{opacity:1}
-.bsp-cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.bsp-cat-icon{font-size:1.3rem}
-.bsp-cat-title{font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:800;color:#93c5fd;letter-spacing:1px;text-transform:uppercase}
-.bsp-cat-list{list-style:none;display:flex;flex-direction:column;gap:6px}
-.bsp-cat-list li{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
-.bsp-cat-list li::before{content:'→';color:#3b82f6;font-size:.7rem;margin-top:2px;flex-shrink:0}
-
-/* Target audience */
-.bsp-audience{background:linear-gradient(135deg,rgba(30,58,138,.2),rgba(59,130,246,.06));border:1px solid rgba(59,130,246,.2);padding:20px 24px}
-.bsp-audience-title{font-family:'Montserrat',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#93c5fd;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.bsp-audience-title::before{content:'🎯'}
-.bsp-audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.bsp-aud-item{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.15);padding:12px 14px;font-size:.76rem;color:rgba(255,255,255,.55);line-height:1.5}
-.bsp-aud-item strong{color:#93c5fd;display:block;font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-
-.bsp-tech-grid{display:flex;flex-wrap:wrap;gap:8px}
-.bsp-tech-badge{font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:1.5px;padding:6px 14px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:#93c5fd;text-transform:uppercase;transition:all .2s}
-.bsp-tech-badge:hover{background:rgba(59,130,246,.18);border-color:#3b82f6}
-.bsp-process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
-.bsp-step{background:var(--b3);border:1px solid rgba(59,130,246,.12);padding:22px 16px;text-align:center;position:relative}
-.bsp-step-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:rgba(59,130,246,.12);line-height:1;margin-bottom:8px}
-.bsp-step-icon{font-size:1.4rem;margin-bottom:8px;display:block}
-.bsp-step-name{font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:800;color:#93c5fd;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-.bsp-step-desc{font-size:.72rem;color:rgba(255,255,255,.4);line-height:1.5}
-.bsp-cta-box{background:linear-gradient(135deg,rgba(30,58,138,.4),rgba(59,130,246,.1));border:1px solid rgba(59,130,246,.28);padding:36px 32px;text-align:center}
-.bsp-cta-box h3{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:900;color:#93c5fd;margin-bottom:10px;text-transform:uppercase;letter-spacing:2px}
-.bsp-cta-box p{font-size:.86rem;color:var(--w3);margin-bottom:24px;line-height:1.65}
-.bsp-cta-links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-
-/* EA FULLPAGE */
-.esp{display:none;position:fixed;inset:0;z-index:500;background:var(--b);overflow-y:auto}
-.esp.open{display:block;animation:fadein .3s ease}
-.esp-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(0,0,0,.96);border-bottom:1px solid rgba(201,151,42,.25);position:sticky;top:0;z-index:10;backdrop-filter:blur(16px)}
-.esp-back{background:none;border:1px solid rgba(201,151,42,.35);color:var(--gl);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
-.esp-back:hover{background:rgba(201,151,42,.09);border-color:var(--gold)}
-.esp-hero{padding:56px 20px 40px;text-align:center;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(201,151,42,.1),transparent 70%)}
-.esp-hero h1{font-family:'Montserrat',sans-serif;font-size:clamp(1.8rem,6vw,3.2rem);font-weight:900;background:linear-gradient(135deg,var(--gl),var(--gb),var(--gp));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;line-height:1;text-transform:uppercase;letter-spacing:3px}
-.esp-hero p{font-size:.92rem;color:var(--w5);max-width:560px;margin:0 auto 28px;line-height:1.75}
-.esp-body{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
-.esp-section{margin-bottom:44px}
-.esp-section-title{font-family:'Montserrat',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.esp-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,151,42,.3),transparent)}
-.esp-metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-bottom:0}
-.esp-metric{background:var(--b3);border:1px solid rgba(201,151,42,.15);padding:22px 12px;text-align:center}
-.esp-mv{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gl);line-height:1;display:block;margin-bottom:4px}
-.esp-ml{font-size:.52rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);display:block}
-.esp-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
-.esp-feat{background:var(--b3);border:1px solid rgba(201,151,42,.1);padding:24px 20px;transition:border-color .25s,transform .25s}
-.esp-feat:hover{border-color:rgba(201,151,42,.4);transform:translateY(-3px)}
-.esp-feat-icon{font-size:1.5rem;margin-bottom:10px;display:block}
-.esp-feat-name{font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:800;color:var(--gp);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-.esp-feat-desc{font-size:.78rem;color:rgba(255,255,255,.42);line-height:1.55}
-.esp-cta-box{background:linear-gradient(135deg,rgba(122,90,16,.3),rgba(201,151,42,.1));border:1px solid rgba(201,151,42,.3);padding:36px 32px;text-align:center}
-.esp-cta-box h3{font-family:'Montserrat',sans-serif;font-size:1.4rem;font-weight:900;color:var(--gp);margin-bottom:10px;text-transform:uppercase;letter-spacing:2px}
-.esp-cta-box p{font-size:.86rem;color:var(--w3);margin-bottom:24px;line-height:1.65}
-
-/* UTILS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-.ain{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}
-.ain.vis{opacity:1;transform:translateY(0)}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--b)}::-webkit-scrollbar-thumb{background:var(--gd)}::-webkit-scrollbar-thumb:hover{background:var(--gold)}
-
-/* ═══════════════════════════
-   MOBILE OVERRIDES
-═══════════════════════════ */
-@media(max-width:900px){
-  nav{padding:12px 16px}nav.scrolled{padding:10px 16px}
-  .logo{font-size:1.25rem;letter-spacing:3px}
-  .nav-links{display:none}.ham{display:flex}
-  .hero{min-height:100svh;padding-top:60px}
-  .hero-tagline{font-size:.62rem;letter-spacing:4px}
-  .hero-btns{flex-direction:column;align-items:center;gap:10px}
-  .abtn{width:100%;max-width:280px;text-align:center;padding:14px 20px;font-size:.78rem}
-  .hs-grid{grid-template-columns:1fr}
-  .hs-item{padding:16px 18px;display:flex;align-items:center;gap:14px;text-align:left}
-  .hs-icon{margin-bottom:0;font-size:1.2rem}
-  .services-section{padding:56px 16px 64px}
-  .svc-grid{grid-template-columns:1fr;gap:3px}
-  .svc-cta .abtn{max-width:100%}
-  .flow-section{padding:56px 16px 64px}
-  .flow-title{font-size:clamp(1.4rem,7vw,2rem)}
-  .metrics-box{grid-template-columns:repeat(3,1fr);margin-bottom:32px}
-  .metric{padding:20px 8px}.metric-val{font-size:1.7rem}.metric-lbl{font-size:.48rem}
-  .metric:nth-child(3){border-right:none}
-  .metric:nth-child(4){border-right:1px solid rgba(201,151,42,.12);border-top:1px solid rgba(201,151,42,.12)}
-  .metric:nth-child(5){border-top:1px solid rgba(201,151,42,.12);border-right:none}
-  .metric:nth-child(4){grid-column:1/2}.metric:nth-child(5){grid-column:2/3}
-  .feature-cards{grid-template-columns:1fr}
-  .partners{padding:40px 16px}
-  .partners-grid{grid-template-columns:repeat(3,1fr)}
-  .pcard{padding:16px 8px;gap:7px}.pcard .pn{font-size:.6rem}
-  .copytrade-section{padding:56px 16px}
-  .ct-inner{grid-template-columns:1fr;gap:28px}
-  .ct-card-wrap{order:1}.ct-content{order:2}
-  .ct-content .flow-tag,.ct-content h2,.ct-content>p{text-align:center}
-  .ct-content .abtn{display:block;max-width:100%;text-align:center}
-  .strategies{grid-template-columns:1fr;gap:12px;margin-top:32px}
-  .how{padding:56px 16px}
-  .steps-row{grid-template-columns:1fr;gap:28px}
-  .steps-row::before{display:none}
-  .step{display:flex;align-items:flex-start;gap:16px;text-align:left;padding:0}
-  .step-n{width:72px;height:72px;margin:0;flex-shrink:0;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
-  .step-n span{font-size:1.8rem}.step-text{flex:1}
-  .cta-section{padding:60px 16px}
-  .cta-btns{flex-direction:column;align-items:center;gap:10px}
-  .cta-btns .abtn{max-width:280px}
-  footer{padding:40px 16px 28px}
-  .ft-inner{grid-template-columns:1fr;gap:28px}
-  .ft-brand p{max-width:100%}
-  .ft-bot{flex-direction:column;gap:12px;text-align:center}
-  .mob-fab{display:flex}
-  .ctp-nav{padding:12px 16px}
-  .ctp-hero{padding:36px 16px 24px}
-  .ctp-tabs{padding:0;flex-direction:column;border-bottom:none;gap:1px;background:rgba(201,151,42,.08)}
-  .ctab{border-bottom:none;border:1px solid rgba(201,151,42,.14);padding:12px;font-size:.65rem}
-  .ctab.active{border-color:var(--gold);background:rgba(201,151,42,.07)}
-  .ctp-panels{padding:24px 12px 40px}
-  .sc-head{flex-direction:column;gap:12px}
-  .sc-pnl{text-align:left}.sc-pnl-val{font-size:2rem}
-  .sc-stats{grid-template-columns:repeat(2,1fr)}
-  .sc-s:nth-child(2){border-right:none}
-  .sc-s:nth-child(3){border-top:1px solid rgba(201,151,42,.12)}
-  .sc-s:nth-child(4){border-top:1px solid rgba(201,151,42,.12);border-right:none}
-  .sc-cta{flex-direction:column;align-items:stretch}
-  .sc-cta .abtn{text-align:center;max-width:100%}
-  .ctp-contact{padding:32px 12px 48px}
-  .bsp-services-grid{grid-template-columns:1fr}
-  .bsp-cat-grid{grid-template-columns:1fr}
-  .bsp-audience-grid{grid-template-columns:1fr}
-  .bsp-process-grid{grid-template-columns:repeat(2,1fr)}
-  .bsp-body{padding:24px 12px 48px}
-  .esp-metrics{grid-template-columns:repeat(3,1fr)}
-  .esp-feats{grid-template-columns:1fr}
-  .esp-body{padding:24px 12px 48px}
+/* ─── UNIVERSE BACKGROUND ─── */
+#universe {
+  position:fixed; inset:0; z-index:0;
+  background: radial-gradient(ellipse at 20% 30%, rgba(34, 211, 238, 0.04), transparent 50%),
+              radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.04), transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(245, 179, 66, 0.02), transparent 70%),
+              var(--bg-primary);
+  overflow:hidden;
 }
-@media(max-width:380px){
-  .hero-title{letter-spacing:2px}
-  .hs-item{padding:12px 14px}
+.star { position:absolute; background:white; border-radius:50%; animation:twinkle var(--duration) ease-in-out infinite; }
+@keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(1);} 50%{opacity:1;transform:scale(1.3);} }
+.nebula { position:absolute; border-radius:50%; filter:blur(100px); opacity:0.15; }
+.nebula-1 { width:600px; height:600px; top:-200px; right:-150px; background:radial-gradient(circle, rgba(245,179,66,0.2), transparent 70%); animation:nebula-drift 30s ease-in-out infinite; }
+.nebula-2 { width:500px; height:500px; bottom:-150px; left:-100px; background:radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%); animation:nebula-drift 25s ease-in-out infinite reverse; }
+.nebula-3 { width:400px; height:400px; top:40%; left:55%; background:radial-gradient(circle, rgba(34,211,238,0.10), transparent 70%); animation:nebula-drift 35s ease-in-out infinite; }
+@keyframes nebula-drift { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(40px,-30px) scale(1.1);} 66%{transform:translate(-30px,40px) scale(0.9);} }
+
+/* ─── NEURAL / BLOCKCHAIN NETWORK ─── */
+#neural-network {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  width:100%; height:100%; display:block;
 }
+
+/* ─── CONTAINER ─── */
+.container { max-width:1140px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+.section-padding { padding:80px 0; }
+@media(max-width:768px){ .section-padding { padding:56px 0; } }
+
+/* ─── NAV ─── */
+.nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:14px 0; background:rgba(5,8,15,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.04); transition:var(--transition); }
+.nav.scrolled { border-bottom-color:rgba(245,179,66,0.12); box-shadow:0 4px 30px rgba(0,0,0,0.4); }
+.nav-inner { display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.nav-logo-icon { 
+  width: 42px; 
+  height: 35px; 
+  border-radius: 6px; 
+  background: rgba(14, 203, 129, 0.1); 
+  border: 2px solid rgb(14, 203, 129); 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 28px; 
+  font-weight: 800; 
+  color: rgb(14, 203, 129); 
+  box-shadow: 0 0 30px rgba(14, 203, 129, 0.15); 
+  font-family: var(--font-display); 
+  animation: pulse-icon 2s ease-in-out infinite; 
+}
+.nav-logo-text { font-size:20px; font-weight:800; letter-spacing:-0.5px; font-family:var(--font-display); }
+.nav-logo-text span { color:var(--accent-gold); }
+.nav-right { display:flex; align-items:center; gap:16px; }
+.nav-links { display:flex; align-items:center; gap:28px; }
+@media(max-width:768px){ .nav-links { display:none; position:absolute; top:100%; left:0; right:0; background:var(--bg-secondary); flex-direction:column; padding:24px; gap:16px; border-bottom:1px solid var(--border-color); } .nav-links.open { display:flex; } }
+.nav-link { color:var(--text-secondary); text-decoration:none; font-size:13.5px; font-weight:500; transition:var(--transition); position:relative; font-family:var(--font-mono); letter-spacing:0.3px; }
+.nav-link:hover { color:var(--text-primary); }
+.nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--gradient-gold); transition:var(--transition); border-radius:2px; }
+.nav-link:hover::after { width:100%; }
+.lang-toggle { display:flex; gap:4px; background:rgba(255,255,255,0.03); border-radius:8px; padding:3px; border:1px solid var(--border-color); }
+.lang-btn { padding:4px 12px; border:none; border-radius:6px; background:transparent; color:var(--text-muted); font-size:10px; font-weight:700; cursor:pointer; transition:var(--transition); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.5px; }
+.lang-btn.active { background:var(--accent-gold); color:#05080f; }
+.lang-btn:hover:not(.active) { color:var(--text-primary); }
+.nav-cta { padding:8px 22px; border-radius:8px; background:var(--gradient-gold); color:#05080f; font-weight:700; font-size:12px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); letter-spacing:0.3px; }
+.nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,179,66,0.3); }
+.nav-mobile-btn { display:none; background:none; border:none; color:var(--text-primary); font-size:24px; cursor:pointer; padding:4px; }
+@media(max-width:768px){ .nav-mobile-btn { display:block; } .nav-cta { padding:6px 16px; font-size:11px; } }
+
+/* ─── HERO ─── */
+.hero { position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; padding:100px 0 60px; }
+.hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+@media(max-width:900px){ .hero-grid { grid-template-columns:1fr; text-align:center; gap:40px; } }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:100px; background:var(--accent-gold-glow); border:1px solid rgba(245,179,66,0.2); font-size:11px; font-weight:600; color:var(--accent-gold); margin-bottom:20px; font-family:var(--font-mono); letter-spacing:1px; text-transform:uppercase; }
+.hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--accent-gold); animation:pulse-dot 1.6s ease-in-out infinite; box-shadow:0 0 12px rgba(245,179,66,0.4); }
+@keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+.hero-title { font-family:var(--font-display); font-size:clamp(2.2rem,5.2vw,3.6rem); font-weight:800; line-height:1.1; margin-bottom:16px; letter-spacing:-1px; }
+.hero-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:clamp(0.95rem,1.2vw,1.05rem); color:var(--text-secondary); max-width:520px; line-height:1.8; margin-bottom:28px; }
+@media(max-width:900px){ .hero-sub { margin-left:auto; margin-right:auto; } }
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; }
+@media(max-width:900px){ .hero-actions { justify-content:center; } }
+.btn-primary { padding:14px 34px; border-radius:10px; background:var(--gradient-gold); color:#05080f; font-weight:700; font-size:14px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); letter-spacing:0.3px; }
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(245,179,66,0.35); }
+.btn-secondary { padding:14px 34px; border-radius:10px; background:transparent; color:var(--text-primary); font-weight:600; font-size:14px; border:1px solid var(--border-color); cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+.btn-secondary:hover { border-color:var(--accent-gold); color:var(--accent-gold); background:var(--accent-gold-glow); }
+.hero-stats { display:flex; gap:40px; margin-top:36px; padding-top:28px; border-top:1px solid var(--border-color); }
+@media(max-width:900px){ .hero-stats { justify-content:center; } }
+.hero-stat-value { font-size:28px; font-weight:800; font-family:var(--font-display); background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-stat-label { font-size:12px; color:var(--text-muted); font-weight:500; font-family:var(--font-mono); letter-spacing:0.5px; }
+
+/* ─── HERO VISUAL ─── */
+.hero-visual { position:relative; display:flex; justify-content:center; align-items:center; }
+.hero-core { width:320px; height:320px; border-radius:50%; position:relative; display:flex; align-items:center; justify-content:center; }
+.hero-core::before { content:''; position:absolute; inset:-20px; border-radius:50%; background:radial-gradient(circle at 35% 30%, rgba(245,179,66,0.15), transparent 70%); animation:pulse-core 4s ease-in-out infinite; }
+@keyframes pulse-core { 0%,100%{transform:scale(1);opacity:0.8;} 50%{transform:scale(1.05);opacity:1;} }
+.hero-core-ring { position:absolute; border-radius:50%; border:1px solid rgba(245,179,66,0.1); animation:spin-slow linear infinite; }
+.hero-core-ring.r1 { inset:-30px; border-color:rgba(245,179,66,0.12); animation-duration:20s; }
+.hero-core-ring.r2 { inset:-60px; border-color:rgba(34,211,238,0.08); animation-duration:30s; animation-direction:reverse; }
+.hero-core-ring.r3 { inset:-90px; border-color:rgba(139,92,246,0.06); animation-duration:40s; }
+.hero-core-ring.r4 { inset:-120px; border-color:rgba(245,179,66,0.04); animation-duration:50s; animation-direction:reverse; }
+@keyframes spin-slow { to { transform:rotate(360deg); } }
+.hero-core-center { position:relative; z-index:2; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle at 40% 30%, #f5b342, #c97d2a); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 80px rgba(245,179,66,0.15), inset 0 -20px 40px rgba(0,0,0,0.3); }
+.hero-core-center .main { font-family:var(--font-display); font-size:22px; font-weight:800; color:#05080f; letter-spacing:0.5px; line-height:1.2; }
+.hero-core-center .sub { font-family:var(--font-mono); font-size:9px; color:rgba(5,8,15,0.6); letter-spacing:2px; font-weight:700; }
+.hero-core-orbit { position:absolute; z-index:3; width:36px; height:36px; border-radius:50%; background:var(--bg-card); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--text-secondary); box-shadow:0 0 20px rgba(0,0,0,0.4); animation:orbit-float 5s ease-in-out infinite; }
+.o1 { top:-12px; left:50%; transform:translateX(-50%); animation-delay:0s; }
+.o2 { bottom:-12px; left:50%; transform:translateX(-50%); animation-delay:-1.6s; }
+.o3 { left:-12px; top:50%; transform:translateY(-50%); animation-delay:-3.2s; }
+.o4 { right:-12px; top:50%; transform:translateY(-50%); animation-delay:-0.8s; }
+@keyframes orbit-float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+.o1,.o3 { animation-name:orbit-float-h; }
+@keyframes orbit-float-h { 0%,100%{transform:translateX(0);} 50%{transform:translateX(-10px);} }
+.o2,.o4 { animation-name:orbit-float-h; }
+
+/* ─── SECTION HEADER ─── */
+.sec-label { font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--accent-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.sec-title { font-family:var(--font-display); font-size:clamp(1.8rem,3.2vw,2.6rem); font-weight:700; line-height:1.2; letter-spacing:-0.5px; }
+.sec-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.sec-desc { color:var(--text-secondary); font-size:1.05rem; max-width:600px; line-height:1.7; margin-top:12px; }
+.sec-header { margin-bottom:48px; }
+@media(max-width:768px){ .sec-header { text-align:center; } .sec-desc { margin-left:auto; margin-right:auto; } }
+
+/* ─── MODULES SHOWCASE ─── */
+.modules-showcase { background:var(--bg-secondary); border-radius:var(--radius-lg); padding:48px; border:1px solid var(--border-color); position:relative; overflow:hidden; }
+.modules-showcase::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 50%, rgba(245,179,66,0.03), transparent 60%); pointer-events:none; }
+@media(max-width:768px){ .modules-showcase { padding:24px; } }
+.modules-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px; }
+@media(max-width:600px){ .modules-grid { grid-template-columns:1fr; } }
+.module-item { display:flex; align-items:center; gap:14px; padding:14px 18px; background:var(--bg-card); border-radius:10px; border:1px solid var(--border-color); transition:var(--transition); cursor:default; }
+.module-item:hover { border-color:var(--accent-gold); background:rgba(245,179,66,0.04); transform:translateX(4px); }
+.module-badge { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.module-badge.gold { background:rgba(245,179,66,0.12); border:1px solid rgba(245,179,66,0.2); }
+.module-badge.blue { background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.2); }
+.module-badge.green { background:rgba(46,209,152,0.12); border:1px solid rgba(46,209,152,0.2); }
+.module-badge.purple { background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); }
+.module-name { font-weight:600; font-size:14px; font-family:var(--font-mono); letter-spacing:0.2px; }
+.module-tag { font-size:10px; color:var(--text-muted); font-weight:500; margin-left:auto; padding:2px 10px; border-radius:4px; background:rgba(255,255,255,0.03); font-family:var(--font-mono); letter-spacing:0.5px; text-transform:uppercase; }
+
+/* ─── FEATURES ─── */
+.features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media(max-width:900px){ .features-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:600px){ .features-grid { grid-template-columns:1fr; } }
+.feature-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:28px 24px; transition:var(--transition); cursor:default; position:relative; overflow:hidden; }
+.feature-card::before { content:''; position:absolute; inset:0; background:var(--gradient-gold); opacity:0; transition:var(--transition); }
+.feature-card:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
+.feature-card:hover::before { opacity:0.03; }
+.feature-card.highlight { border-color:var(--accent-gold); background:rgba(245,179,66,0.04); }
+.feature-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:16px; background:rgba(245,179,66,0.08); border:1px solid rgba(245,179,66,0.12); position:relative; z-index:1; }
+.feature-title { font-size:16px; font-weight:700; margin-bottom:6px; position:relative; z-index:1; font-family:var(--font-mono); letter-spacing:0.2px; }
+.feature-desc { font-size:13.5px; color:var(--text-secondary); line-height:1.7; position:relative; z-index:1; }
+
+/* ─── STEPS ─── */
+.steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media(max-width:768px){ .steps-grid { grid-template-columns:1fr; gap:16px; } }
+.step-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:32px 24px; text-align:center; transition:var(--transition); position:relative; }
+.step-card::before { content:''; position:absolute; inset:-1px; border-radius:var(--radius); background:var(--gradient-gold); opacity:0; transition:var(--transition); z-index:-1; }
+.step-card:hover { border-color:transparent; transform:translateY(-4px); box-shadow:var(--shadow-card); }
+.step-card:hover::before { opacity:0.08; }
+.step-number { font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--accent-gold); margin-bottom:8px; letter-spacing:2px; }
+.step-title { font-size:17px; font-weight:700; margin-bottom:6px; font-family:var(--font-display); }
+.step-desc { font-size:13.5px; color:var(--text-secondary); line-height:1.7; }
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media(max-width:900px){ .testimonials-grid { grid-template-columns:1fr 1fr; } }
+@media(max-width:600px){ .testimonials-grid { grid-template-columns:1fr; } }
+.testimonial-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px; transition:var(--transition); }
+.testimonial-card:hover { border-color:var(--accent-gold); transform:translateY(-3px); }
+.testimonial-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.testimonial-avatar { width:40px; height:40px; border-radius:50%; background:var(--gradient-gold); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+.testimonial-name { font-weight:600; font-size:14px; font-family:var(--font-mono); letter-spacing:0.2px; }
+.testimonial-meta { font-size:11px; color:var(--text-muted); font-family:var(--font-mono); }
+.testimonial-stars { color:var(--accent-gold); font-size:12px; margin-left:auto; }
+.testimonial-text { font-size:13.5px; color:var(--text-secondary); line-height:1.7; font-style:italic; }
+.testimonial-result { display:inline-block; margin-top:10px; font-size:11px; color:var(--accent-green); font-family:var(--font-mono); padding:3px 12px; border-radius:4px; background:rgba(46,209,152,0.08); border:1px solid rgba(46,209,152,0.12); letter-spacing:0.3px; }
+
+/* ─── FAQ ─── */
+.faq-item { border-bottom:1px solid var(--border-color); }
+.faq-q { display:flex; justify-content:space-between; align-items:center; padding:18px 0; cursor:pointer; font-weight:600; font-size:15px; background:none; border:none; width:100%; text-align:left; color:var(--text-primary); font-family:var(--font-body); transition:var(--transition); }
+.faq-q:hover { color:var(--accent-gold); }
+.faq-q-mark { font-size:22px; transition:transform 0.3s; color:var(--accent-gold); flex-shrink:0; margin-left:16px; font-weight:300; }
+.faq-item.open .faq-q-mark { transform:rotate(45deg); }
+.faq-a { max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+.faq-a p { padding-bottom:18px; color:var(--text-secondary); font-size:13.5px; line-height:1.7; }
+
+/* ─── CTA ─── */
+.cta-section { background:var(--bg-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); }
+.cta-box { background:linear-gradient(135deg, rgba(245,179,66,0.05), rgba(5,8,15,0.9)); border:1px solid rgba(245,179,66,0.10); border-radius:var(--radius-lg); padding:60px 48px; text-align:center; position:relative; overflow:hidden; }
+.cta-box::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 50% 50%, rgba(245,179,66,0.04), transparent 60%); animation:cta-glow 20s ease-in-out infinite; }
+@keyframes cta-glow { 0%,100%{transform:translate(0,0);} 50%{transform:translate(5%,5%);} }
+.cta-box > * { position:relative; z-index:1; }
+@media(max-width:768px){ .cta-box { padding:36px 24px; } }
+.cta-title { font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; margin-bottom:12px; letter-spacing:-0.5px; }
+.cta-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.cta-desc { color:var(--text-secondary); font-size:1.05rem; max-width:500px; margin:0 auto 28px; line-height:1.7; }
+
+/* ─── FOOTER ─── */
+.footer { padding:40px 0 30px; border-top:1px solid var(--border-color); position:relative; z-index:1; }
+.footer-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.footer-logo { font-size:18px; font-weight:700; letter-spacing:-0.5px; font-family:var(--font-display); }
+.footer-logo span { color:var(--accent-gold); }
+.footer-links { display:flex; gap:24px; flex-wrap:wrap; }
+.footer-links a { color:var(--text-muted); text-decoration:none; font-size:13px; transition:var(--transition); font-family:var(--font-mono); letter-spacing:0.3px; }
+.footer-links a:hover { color:var(--text-primary); }
+.footer-disclaimer { font-size:11.5px; color:var(--text-muted); max-width:700px; line-height:1.7; margin-top:12px; }
+@media(max-width:768px){ .footer-inner { flex-direction:column; text-align:center; } .footer-links { justify-content:center; } }
+
+/* ─── MODAL ─── */
+.modal { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.85); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); align-items:center; justify-content:center; padding:20px; }
+.modal.open { display:flex; animation:fade-in 0.3s ease; }
+@keyframes fade-in { from{opacity:0; transform:scale(0.95);} to{opacity:1; transform:scale(1);} }
+.modal-box { background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-lg); max-width:420px; width:100%; padding:32px; position:relative; }
+.modal-close { position:absolute; top:12px; right:16px; background:none; border:none; color:var(--text-muted); font-size:22px; cursor:pointer; transition:var(--transition); }
+.modal-close:hover { color:var(--text-primary); }
+.modal-icon { width:56px; height:56px; border-radius:50%; background:var(--accent-gold-glow); border:1px solid rgba(245,179,66,0.2); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 16px; }
+.modal-title { font-size:20px; font-weight:700; text-align:center; margin-bottom:6px; font-family:var(--font-display); }
+.modal-desc { color:var(--text-secondary); font-size:13.5px; text-align:center; margin-bottom:20px; line-height:1.7; }
+.contact-list { display:flex; flex-direction:column; gap:10px; }
+.contact-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:10px; text-decoration:none; transition:var(--transition); }
+.contact-item:hover { border-color:var(--accent-gold); background:rgba(245,179,66,0.04); }
+.contact-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.contact-icon.zalo { background:rgba(0,104,255,0.12); border:1px solid rgba(0,104,255,0.2); }
+.contact-icon.telegram { background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.2); }
+.contact-icon.facebook { background:rgba(59,89,152,0.12); border:1px solid rgba(59,89,152,0.2); }
+.contact-info { flex:1; }
+.contact-label { font-weight:600; font-size:13px; font-family:var(--font-mono); letter-spacing:0.2px; }
+.contact-value { font-size:11.5px; color:var(--text-muted); font-family:var(--font-mono); }
+.contact-arrow { color:var(--text-muted); font-size:16px; }
+
+/* ─── UTILITIES ─── */
+.reveal { opacity:0; transform:translateY(30px); transition:opacity 0.8s ease, transform 0.8s ease; }
+.reveal.show { opacity:1; transform:translateY(0); }
+.text-center { text-align:center; }
+@media(max-width:480px){ .btn-primary, .btn-secondary { padding:12px 24px; font-size:13px; } }
 </style>
 </head>
 <body>
-<canvas id="particles"></canvas>
-<canvas id="coins"></canvas>
 
-<!-- CONTACT MODAL -->
-<div class="contact-modal" id="contactModal" onclick="if(event.target===this)closeContact()">
-  <div class="cm-box">
-    <button class="cm-close" onclick="closeContact()">×</button>
-    <div class="cm-title">Liên Hệ</div>
-    <div class="cm-sub">tCode sẵn sàng hỗ trợ bạn 24/7</div>
-    <div class="cm-links">
-      <a href="https://youtube.com/@tcode.tradingtech?si=0rEJGnZu0V4AQXnC" target="_blank" rel="noopener" class="cm-link">
-        <div class="cm-link-ico ico-yt"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.1 2.8 12 2.8 12 2.8s-4.1 0-6.8.2c-.6 0-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.6 22.2 12 22.2 12 22.2s4.1 0 6.8-.3c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg></div>
-        <div><span class="cm-link-label">Youtube</span><span class="cm-link-val">@tcode.tradingtech</span></div>
-        <span style="color:var(--gold);margin-left:auto">→</span>
-      </a>
-      <a href="https://t.me/tCode_T95" target="_blank" rel="noopener" class="cm-link">
-        <div class="cm-link-ico ico-tele"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 7.5a2.25 2.25 0 0 0 .126 4.238l3.553 1.137 1.3 4.084a1 1 0 0 0 1.692.37l2.024-2.025 3.913 2.87a2.25 2.25 0 0 0 3.498-1.38l2.75-15.5a2.25 2.25 0 0 0-1.334-2.509z"/></svg></div>
-        <div><span class="cm-link-label">Telegram</span><span class="cm-link-val">@tCode_T95</span></div>
-        <span style="color:var(--gold);margin-left:auto">→</span>
-      </a>
-      <a href="https://zalo.me/0964822327" target="_blank" rel="noopener" class="cm-link">
-        <div class="cm-link-ico ico-zalo"><svg width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="4" fill="#fff" fill-opacity=".2"/><text x="12" y="15" text-anchor="middle" font-family="Arial" font-size="7" font-weight="bold" fill="#fff">Zalo</text></svg></div>
-        <div><span class="cm-link-label">Zalo</span><span class="cm-link-val">0964 822 327</span></div>
-        <span style="color:var(--gold);margin-left:auto">→</span>
-      </a>
-    </div>
-  </div>
+<!-- ─── UNIVERSE BACKGROUND ─── -->
+<div id="universe">
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div>
+  <div id="stars"></div>
+  <canvas id="neural-network"></canvas>
 </div>
 
-<!-- ══════════════════════
-     BOT SERVICE FULLPAGE
-══════════════════════ -->
-<div class="bsp" id="botPage">
-  <div class="bsp-nav">
-    <div class="logo" style="font-size:1.1rem;background:linear-gradient(135deg,#93c5fd,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">tCode<span class="logo-sub" style="-webkit-text-fill-color:rgba(147,197,253,.45)">BOT DEV · THEO YÊU CẦU</span></div>
-    <button class="bsp-back" onclick="closeBSP()">← Quay Lại</button>
-  </div>
-  <div class="bsp-hero">
-    <h1>T CODE – Viết Bot Trade<br>&amp; Tool Theo Yêu Cầu</h1>
-    <p>Tự động hóa chiến lược trading theo đúng yêu cầu riêng của bạn — từ bot giao dịch, indicator, đến hệ thống copy trading đa tài khoản. Bàn giao mã nguồn, hỗ trợ sau triển khai 24/7.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="https://t.me/tCode_T95" target="_blank" rel="noopener" class="abtn abtn-blue"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Telegram →</span></a>
-      <a href="https://zalo.me/0964822327" target="_blank" rel="noopener" class="abtn abtn-ghost" style="border-color:rgba(59,130,246,.4);color:#93c5fd"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Zalo →</span></a>
+<!-- ─── NAV ─── -->
+<nav class="nav" id="navbar">
+  <div class="container nav-inner">
+<a href="#" class="nav-logo">
+  <div class="nav-logo-icon">⚡</div>
+  <div class="nav-logo-text"><span class="city">City</span><span>Bot</span></div>
+</a>
+    <div class="nav-right">
+      <div class="nav-links" id="navLinks">
+        <a href="#modules" class="nav-link" data-key="nav_modules">Modules</a>
+        <a href="#features" class="nav-link" data-key="nav_features">Tính năng</a>
+        <a href="#how-it-works" class="nav-link" data-key="nav_how">Cách dùng</a>
+        <a href="#testimonials" class="nav-link" data-key="nav_reviews">Đánh giá</a>
+        <a href="#faq" class="nav-link" data-key="nav_faq">FAQ</a>
+        <button class="nav-cta" onclick="openModal()" data-key="nav_cta">🤖 Dùng thử</button>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="vi" onclick="setLang('vi')">VI</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="nav-mobile-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
     </div>
   </div>
-  <div class="bsp-body">
-
-    <!-- DỊCH VỤ CHÍNH: 3 CATEGORIES + DETAILED LISTS -->
-    <div class="bsp-section">
-      <div class="bsp-section-title">Tự Động Hóa Chiến Lược</div>
-      <div class="bsp-cat-grid">
-        <div class="bsp-cat">
-          <div class="bsp-cat-accent"></div>
-          <div class="bsp-cat-header">
-            <span class="bsp-cat-icon">🤖</span>
-            <div class="bsp-cat-title">Bot Trading Tự Động</div>
-          </div>
-          <ul class="bsp-cat-list">
-            <li>DCA – Dollar Cost Averaging tự động theo điều kiện thị trường</li>
-            <li>Martingale – quản lý lưới lệnh, giới hạn level và bảo vệ vốn</li>
-            <li>Hedging – đánh hai chiều, lock lợi nhuận và xử lý rủi ro</li>
-            <li>Trailing Stop / Trailing TP – bám trend, chốt lời động</li>
-            <li>Copy Trading đa tài khoản – một lệnh nhân ra nhiều account</li>
-            <li>Quản lý SL theo % Risk – chuẩn rule FTMO / Prop Firm</li>
-          </ul>
-        </div>
-        <div class="bsp-cat">
-          <div class="bsp-cat-accent"></div>
-          <div class="bsp-cat-header">
-            <span class="bsp-cat-icon">📊</span>
-            <div class="bsp-cat-title">Indicator &amp; Tool Hỗ Trợ</div>
-          </div>
-          <ul class="bsp-cat-list">
-            <li>Indicator custom theo logic riêng – hiển thị trên chart MT4/MT5</li>
-            <li>Signal scanner đa khung thời gian – quét M1 đến MN</li>
-            <li>Gửi tín hiệu về Telegram real-time – alert tức thì</li>
-            <li>Dashboard quản lý: Equity · Drawdown · Risk · P&amp;L</li>
-            <li>Panel điều khiển trực quan ngay trên MetaTrader</li>
-            <li>Trade Journal tự động – lưu lịch sử, thống kê hiệu suất</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="bsp-cat" style="margin-bottom:3px">
-        <div class="bsp-cat-accent"></div>
-        <div class="bsp-cat-header">
-          <span class="bsp-cat-icon">🧠</span>
-          <div class="bsp-cat-title">Tư Vấn &amp; Vận Hành Hệ Thống</div>
-        </div>
-        <ul class="bsp-cat-list" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 20px">
-          <li>Thiết kế chiến lược auto trading từ đầu</li>
-          <li>Backtest · Optimize · Forward test</li>
-          <li>Debug &amp; xử lý logic lệnh phức tạp</li>
-          <li>Setup VPS chạy 24/7 ổn định</li>
-          <li>Hỗ trợ sau bàn giao không giới hạn thời gian</li>
-          <li>Cập nhật bot khi thị trường thay đổi</li>
-        </ul>
-      </div>
-
-      <!-- TARGET AUDIENCE -->
-      <div class="bsp-audience">
-        <div class="bsp-audience-title">Phù Hợp Cho</div>
-        <div class="bsp-audience-grid">
-          <div class="bsp-aud-item"><strong>Trader Cá Nhân</strong>Muốn tự động hóa chiến lược, giải phóng khỏi màn hình giao dịch</div>
-          <div class="bsp-aud-item"><strong>IB / Team</strong>Muốn build hệ thống riêng — copy trade, quản lý nhiều tài khoản</div>
-          <div class="bsp-aud-item"><strong>Scale Trading</strong>Người muốn biến trading thành mô hình kinh doanh có hệ thống</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TECH STACK -->
-    <div class="bsp-section">
-      <div class="bsp-section-title">Tech Stack</div>
-      <div class="bsp-tech-grid">
-        <span class="bsp-tech-badge">MQL4</span>
-        <span class="bsp-tech-badge">MQL5</span>
-        <span class="bsp-tech-badge">MetaTrader 4</span>
-        <span class="bsp-tech-badge">MetaTrader 5</span>
-        <span class="bsp-tech-badge">Canvas UI</span>
-        <span class="bsp-tech-badge">AI API</span>
-        <span class="bsp-tech-badge">WebSocket</span>
-        <span class="bsp-tech-badge">Telegram Bot</span>
-        <span class="bsp-tech-badge">JSON</span>
-        <span class="bsp-tech-badge">Binance API</span>
-        <span class="bsp-tech-badge">Bybit API</span>
-      </div>
-    </div>
-
-    <!-- QUY TRÌNH -->
-    <div class="bsp-section">
-      <div class="bsp-section-title">Quy Trình Làm Việc</div>
-      <div class="bsp-process-grid">
-        <div class="bsp-step">
-          <div class="bsp-step-num">01</div>
-          <span class="bsp-step-icon">💬</span>
-          <div class="bsp-step-name">Tư Vấn</div>
-          <p class="bsp-step-desc">Mô tả chiến lược và yêu cầu. tCode phân tích tính khả thi và báo giá.</p>
-        </div>
-        <div class="bsp-step">
-          <div class="bsp-step-num">02</div>
-          <span class="bsp-step-icon">⚙️</span>
-          <div class="bsp-step-name">Phát Triển</div>
-          <p class="bsp-step-desc">Viết bot theo spec đã thống nhất. Cập nhật tiến độ thường xuyên.</p>
-        </div>
-        <div class="bsp-step">
-          <div class="bsp-step-num">03</div>
-          <span class="bsp-step-icon">🧪</span>
-          <div class="bsp-step-name">Backtesting</div>
-          <p class="bsp-step-desc">Chạy backtest, tối ưu tham số, kiểm tra trên dữ liệu thực.</p>
-        </div>
-        <div class="bsp-step">
-          <div class="bsp-step-num">04</div>
-          <span class="bsp-step-icon">🚀</span>
-          <div class="bsp-step-name">Bàn Giao</div>
-          <p class="bsp-step-desc">Bàn giao mã nguồn, hướng dẫn cài đặt và hỗ trợ sau triển khai.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="bsp-cta-box">
-      <h3>Sẵn Sàng Bắt Đầu?</h3>
-      <p>Liên hệ ngay để được tư vấn miễn phí. tCode sẽ phân tích chiến lược và đề xuất giải pháp phù hợp nhất cho bạn.</p>
-      <div class="bsp-cta-links">
-        <a href="https://t.me/tCode_T95" target="_blank" rel="noopener" class="abtn abtn-blue"><span class="abtn-border"></span><span class="abtn-label">Telegram →</span></a>
-        <a href="https://zalo.me/0964822327" target="_blank" rel="noopener" class="abtn abtn-ghost" style="border-color:rgba(59,130,246,.35);color:#93c5fd"><span class="abtn-border"></span><span class="abtn-label">Zalo →</span></a>
-        <a href="mailto:tcodefx.auto@gmail.com" class="abtn abtn-ghost" style="border-color:rgba(59,130,246,.35);color:#93c5fd"><span class="abtn-border"></span><span class="abtn-label">Email →</span></a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- NAV -->
-<nav id="nav">
-  <div class="logo">tCode<span class="logo-sub">Trading Tech</span></div>
-  <ul class="nav-links">
-    <li><a href="#services">Dịch Vụ</a></li>
-    <li><a href="#copytrade">CopyTrade</a></li>
-    <li><a href="#flow">Công Nghệ</a></li>
-    <li><a href="#how">Bắt Đầu</a></li>
-    <li><a href="#" onclick="openContact();return false" class="nav-cta">Liên Hệ</a></li>
-  </ul>
-  <button class="ham" id="ham" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- MOB NAV -->
-<div class="mob-nav" id="mobNav">
-  <a href="#services" onclick="closeMob()">Dịch Vụ</a>
-  <a href="#copytrade" onclick="closeMob()">CopyTrade</a>
-  <a href="#flow" onclick="closeMob()">Công Nghệ</a>
-  <a href="#how" onclick="closeMob()">Bắt Đầu</a>
-  <a href="#" class="mob-cta" onclick="openContact();closeMob();return false">Liên Hệ</a>
-</div>
-
-<!-- HERO -->
+<!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-title">
-      <span class="hero-x">T</span>
-      <span class="hero-back"><span class="ch">C</span><span class="ch">O</span><span class="ch">D</span><span class="ch">E</span></span>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span><span data-key="hero_badge">TCode · MT5 Expert Advisor</span></div>
+      <h1 class="hero-title" data-key="hero_title">Vũ trụ giao dịch của <span class="highlight">CityBot</span></h1>
+      <p class="hero-sub" data-key="hero_sub">Hệ sinh thái Expert Advisor đa module trên MT5 — Hedging, Scalping, DCA thông minh và công cụ thoát lệnh chính xác. Để CityBot vận hành, bạn tập trung vào chiến lược.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openModal()" data-key="hero_btn_primary">🤖 Dùng thử ngay</button>
+        <a href="#modules" class="btn-secondary" data-key="hero_btn_secondary">Khám phá →</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-value" data-key="stat_1_value">6+</div><div class="hero-stat-label" data-key="stat_1_label">Module tích hợp</div></div>
+        <div><div class="hero-stat-value" data-key="stat_2_value">24/7</div><div class="hero-stat-label" data-key="stat_2_label">Giao dịch tự động</div></div>
+        <div><div class="hero-stat-value" data-key="stat_3_value">1-Click</div><div class="hero-stat-label" data-key="stat_3_label">Công cụ bán tự động</div></div>
+      </div>
     </div>
-    <p class="hero-tagline">Bot Dev · XTO Speeder · CopyTrade</p>
-    <div class="hero-btns">
-      <button class="abtn abtn-gold" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})"><span class="abtn-border"></span><span class="abtn-label">Khám Phá Dịch Vụ</span></button>
-      <button class="abtn abtn-ghost" onclick="openContact()"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Ngay</span></button>
-    </div>
-    <div class="hero-services">
-      <p class="hs-label">3 dịch vụ chính</p>
-      <div class="hs-grid">
-        <div class="hs-item bot" onclick="openBSP()">
-          <span class="hs-icon">🤖</span>
-          <div>
-            <span class="hs-name">Viết Bot Theo Yêu Cầu</span>
-            <span class="hs-desc">Tự động hóa giao dịch — bot tùy biến theo chiến lược riêng</span>
-          </div>
+    <div class="hero-visual">
+      <div class="hero-core">
+        <div class="hero-core-ring r1"></div>
+        <div class="hero-core-ring r2"></div>
+        <div class="hero-core-ring r3"></div>
+        <div class="hero-core-ring r4"></div>
+        <div class="hero-core-center">
+          <span class="main">CityBot</span>
+          <span class="sub">TCode</span>
         </div>
-        <div class="hs-item ea" onclick="openESP()">
-          <span class="hs-icon">⚡</span>
-          <div>
-            <span class="hs-name">XTO Speeder</span>
-            <span class="hs-desc">Expert Advisor chuyên nghiệp · AI · >360 lệnh/ngày</span>
-          </div>
-        </div>
-        <div class="hs-item ct" onclick="openCT()">
-          <span class="hs-icon">📈</span>
-          <div>
-            <span class="hs-name">CopyTrade</span>
-            <span class="hs-desc">Sao chép tự động từ trader đã pass quỹ quốc tế</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <span></span>
-    <p>Cuộn xuống</p>
-  </div>
-</section>
-
-<!-- 3 SERVICES SECTION -->
-<section class="services-section ain" id="services">
-  <div class="sec-header">
-    <span class="sec-tag">Dịch Vụ Chính</span>
-    <h2 class="sec-title"><span class="w">Giải Pháp</span> <span class="g">Trading Toàn Diện</span></h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="svc-grid">
-    <!-- SERVICE 1: BOT TRADING -->
-    <div class="svc-card svc-bot">
-      <div class="svc-head">
-        <span class="svc-num">01</span>
-        <span class="svc-icon">🤖</span>
-        <span class="svc-badge">Tùy Biến 100%</span>
-        <h3 class="svc-title">Viết Bot<br>Theo Yêu Cầu</h3>
-        <p class="svc-sub">Bot giao dịch tự động được lập trình theo đúng chiến lược và yêu cầu riêng của bạn — từ scalping đến swing trading.</p>
-      </div>
-      <div class="svc-divider"></div>
-      <div class="svc-features">
-        <ul class="svc-feat-list">
-          <li><span class="dot"></span>Phân tích chiến lược và tư vấn trước khi viết bot</li>
-          <li><span class="dot"></span>Hỗ trợ MT4/MT5, Binance, Bybit, và các sàn phổ biến</li>
-          <li><span class="dot"></span>Backtesting & tối ưu hóa tham số thực tế</li>
-          <li><span class="dot"></span>Bàn giao mã nguồn, hỗ trợ sau triển khai</li>
-          <li><span class="dot"></span>Tích hợp indicators, quản lý vốn, risk control</li>
-        </ul>
-      </div>
-      <div class="svc-stats-row">
-        <div class="svc-stat"><span class="svc-sv">MT4/5</span><span class="svc-sl">Platform</span></div>
-        <div class="svc-stat"><span class="svc-sv">24H</span><span class="svc-sl">Hỗ trợ</span></div>
-        <div class="svc-stat"><span class="svc-sv">100%</span><span class="svc-sl">Tùy biến</span></div>
-      </div>
-      <div class="svc-cta">
-        <button class="abtn abtn-blue" onclick="openBSP()"><span class="abtn-border"></span><span class="abtn-label">Xem Chi Tiết →</span></button>
-      </div>
-    </div>
-
-    <!-- SERVICE 2: EA XTO SPEED — links to external page -->
-    <div class="svc-card svc-ea">
-      <div class="svc-head">
-        <span class="svc-num">02</span>
-        <span class="svc-icon">⚡</span>
-        <span class="svc-badge">Bot Trade Chủ Lực</span>
-        <h3 class="svc-title">XTO Speeder<br> </h3>
-        <p class="svc-sub">Expert Advisor độc quyền tích hợp AI — tự động giao dịch 24/7 với tốc độ dưới 1ms, win rate ổn định trên 70%.</p>
-      </div>
-      <div class="svc-divider"></div>
-      <div class="svc-features">
-        <ul class="svc-feat-list">
-          <li><span class="dot"></span>AI phân tích thị trường realtime, >360 lệnh/ngày</li>
-          <li><span class="dot"></span>Tốc độ khớp lệnh dưới 1ms — không trượt giá</li>
-          <li><span class="dot"></span>Win rate 72%+ với drawdown kiểm soát tối đa 16%</li>
-          <li><span class="dot"></span>Tương thích MT4/MT5, cài đặt đơn giản</li>
-          <li><span class="dot"></span>Hỗ trợ trực tiếp và cập nhật thường xuyên</li>
-        </ul>
-      </div>
-      <div class="svc-stats-row">
-        <div class="svc-stat"><span class="svc-sv">>360</span><span class="svc-sl">Lệnh/Ngày</span></div>
-        <div class="svc-stat"><span class="svc-sv">72%</span><span class="svc-sl">Win Rate</span></div>
-        <div class="svc-stat"><span class="svc-sv">&lt;1ms</span><span class="svc-sl">Tốc Độ</span></div>
-      </div>
-      <div class="svc-cta">
-        <!-- YÊU CẦU 1: Nút XTO Speeder trỏ về link ngoài -->
-        <a href="https://tcodedang.github.io/XTO-Project/" target="_blank" rel="noopener" class="abtn abtn-gold" style="width:100%;text-align:center;display:block;padding:13px 20px;font-size:.75rem"><span class="abtn-border"></span><span class="abtn-label">Xem Chi Tiết →</span></a>
-      </div>
-    </div>
-
-    <!-- SERVICE 3: KHO BOT -->
-    <div class="svc-card svc-ct">
-      <div class="svc-head">
-        <span class="svc-num">03</span>
-        <span class="svc-icon">🤖</span>
-        <span class="svc-badge">● Live Now</span>
-        <h3 class="svc-title">KHO BOT và CÔNG CỤ<br>TRADING</h3>
-        <p class="svc-sub">Tổng hợp một số sản phẩm Bot hoàn chỉnh, chỉ báo, công cụ hỗ trợ trading.</p>
-      </div>
-      <div class="svc-divider"></div>
-      <div class="svc-features">
-        <ul class="svc-feat-list">
-          <li><span class="dot"></span><strong style="color:var(--gp)">TURBO_Infinity</strong> Bot Scalping siêu lãi nhanh</li>
-          <li><span class="dot"></span><strong style="color:#fbbf24">HEDGING_Master</strong> Đánh break, trend</li>
-          <li><span class="dot"></span><strong style="color:#fbbf24">XTO_Speeder</strong> Tổng hợp nhiều chiến thuật trade, xử lý lệnh đa phương thức</li>
-          <li><span class="dot"></span>Một số công cụ hỗ trợ scalping thủ công</li>
-          <li><span class="dot"></span>Quản lý vốn, hiển thị nhật ký trading...</li>
-          <li><span class="dot"></span>Chỉ báo tín hiệu...</li>
-        </ul>
-      </div>
-      <div class="svc-stats-row">
-        <div class="svc-stat"><span class="svc-sv">Kho BOT</span><span class="svc-sl"></span></div>
-        <div class="svc-stat"><span class="svc-sv">Indicator</span><span class="svc-sl"></span></div>
-        <div class="svc-stat"><span class="svc-sv">Kho TOOL</span><span class="svc-sl"></span></div>
-      </div>
-      <div class="svc-cta">
-        <!-- YÊU CẦU 2: Nút KHO BOT trỏ về Telegram -->
-        <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="abtn" style="width:100%;text-align:center;display:block;padding:13px 20px;font-size:.75rem;background:linear-gradient(135deg,#14532d,#16a34a,#4ade80);color:#000;box-shadow:0 0 20px rgba(74,222,128,.3);clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)"><span class="abtn-border"></span><span class="abtn-label">XEM CHI TIẾT →</span></a>
+        <div class="hero-core-orbit o1">⚡</div>
+        <div class="hero-core-orbit o2">🛡️</div>
+        <div class="hero-core-orbit o3">💰</div>
+        <div class="hero-core-orbit o4">✂️</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FLOW SECTION -->
-<section class="flow-section" id="flow">
-  <div class="flow-header ain">
-    <span class="flow-tag">Công Nghệ EA XTO Speed</span>
-    <h2 class="flow-title"><span class="g"></span><br><span class="w">Biến Thị Trường Thành Lợi Nhuận</span></h2>
-    <p class="flow-desc">Hệ thống giao dịch tự động tích hợp trí tuệ nhân tạo — phân tích realtime, thực thi trong milliseconds.</p>
-    <div class="flow-line"></div>
-  </div>
-  <!-- NEW FLOW DIAGRAM: SVG Pipeline -->
-  <div class="flow-diagram">
-    <canvas id="flowCanvas"></canvas>
-  </div>
-  <div class="metrics-box ain">
-    <div class="metric"><span class="metric-ico">⚡</span><span class="metric-val">360<sup>+</sup></span><span class="metric-lbl">Lệnh / Ngày</span></div>
-    <div class="metric"><span class="metric-ico">🎯</span><span class="metric-val">72<sup>%</sup></span><span class="metric-lbl">Tỉ lệ thắng</span></div>
-    <div class="metric"><span class="metric-ico">🧠</span><span class="metric-val">24<sup>/7</sup></span><span class="metric-lbl">AI hoạt động</span></div>
-    <div class="metric"><span class="metric-ico">🛡️</span><span class="metric-val">16<sup>%</sup></span><span class="metric-lbl">Max Drawdown</span></div>
-    <div class="metric"><span class="metric-ico">⏱️</span><span class="metric-val">&lt;1<sup>ms</sup></span><span class="metric-lbl">Tốc độ khớp lệnh</span></div>
-  </div>
-  <div class="feature-cards ain">
-    <div class="feat"><div class="feat-bar"></div><div class="feat-num">01</div><div class="feat-icon">📡</div><h3>Market Intelligence</h3><p>Dữ liệu thị trường realtime — giá, khối lượng, biến động, sentiment toàn cầu — được thu thập liên tục làm đầu vào cho hệ thống.</p></div>
-    <div class="feat"><div class="feat-bar"></div><div class="feat-num">02</div><div class="feat-icon">🧠</div><h3>AI Decision Engine</h3><p>Trí tuệ nhân tạo phân tích hàng triệu điểm dữ liệu, nhận diện pattern và đưa ra tín hiệu giao dịch tối ưu — đồng thời hỗ trợ trực tiếp EA.</p></div>
-    <div class="feat"><div class="feat-bar"></div><div class="feat-num">03</div><div class="feat-icon">⚙️</div><h3>EA Execution</h3><p>Expert Advisor thực thi lệnh trong milliseconds — không cảm xúc, không trễ, không sai sót. Lợi nhuận tích lũy liên tục 24/7.</p></div>
-  </div>
-</section>
-
-<!-- PARTNERS -->
-<section class="partners ain">
-  <p class="partners-label">Đối Tác Chính Thức</p>
-  <div class="partners-grid">
-    <a href="https://www.binance.com/register?ref=13632985" target="_blank" rel="noopener" class="pcard p-bin">
-      <svg viewBox="0 0 24 24" fill="#F3BA2F" height="26"><path d="M12 1.5L7.5 6l1.5 1.5L12 4.5l3 3L16.5 6 12 1.5zM6 7.5L4.5 9 6 10.5 7.5 9 6 7.5zm0 6L4.5 15 6 16.5 7.5 15 6 13.5zm6 4.5l-3-3-1.5 1.5L12 22.5l4.5-4.5L15 16.5l-3 3zm6-4.5L16.5 15 18 16.5 19.5 15 18 13.5zm0-6L16.5 9 18 10.5 19.5 9 18 7.5zM12 9l-3 3 3 3 3-3-3-3z"/></svg>
-      <span class="pn">Binance</span>
-    </a>
-    <a href="https://www.bybit.com/invite?ref=N9KRRV" target="_blank" rel="noopener" class="pcard p-byb">
-      <svg viewBox="0 0 32 32" height="24" fill="#F7A600"><rect x="4" y="8" width="6" height="16" rx="1"/><rect x="13" y="8" width="6" height="7" rx="1"/><rect x="13" y="18" width="6" height="6" rx="1"/><rect x="22" y="8" width="6" height="16" rx="1"/></svg>
-      <span class="pn">Bybit</span>
-    </a>
-    <a href="https://one.exnessonelink.com/a/w35l4bg07v" target="_blank" rel="noopener" class="pcard p-exn">
-      <svg viewBox="0 0 32 32" height="24" fill="none"><circle cx="16" cy="16" r="10" stroke="#FF6600" stroke-width="3"/><path d="M8 16h16M16 8v16" stroke="#FF6600" stroke-width="2.5"/></svg>
-      <span class="pn">Exness</span>
-    </a>
-    <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="pcard p-van">
-      <svg viewBox="0 0 32 32" height="24"><polygon points="16,4 29,27 3,27" fill="none" stroke="#FF3B30" stroke-width="2.5"/><polygon points="16,13 22,24 10,24" fill="#FF3B30"/></svg>
-      <span class="pn">Vantage</span>
-    </a>
-    <a href="https://puvip.co/la-partners/vn/iHTIP6mp" target="_blank" rel="noopener" class="pcard p-pup">
-      <svg viewBox="0 0 32 32" height="24" fill="#0033CC"><circle cx="16" cy="16" r="11" fill="none" stroke="#0033CC" stroke-width="2.5"/><text x="16" y="20" text-anchor="middle" font-family="Arial" font-size="9" font-weight="bold" fill="#0033CC">PU</text></svg>
-      <span class="pn">PU Prime</span>
-    </a>
-    <a href="https://www.okx.com/vi/join/63301002" target="_blank" rel="noopener" class="pcard p-okx">
-      <svg viewBox="0 0 32 32" height="24" fill="#bbb"><rect x="3" y="3" width="10" height="10" rx="1"/><rect x="19" y="3" width="10" height="10" rx="1"/><rect x="3" y="19" width="10" height="10" rx="1"/><rect x="19" y="19" width="10" height="10" rx="1"/></svg>
-      <span class="pn">OKX</span>
-    </a>
-  </div>
-</section>
-
-<!-- HOW -->
-<section class="how ain" id="how">
-  <div class="flow-header">
-    <span class="flow-tag">Quy Trình</span>
-    <h2 class="flow-title"><span class="w">Bắt Đầu</span> <span class="g">Chỉ 3 Bước</span></h2>
-    <div class="flow-line"></div>
-  </div>
-  <div class="steps-row">
-    <div class="step"><div class="step-n"><span>01</span></div><div class="step-text"><h3>Liên Hệ Tư Vấn</h3><p>Nhắn tin qua Telegram hoặc Zalo để được tư vấn dịch vụ phù hợp — Bot, EA hay CopyTrade.</p></div></div>
-    <div class="step"><div class="step-n"><span>02</span></div><div class="step-text"><h3>Đăng Ký & Kết Nối</h3><p>Mở tài khoản Vantage Markets hoặc Binance, hoặc nhận EA theo yêu cầu. Toàn bộ quy trình được hỗ trợ trực tiếp.</p></div></div>
-    <div class="step"><div class="step-n"><span>03</span></div><div class="step-text"><h3>Nhận Lợi Nhuận</h3><p>Hệ thống tự động vận hành 24/7. Theo dõi số liệu realtime và rút vốn bất kỳ lúc nào.</p></div></div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section ain">
-  <p>Chọn dịch vụ phù hợp — viết bot tùy biến, dùng EA XTO Speed, hoặc CopyTrade tự động. Tất cả đều được hỗ trợ 24/7.</p>
-  <div class="cta-btns">
-    <button class="abtn abtn-gold" onclick="openCT()"><span class="abtn-border"></span><span class="abtn-label">Khám Phá CopyTrade</span></button>
-    <button class="abtn abtn-ghost" onclick="openContact()"><span class="abtn-border"></span><span class="abtn-label">Liên Hệ Tư Vấn</span></button>
-  </div>
-  <p class="cta-note">Miễn phí tư vấn · Hỗ trợ 24/7 · Bảo mật thông tin</p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="ft-inner">
-    <div class="ft-brand">
-      <div class="logo">tCode<span class="logo-sub">TRADING TECH</span></div>
-      <p></p>
+<!-- ─── MODULES ─── -->
+<section class="section-padding" id="modules">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-label" data-key="modules_label">Core Modules</div>
+      <h2 class="sec-title" data-key="modules_title">Mọi thứ cần thiết trong <span class="highlight">Một Bot</span></h2>
+      <p class="sec-desc" data-key="modules_desc">CityBot kết hợp 6 module mạnh mẽ, mỗi module thiết kế cho một phong cách giao dịch riêng — từ hedging đến scalping.</p>
     </div>
-    <div class="ft-col"><h4>Dịch Vụ</h4><ul>
-      <li><a href="#" onclick="openBSP();return false">Viết Bot Theo Yêu Cầu</a></li>
-      <li><a href="https://tcodedang.github.io/XTO-Project/" target="_blank" rel="noopener">EA XTO Speed</a></li>
-      <li><a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener">Kho Bot & Công Cụ</a></li>
-      <li><a href="#how">Cách Bắt Đầu</a></li>
-    </ul></div>
-    <div class="ft-col"><h4>Liên Hệ</h4><ul>
-      <li><a href="https://youtube.com/@tcode.tradingtech?si=0rEJGnZu0V4AQXnC" target="_blank">Youtube</a></li>
-      <li><a href="https://t.me/tCode_T95" target="_blank">Telegram</a></li>
-      <li><a href="https://zalo.me/0964822327" target="_blank">Zalo</a></li>
-    </ul></div>
-  </div>
-  <div class="ft-bot">
-    <p>© 2025 tCode Trading Tech</p>
-    <div class="ft-soc">
-      <a href="https://youtube.com/@tcode.tradingtech?si=0rEJGnZu0V4AQXnC" target="_blank" class="soc-btn">YT</a>
-      <a href="https://t.me/tCode_T95" target="_blank" class="soc-btn">TG</a>
-      <a href="https://zalo.me/0964822327" target="_blank" class="soc-btn">ZL</a>
+    <div class="modules-showcase reveal">
+      <div class="modules-grid">
+        <div class="module-item"><div class="module-badge gold">🛡️</div><div class="module-name" data-key="mod_hedging">Hedging Pro</div><span class="module-tag" data-key="mod_tag_range">Sideway</span></div>
+        <div class="module-item"><div class="module-badge gold">🌀</div><div class="module-name" data-key="mod_seasonx">Season-X</div><span class="module-tag" data-key="mod_tag_trend">Xu hướng</span></div>
+        <div class="module-item"><div class="module-badge green">💰</div><div class="module-name" data-key="mod_moneytick">Money-TICK</div><span class="module-tag" data-key="mod_tag_scalp">Scalping</span></div>
+        <div class="module-item"><div class="module-badge blue">✂️</div><div class="module-name" data-key="mod_trimming">Tỉa lệnh</div><span class="module-tag" data-key="mod_tag_trim">Đóng thông minh</span></div>
+        <div class="module-item"><div class="module-badge purple">🚀</div><div class="module-name" data-key="mod_exit">Thoát lệnh</div><span class="module-tag" data-key="mod_tag_exit">SL/TP + Trailing</span></div>
+        <div class="module-item"><div class="module-badge green">📊</div><div class="module-name" data-key="mod_zonetrade">Rải lệnh Zone</div><span class="module-tag" data-key="mod_tag_zone">Lệnh chờ</span></div>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="section-padding" id="features" style="padding-top:0">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-label" data-key="features_label">Why CityBot</div>
+      <h2 class="sec-title" data-key="features_title">Xây dựng bởi Trader, <span class="highlight">cho Trader</span></h2>
+      <p class="sec-desc" data-key="features_desc">Mỗi module đều được thử nghiệm thực tế và cải tiến dựa trên phản hồi từ cộng đồng TCode.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card highlight reveal"><div class="feature-icon">🧠</div><div class="feature-title" data-key="f1_title">Kiểm soát rủi ro với AI</div><div class="feature-desc" data-key="f1_desc">Tự động tạm dừng giao dịch khi lỗ hoặc khối lượng vượt ngưỡng — bảo vệ tài khoản của bạn.</div></div>
+      <div class="feature-card reveal"><div class="feature-icon">⚡</div><div class="feature-title" data-key="f2_title">Tỉa lệnh thông minh</div><div class="feature-desc" data-key="f2_desc">Đóng vị thế lỗ bằng lợi nhuận từ lệnh đối diện. Nhiều chế độ: đơn, chéo hoặc tỉa toàn bộ.</div></div>
+      <div class="feature-card reveal"><div class="feature-icon">📈</div><div class="feature-title" data-key="f3_title">Điều chỉnh lot động</div><div class="feature-desc" data-key="f3_desc">Money-TICK tự động điều chỉnh khối lượng dựa trên biến động và số dư — không cần tính toán thủ công.</div></div>
+      <div class="feature-card reveal"><div class="feature-icon">🔄</div><div class="feature-title" data-key="f4_title">Tự động chuyển TP</div><div class="feature-desc" data-key="f4_desc">Season-X tự động chuyển giữa chế độ TP gộp và riêng dựa trên số lệnh đang mở.</div></div>
+      <div class="feature-card reveal"><div class="feature-icon">🎯</div><div class="feature-title" data-key="f5_title">Thoát lệnh 1-Click</div><div class="feature-desc" data-key="f5_desc">Đặt SL/TP, trailing stop hoặc hòa vốn chỉ với một cú nhấp. Hỗ trợ lệnh đơn hoặc toàn bộ vị thế.</div></div>
+      <div class="feature-card reveal"><div class="feature-icon">📊</div><div class="feature-title" data-key="f6_title">Rải lệnh Zone</div><div class="feature-desc" data-key="f6_desc">Vẽ vùng trên biểu đồ, thiết lập ngân sách rủi ro và để CityBot tính toán các mức vào lệnh tối ưu.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="section-padding" id="how-it-works" style="background:var(--bg-secondary)">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-label" data-key="how_label">How It Works</div>
+      <h2 class="sec-title" data-key="how_title">Từ bản quyền đến <span class="highlight">Lệnh đầu tiên</span></h2>
+      <p class="sec-desc" data-key="how_desc">Bắt đầu với CityBot rất đơn giản. Làm theo 3 bước và bạn sẽ giao dịch ngay lập tức.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal"><div class="step-number" data-key="step1_num">BƯỚC 01</div><div class="step-title" data-key="step1_title">Nhận bản quyền</div><div class="step-desc" data-key="step1_desc">Liên hệ TCode để yêu cầu bản quyền CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.</div></div>
+      <div class="step-card reveal"><div class="step-number" data-key="step2_num">BƯỚC 02</div><div class="step-title" data-key="step2_title">Cài đặt & Cấu hình</div><div class="step-desc" data-key="step2_desc">Kéo thả EA lên biểu đồ MT5, thiết lập tham số rủi ro và chọn module mong muốn từ bảng điều khiển.</div></div>
+      <div class="step-card reveal"><div class="step-number" data-key="step3_num">BƯỚC 03</div><div class="step-title" data-key="step3_title">Để Bot chạy</div><div class="step-desc" data-key="step3_desc">CityBot hoạt động 24/7. Công cụ bán tự động cho phép bạn can thiệp thủ công khi cần — kiểm soát toàn diện.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="section-padding" id="testimonials">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-label" data-key="test_label">What Traders Say</div>
+      <h2 class="sec-title" data-key="test_title">Được <span class="highlight">1.200+</span> Trader tin tưởng</h2>
+      <p class="sec-desc" data-key="test_desc">Phản hồi thực tế từ người dùng đang sử dụng CityBot hàng ngày để tự động hóa giao dịch của họ.</p>
+    </div>
+    <div class="testimonials-grid" id="testimonialsGrid"></div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="section-padding" id="faq" style="background:var(--bg-secondary)">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-label" data-key="faq_label">FAQ</div>
+      <h2 class="sec-title" data-key="faq_title">Câu hỏi <span class="highlight">thường gặp</span></h2>
+    </div>
+    <div class="reveal" id="faqContainer"></div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section section-padding">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2 class="cta-title" data-key="cta_title">Sẵn sàng giao dịch với <span class="highlight">CityBot</span>?</h2>
+      <p class="cta-desc" data-key="cta_desc">Nhận bản quyền ngay hôm nay và tham gia cộng đồng trader đang tự động hóa chiến lược của họ với sự tự tin.</p>
+      <button class="btn-primary" onclick="openModal()" style="font-size:15px; padding:16px 40px;" data-key="cta_btn">🤖 Nhận CityBot Ngay</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">City<span>Bot</span> <span style="font-size:12px;color:var(--text-muted);font-weight:400;font-family:var(--font-mono);letter-spacing:1px;">· TCode</span></div>
+      <div class="footer-links">
+        <a href="#modules" data-key="footer_modules">Modules</a>
+        <a href="#how-it-works" data-key="footer_how">Cách dùng</a>
+        <a href="#testimonials" data-key="footer_reviews">Đánh giá</a>
+        <a href="#faq" data-key="footer_faq">FAQ</a>
+      </div>
+    </div>
+    <p class="footer-disclaimer" data-key="footer_disclaimer">CityBot là công cụ giao dịch tự động cho MT5, phát triển bởi TCode. Giao dịch tiềm ẩn rủi ro; hiệu suất quá khứ không đảm bảo kết quả tương lai. Luôn sử dụng quản lý rủi ro phù hợp. <br>© 2026 TCode · CityBot. Bảo lưu mọi quyền.</p>
   </div>
 </footer>
 
-<!-- FAB -->
-<div class="mob-fab" id="mobFab">
-  <div class="fab-menu" id="fabMenu">
-    <a href="https://youtube.com/@tcode.tradingtech?si=0rEJGnZu0V4AQXnC" target="_blank" rel="noopener" class="fab-item">
-      <div class="fab-item-ico fab-yt"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.1 2.8 12 2.8 12 2.8s-4.1 0-6.8.2c-.6 0-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.2.7 11.4v2.1C.7 15.7 1 18 1 18s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.6 22.2 12 22.2 12 22.2s4.1 0 6.8-.3c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.5v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l8.1 3.6-8.1 3.5z"/></svg></div>
-      <div><span class="fab-item-name">Youtube</span><span class="fab-item-val">@tcode.tradingtech</span></div>
-    </a>
-    <a href="https://t.me/tCode_T95" target="_blank" rel="noopener" class="fab-item">
-      <div class="fab-item-ico fab-tele"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 7.5a2.25 2.25 0 0 0 .126 4.238l3.553 1.137 1.3 4.084a1 1 0 0 0 1.692.37l2.024-2.025 3.913 2.87a2.25 2.25 0 0 0 3.498-1.38l2.75-15.5a2.25 2.25 0 0 0-1.334-2.509z"/></svg></div>
-      <div><span class="fab-item-name">Telegram</span><span class="fab-item-val">@tCode_T95</span></div>
-    </a>
-    <a href="https://zalo.me/0964822327" target="_blank" rel="noopener" class="fab-item">
-      <div class="fab-item-ico fab-zalo"><svg width="14" height="14" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="4" fill="#fff" fill-opacity=".15"/><text x="12" y="15" text-anchor="middle" font-family="Arial" font-size="6" font-weight="bold" fill="#fff">Zalo</text></svg></div>
-      <div><span class="fab-item-name">Zalo</span><span class="fab-item-val">0964 822 327</span></div>
-    </a>
+<!-- ─── MODAL ─── -->
+<div class="modal" id="contactModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">🤖</div>
+    <div class="modal-title" data-key="modal_title">Nhận CityBot</div>
+    <p class="modal-desc" data-key="modal_desc">Liên hệ TCode để yêu cầu bản quyền. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt trong thời gian sớm nhất.</p>
+    <div class="contact-list">
+      <a class="contact-item" href="https://zalo.me/0964822327" target="_blank" rel="noopener">
+        <div class="contact-icon zalo">💬</div>
+        <div class="contact-info"><div class="contact-label" data-key="contact_zalo">Zalo</div><div class="contact-value">0964 822 327</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://t.me/tCode_T95" target="_blank" rel="noopener">
+        <div class="contact-icon telegram">✈️</div>
+        <div class="contact-info"><div class="contact-label" data-key="contact_telegram">Telegram</div><div class="contact-value">@tCode_T95</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener">
+        <div class="contact-icon facebook">👥</div>
+        <div class="contact-info"><div class="contact-label" data-key="contact_community">Cộng đồng</div><div class="contact-value">@TCode_TradingHeBot</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://tcodedang.github.io/tcode-dev/" target="_blank" rel="noopener">
+        <div class="contact-icon" style="background:rgba(245,179,66,0.12);border:1px solid rgba(245,179,66,0.2);">🌐</div>
+        <div class="contact-info"><div class="contact-label" data-key="contact_website">Website</div><div class="contact-value">TCode Dev</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+    </div>
   </div>
-  <button class="fab-main" id="fabBtn" onclick="toggleFab()" aria-label="Liên hệ"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 </div>
 
 <script>
-/* PARTICLES */
-const cv=document.getElementById('particles'),cx=cv.getContext('2d');
-let W=cv.width=innerWidth,H=cv.height=innerHeight;
-window.addEventListener('resize',()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;cW=cc.width=innerWidth;cH=cc.height=innerHeight});
-class Pt{constructor(){this.r()}r(){this.x=Math.random()*W;this.y=Math.random()*H;this.s=Math.random()*1.2+.3;this.vx=(Math.random()-.5)*.18;this.vy=(Math.random()-.5)*.18;this.o=Math.random()*.25+.06;this.l=0;this.ml=Math.random()*240+140}u(){this.x+=this.vx;this.y+=this.vy;this.l++;if(this.l>this.ml||this.x<0||this.x>W||this.y<0||this.y>H)this.r()}d(){cx.save();cx.globalAlpha=this.o*Math.sin(this.l/this.ml*Math.PI);cx.fillStyle='#C9972A';cx.beginPath();cx.arc(this.x,this.y,this.s,0,Math.PI*2);cx.fill();cx.restore()}}
-const pts=Array.from({length:65},()=>new Pt());
-function tickP(){cx.clearRect(0,0,W,H);pts.forEach((a,i)=>{pts.forEach((b,j)=>{if(j>i){const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);if(d<75){cx.save();cx.globalAlpha=(1-d/75)*.05;cx.strokeStyle='#C9972A';cx.lineWidth=.4;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();cx.restore()}}});a.u();a.d()});requestAnimationFrame(tickP)}tickP();
+// ═══ DATA ═══
+const langData = {
+  vi: {
+    nav_modules: 'Modules',
+    nav_features: 'Tính năng',
+    nav_how: 'Cách dùng',
+    nav_reviews: 'Đánh giá',
+    nav_faq: 'FAQ',
+    nav_cta: '🤖 Dùng thử',
+    hero_badge: 'TCode · MT5 Expert Advisor',
+    hero_title: 'Trading đa chiến thuật với <span class="highlight">CityBot</span>',
+    hero_sub: 'Hệ sinh thái Expert Advisor đa module trên MT5 — Hedging, Scalping, DCA thông minh và công cụ thoát lệnh chính xác. Để CityBot vận hành, bạn tập trung vào chiến lược.',
+    hero_btn_primary: '🤖 Dùng thử ngay',
+    hero_btn_secondary: 'Khám phá →',
+    stat_1_value: '6+',
+    stat_1_label: 'Module tích hợp',
+    stat_2_value: '24/7',
+    stat_2_label: 'Giao dịch tự động',
+    stat_3_value: '1-Click',
+    stat_3_label: 'Công cụ bán tự động',
+    modules_label: 'Module chính',
+    modules_title: 'Mọi thứ cần thiết trong <span class="highlight">Một Bot</span>',
+    modules_desc: 'CityBot kết hợp 6 module mạnh mẽ, mỗi module thiết kế cho một phong cách giao dịch riêng — từ hedging đến scalping.',
+    mod_hedging: 'Hedging Pro',
+    mod_seasonx: 'Season-X',
+    mod_moneytick: 'Money-TICK',
+    mod_trimming: 'Tỉa lệnh',
+    mod_exit: 'Thoát lệnh',
+    mod_zonetrade: 'Rải lệnh Zone',
+    mod_tag_range: 'Sideway',
+    mod_tag_trend: 'Xu hướng',
+    mod_tag_scalp: 'Scalping',
+    mod_tag_trim: 'Đóng thông minh',
+    mod_tag_exit: 'SL/TP + Trailing',
+    mod_tag_zone: 'Lệnh chờ',
+    features_label: 'Tại sao CityBot',
+    features_title: 'Xây dựng bởi Trader, <span class="highlight">cho Trader</span>',
+    features_desc: 'Mỗi module đều được thử nghiệm thực tế và cải tiến dựa trên phản hồi từ cộng đồng TCode.',
+    f1_title: 'Kiểm soát rủi ro với AI',
+    f1_desc: 'Tự động tạm dừng giao dịch khi lỗ hoặc khối lượng vượt ngưỡng — bảo vệ tài khoản của bạn.',
+    f2_title: 'Tỉa lệnh thông minh',
+    f2_desc: 'Đóng vị thế lỗ bằng lợi nhuận từ lệnh đối diện. Nhiều chế độ: đơn, chéo hoặc tỉa toàn bộ.',
+    f3_title: 'Điều chỉnh lot động',
+    f3_desc: 'Money-TICK tự động điều chỉnh khối lượng dựa trên biến động và số dư — không cần tính toán thủ công.',
+    f4_title: 'Tự động chuyển TP',
+    f4_desc: 'Season-X tự động chuyển giữa chế độ TP gộp và riêng dựa trên số lệnh đang mở.',
+    f5_title: 'Thoát lệnh 1-Click',
+    f5_desc: 'Đặt SL/TP, trailing stop hoặc hòa vốn chỉ với một cú nhấp. Hỗ trợ lệnh đơn hoặc toàn bộ vị thế.',
+    f6_title: 'Rải lệnh Zone',
+    f6_desc: 'Vẽ vùng trên biểu đồ, thiết lập ngân sách rủi ro và để CityBot tính toán các mức vào lệnh tối ưu.',
+    how_label: 'Cách hoạt động',
+    how_title: 'Từ bản quyền đến <span class="highlight">Lệnh đầu tiên</span>',
+    how_desc: 'Bắt đầu với CityBot rất đơn giản. Làm theo 3 bước và bạn sẽ giao dịch ngay lập tức.',
+    step1_num: 'BƯỚC 01',
+    step1_title: 'Nhận bản quyền',
+    step1_desc: 'Liên hệ TCode để yêu cầu bản quyền CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.',
+    step2_num: 'BƯỚC 02',
+    step2_title: 'Cài đặt & Cấu hình',
+    step2_desc: 'Kéo thả EA lên biểu đồ MT5, thiết lập tham số rủi ro và chọn module mong muốn từ bảng điều khiển.',
+    step3_num: 'BƯỚC 03',
+    step3_title: 'Để Bot chạy',
+    step3_desc: 'CityBot hoạt động 24/7. Công cụ bán tự động cho phép bạn can thiệp thủ công khi cần — kiểm soát toàn diện.',
+    test_label: 'Đánh giá từ Trader',
+    test_title: 'Được <span class="highlight">1.200+</span> Trader tin tưởng',
+    test_desc: 'Phản hồi thực tế từ người dùng đang sử dụng CityBot hàng ngày để tự động hóa giao dịch của họ.',
+    faq_label: 'Câu hỏi thường gặp',
+    faq_title: 'Câu hỏi <span class="highlight">thường gặp</span>',
+    cta_title: 'Sẵn sàng giao dịch với <span class="highlight">CityBot</span>?',
+    cta_desc: 'Nhận bản quyền ngay hôm nay và tham gia cộng đồng trader đang tự động hóa chiến lược của họ với sự tự tin.',
+    cta_btn: '🤖 Nhận CityBot Ngay',
+    footer_modules: 'Modules',
+    footer_how: 'Cách dùng',
+    footer_reviews: 'Đánh giá',
+    footer_faq: 'FAQ',
+    footer_disclaimer: 'CityBot là công cụ giao dịch tự động cho MT5, phát triển bởi TCode. Giao dịch tiềm ẩn rủi ro; hiệu suất quá khứ không đảm bảo kết quả tương lai. Luôn sử dụng quản lý rủi ro phù hợp. <br>© 2026 TCode · CityBot. Bảo lưu mọi quyền.',
+    modal_title: 'Nhận CityBot',
+    modal_desc: 'Liên hệ TCode để yêu cầu bản quyền. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt trong thời gian sớm nhất.',
+    contact_zalo: 'Zalo',
+    contact_telegram: 'Telegram',
+    contact_community: 'Cộng đồng',
+    contact_website: 'Website'
+  },
+  en: {
+    nav_modules: 'Modules',
+    nav_features: 'Features',
+    nav_how: 'How it works',
+    nav_reviews: 'Reviews',
+    nav_faq: 'FAQ',
+    nav_cta: '🤖 Get Started',
+    hero_badge: 'TCode · MT5 Expert Advisor',
+    hero_title: 'CityBot — <span class="highlight">Your Trading Universe</span>',
+    hero_sub: 'A complete multi-module Expert Advisor ecosystem on MT5 — Hedging, Scalping, Smart DCA, and precision exit tools. Let CityBot operate while you focus on strategy.',
+    hero_btn_primary: '🤖 Try Now',
+    hero_btn_secondary: 'Explore →',
+    stat_1_value: '6+',
+    stat_1_label: 'Built-in Modules',
+    stat_2_value: '24/7',
+    stat_2_label: 'Automated Trading',
+    stat_3_value: '1-Click',
+    stat_3_label: 'Semi-auto Tools',
+    modules_label: 'Core Modules',
+    modules_title: 'Everything You Need in <span class="highlight">One Bot</span>',
+    modules_desc: 'CityBot brings together 6 powerful modules, each designed for a specific trading style — from hedging to scalping.',
+    mod_hedging: 'Hedging Pro',
+    mod_seasonx: 'Season-X',
+    mod_moneytick: 'Money-TICK',
+    mod_trimming: 'Order Trimming',
+    mod_exit: 'Exit Tool',
+    mod_zonetrade: 'Zone Trade',
+    mod_tag_range: 'Ranging',
+    mod_tag_trend: 'Trend',
+    mod_tag_scalp: 'Scalping',
+    mod_tag_trim: 'Smart Close',
+    mod_tag_exit: 'SL/TP + Trailing',
+    mod_tag_zone: 'Pending Orders',
+    features_label: 'Why CityBot',
+    features_title: 'Built by Traders, <span class="highlight">for Traders</span>',
+    features_desc: 'Every module is battle-tested and refined based on real feedback from the TCode community.',
+    f1_title: 'AI-Powered Risk Control',
+    f1_desc: 'Automatically pauses trading when loss or lot size exceeds your preset limits — keeping your account safe.',
+    f2_title: 'Smart Trimming',
+    f2_desc: 'Close losing positions using profits from opposite trades. Multiple modes: single, cross, or full pool trimming.',
+    f3_title: 'Dynamic Lot Sizing',
+    f3_desc: 'Money-TICK automatically adjusts lot sizes based on volatility and account balance — no manual calculations.',
+    f4_title: 'Auto TP Switching',
+    f4_desc: 'Season-X automatically switches between combined and individual TP modes based on the number of open orders.',
+    f5_title: '1-Click Exit Tools',
+    f5_desc: 'Set SL/TP, trailing stop, or break-even with a single click. Supports both single-order and total-position modes.',
+    f6_title: 'Zone Trade',
+    f6_desc: 'Draw a zone on your chart, set your risk budget, and let CityBot calculate the optimal entry levels for pending orders.',
+    how_label: 'How It Works',
+    how_title: 'From License to <span class="highlight">First Trade</span>',
+    how_desc: 'Getting started with CityBot is simple. Follow these three steps and you\'ll be trading in no time.',
+    step1_num: 'STEP 01',
+    step1_title: 'Get Licensed',
+    step1_desc: 'Contact TCode to request a CityBot license. We\'ll send you the EA file and setup instructions instantly.',
+    step2_num: 'STEP 02',
+    step2_title: 'Install & Configure',
+    step2_desc: 'Drop the EA onto your MT5 chart, set your risk parameters, and choose your preferred module from the dashboard.',
+    step3_num: 'STEP 03',
+    step3_title: 'Let It Run',
+    step3_desc: 'CityBot works 24/7. Semi-auto tools let you intervene manually whenever you want — full control when you need it.',
+    test_label: 'What Traders Say',
+    test_title: 'Trusted by <span class="highlight">1,200+</span> Traders',
+    test_desc: 'Real feedback from real users who are using CityBot every day to automate their trading.',
+    faq_label: 'FAQ',
+    faq_title: 'Frequently Asked <span class="highlight">Questions</span>',
+    cta_title: 'Ready to Trade with <span class="highlight">CityBot</span>?',
+    cta_desc: 'Get your license today and join a community of traders who are already automating their strategies with confidence.',
+    cta_btn: '🤖 Get CityBot Now',
+    footer_modules: 'Modules',
+    footer_how: 'How it works',
+    footer_reviews: 'Reviews',
+    footer_faq: 'FAQ',
+    footer_disclaimer: 'CityBot is an automated trading tool for MT5, developed by TCode. Trading involves risk; past performance does not guarantee future results. Always use proper risk management. <br>© 2026 TCode · CityBot. All rights reserved.',
+    modal_title: 'Get CityBot',
+    modal_desc: 'Contact TCode to request a license. We\'ll send you the EA file and setup instructions as soon as possible.',
+    contact_zalo: 'Zalo',
+    contact_telegram: 'Telegram',
+    contact_community: 'Community',
+    contact_website: 'Website'
+  }
+};
 
-/* GOLD COINS */
-const cc=document.getElementById('coins'),cctx=cc.getContext('2d');
-let cW=cc.width=innerWidth,cH=cc.height=innerHeight;
-class Coin{constructor(delay){this.delay=delay||0;this.born=false;this.reset(true)}reset(init){this.x=Math.random()*cW;this.y=init?Math.random()*cH:-50;this.r=Math.random()*12+5;this.vy=Math.random()*1.1+.4;this.vx=(Math.random()-.5)*.5;this.rot=Math.random()*Math.PI*2;this.rv=(Math.random()-.5)*.06;this.sqT=Math.random()*Math.PI*2;this.sqS=Math.random()*.035+.02;this.gl=Math.random()*Math.PI*2;this.glS=Math.random()*.05+.025;this.o=Math.random()*.65+.3;this.alpha=0}update(t){if(t<this.delay)return;if(!this.born)this.born=true;this.x+=this.vx;this.y+=this.vy;this.rot+=this.rv;this.sqT+=this.sqS;this.gl+=this.glS;if(this.alpha<this.o)this.alpha=Math.min(this.alpha+.018,this.o);if(this.y>cH+60)this.reset(false)}draw(){if(!this.born)return;const sq=.4+.6*Math.abs(Math.cos(this.sqT));const rx=this.r,ry=this.r*sq;cctx.save();cctx.translate(this.x,this.y);cctx.rotate(this.rot);cctx.globalAlpha=this.alpha;const g=cctx.createRadialGradient(-rx*.3,-ry*.3,rx*.1,0,0,rx*1.2);g.addColorStop(0,'#FFE566');g.addColorStop(.4,'#F0C04A');g.addColorStop(.75,'#C9972A');g.addColorStop(1,'#7A5A10');cctx.beginPath();cctx.ellipse(0,0,rx,ry,0,0,Math.PI*2);cctx.fillStyle=g;cctx.fill();cctx.strokeStyle='rgba(255,215,0,.4)';cctx.lineWidth=1;cctx.stroke();const gl=cctx.createRadialGradient(Math.cos(this.gl)*rx*.4,Math.sin(this.gl)*ry*.3,0,Math.cos(this.gl)*rx*.4,Math.sin(this.gl)*ry*.3,rx*.5);gl.addColorStop(0,'rgba(255,255,240,.6)');gl.addColorStop(1,'rgba(255,255,240,0)');cctx.beginPath();cctx.ellipse(0,0,rx,ry,0,0,Math.PI*2);cctx.fillStyle=gl;cctx.fill();cctx.globalAlpha=this.alpha*.55*sq;cctx.fillStyle='rgba(100,65,5,.9)';cctx.font=`bold ${Math.max(6,rx*.6)}px serif`;cctx.textAlign='center';cctx.textBaseline='middle';cctx.fillText('$',0,ry*.06);cctx.restore()}}
-const coins=Array.from({length:20},(_,i)=>new Coin(1200+i*90));
-let coinStart=null;
-function tickC(ts){if(!coinStart)coinStart=ts;const e=ts-coinStart;cctx.clearRect(0,0,cW,cH);coins.forEach(c=>{c.update(e);c.draw()});requestAnimationFrame(tickC)}requestAnimationFrame(tickC);
+const testimonialsData = {
+  vi: [
+    { name: 'Hoàng Minh T.', meta: 'Trader · TP.HCM', avatar: '🧑', text: 'Hedging Pro xử lý thị trường sideway hoàn hảo. Tôi chỉ cần thiết lập vùng và để nó chạy — không còn căng thẳng về các cú đảo chiều.', result: 'Sử dụng 4 tháng' },
+    { name: 'Nguyễn Phú V.', meta: 'Swing Trader · Hà Nội', avatar: '👨‍💼', text: 'Season-X là lựa chọn hàng đầu cho những ngày có xu hướng. Tính năng tự động chuyển TP là một bước đột phá — nó thích ứng với điều kiện thị trường.', result: 'Sử dụng 6 tháng' },
+    { name: 'Lê Thị H.', meta: 'Trader mới · Đà Nẵng', avatar: '👩‍💻', text: 'Money-TICK cho scalping với AI điều chỉnh lot giúp tôi quản lý rủi ro mà không cần suy nghĩ quá nhiều về mỗi lần vào lệnh.', result: 'Sử dụng 2 tháng' },
+    { name: 'Trần Quốc B.', meta: 'Trader dày dạn · Cần Thơ', avatar: '🧔', text: 'Trợ lý tỉa lệnh đã giúp tôi đóng vị thế lỗ bằng lợi nhuận từ lệnh thắng — chính xác những gì tôi cần.', result: 'Sử dụng 7 tháng' },
+    { name: 'Phạm Văn K.', meta: 'Trader Crypto · BD', avatar: '👦', text: 'Rải lệnh Zone tiết kiệm rất nhiều thời gian. Vẽ một vùng, nhấp một nút và lệnh chờ được đặt ngay lập tức.', result: 'Sử dụng 5 tháng' },
+    { name: 'Đỗ Anh Q.', meta: 'Day Trader · Vũng Tàu', avatar: '🧑‍💻', text: 'Giao diện CityBot sạch sẽ và trực quan. Tôi có thể chuyển đổi giữa các module trong vài giây mà không cần khởi động lại EA.', result: 'Sử dụng 4 tháng' }
+  ],
+  en: [
+    { name: 'Minh H.', meta: 'Trader · HCMC', avatar: '🧑', text: 'Hedging Pro handles range markets perfectly. I just set the zone and let it run — no more stress about reversals.', result: 'Using for 4 months' },
+    { name: 'Phu V.', meta: 'Swing Trader · Hanoi', avatar: '👨‍💼', text: 'Season-X is my go-to for trend days. The auto TP switch feature is a game-changer — it adapts to market conditions.', result: 'Using for 6 months' },
+    { name: 'Ha L.', meta: 'New Trader · Da Nang', avatar: '👩‍💻', text: 'Money-TICK for scalping with AI lot sizing helps me manage risk without overthinking each entry.', result: 'Using for 2 months' },
+    { name: 'Quoc B.', meta: 'Experienced · Can Tho', avatar: '🧔', text: 'The trimming assistant helped me close a losing position using profits from winners — exactly what I needed.', result: 'Using for 7 months' },
+    { name: 'Van K.', meta: 'Crypto Trader · BD', avatar: '👦', text: 'Zone Trade saves me so much time. Draw a zone, click one button, and pending orders are placed instantly.', result: 'Using for 5 months' },
+    { name: 'Anh Q.', meta: 'Day Trader · Vung Tau', avatar: '🧑‍💻', text: 'CityBot\'s interface is clean and intuitive. I can switch between modules in seconds without restarting the EA.', result: 'Using for 4 months' }
+  ]
+};
 
-/* NAV */
-const navEl=document.getElementById('nav');
-window.addEventListener('scroll',()=>navEl.classList.toggle('scrolled',scrollY>50));
+const faqData = {
+  vi: [
+    { q: 'CityBot hỗ trợ những thị trường nào?', a: 'CityBot chạy trên MT5, hỗ trợ tất cả các symbol có trên broker của bạn: forex, vàng, crypto, chỉ số, và nhiều hơn nữa.' },
+    { q: 'Tôi có cần kinh nghiệm lập trình không?', a: 'Không. CityBot đi kèm với bảng điều khiển trực quan. Chỉ cần kéo thả EA lên biểu đồ, cấu hình rủi ro và chọn module của bạn.' },
+    { q: 'Sự khác biệt giữa các module là gì?', a: 'Hedging Pro dành cho thị trường sideway, Season-X cho xu hướng, Money-TICK cho scalping, Rải lệnh Zone cho lệnh chờ, và công cụ Thoát/Tỉa lệnh cho can thiệp thủ công.' },
+    { q: 'CityBot có hoạt động trong backtest không?', a: 'Có. Tất cả các module đều tương thích hoàn toàn với MT5 Strategy Tester. Bạn có thể tối ưu tham số và kiểm tra chiến lược trong quá khứ.' },
+    { q: 'Tôi nhận hỗ trợ như thế nào?', a: 'Chúng tôi cung cấp hỗ trợ trực tiếp qua Zalo và Telegram. Bạn sẽ được vào kênh cộng đồng riêng sau khi bản quyền được phê duyệt.' }
+  ],
+  en: [
+    { q: 'What markets does CityBot support?', a: 'CityBot runs on MT5, so it supports all symbols available on your broker: forex, gold, crypto, indices, and more.' },
+    { q: 'Do I need programming experience?', a: 'No. CityBot comes with a user-friendly dashboard. Just drop the EA on your chart, configure your risk settings, and choose your module.' },
+    { q: 'What\'s the difference between modules?', a: 'Hedging Pro is for ranging markets, Season-X for trends, Money-TICK for scalping, Zone Trade for pending orders, and Exit/Trimming tools for manual intervention.' },
+    { q: 'Does CityBot work in backtesting?', a: 'Yes. All modules are fully compatible with the MT5 Strategy Tester. You can optimize parameters and test strategies historically.' },
+    { q: 'How do I get support?', a: 'We provide support directly via Zalo and Telegram. You\'ll get access to a private community channel after your license is approved.' }
+  ]
+};
 
-/* ANIMATE IN */
-const obs=new IntersectionObserver(e=>e.forEach(e=>e.isIntersecting&&e.target.classList.add('vis')),{threshold:.08});
-document.querySelectorAll('.ain').forEach(el=>obs.observe(el));
+let currentLang = 'vi';
 
-/* ══════════════════════════════════════════════
-   FLOW DIAGRAM — REDESIGNED: Hexagonal Network
-══════════════════════════════════════════════ */
-function initFlowDiagram() {
-  const canvas = document.getElementById('flowCanvas');
-  if (!canvas) return;
+// ═══ STARS ═══
+function createStars() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 200; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--duration', (3 + Math.random() * 5) + 's');
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    container.appendChild(s);
+  }
+}
+createStars();
 
-  const DPR = Math.min(window.devicePixelRatio || 1, 2);
-  const isMob = innerWidth < 1700;
-  const CW = canvas.offsetWidth || 900;
-  const CH = isMob ? 320 : 940;
-  canvas.width = CW * DPR;
-  canvas.height = CH * DPR;
-  canvas.style.width = CW + 'px';
-  canvas.style.height = CH + 'px';
-  const c = canvas.getContext('2d');
-  c.scale(DPR, DPR);
+// ═══ NEURAL / BLOCKCHAIN NETWORK (interactive canvas) ═══
+(function initNeuralNetwork() {
+  const canvas = document.getElementById('neural-network');
+  const ctx = canvas.getContext('2d');
+  let W, H, dpr;
+  let nodes = [];
+  const mouse = { x: -9999, y: -9999, active: false };
+  const LINK_DIST = 150;
+  const MOUSE_DIST = 220;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Pipeline stages: left to right
-  const stages = isMob ? [
-    { id: 'data',   x: CW * 0.12, y: CH * 0.22, label: 'MARKET\nDATA',   icon: '📡', color: '#F0C04A', glow: 'rgba(240,192,74,' },
-    { id: 'filter', x: CW * 0.38, y: CH * 0.22, label: 'XTO\nFILTER',    icon: '🔬', color: '#60a5fa', glow: 'rgba(96,165,250,' },
-    { id: 'ai',     x: CW * 0.62, y: CH * 0.22, label: 'AI\nENGINE',     icon: '🧠', color: '#c084fc', glow: 'rgba(192,132,252,' },
-    { id: 'ea',     x: CW * 0.88, y: CH * 0.22, label: 'EA\nEXECUTE',    icon: '⚙️', color: '#34d399', glow: 'rgba(52,211,153,' },
-    { id: 'profit', x: CW * 0.50, y: CH * 0.75, label: 'PROFIT\n24/7',   icon: '💰', color: '#fbbf24', glow: 'rgba(251,191,36,', isCentral: true },
-  ] : [
-    { id: 'data',   x: CW * 0.10, y: CH * 0.50, label: 'MARKET\nDATA',   icon: '📡', color: '#F0C04A', glow: 'rgba(240,192,74,' },
-    { id: 'filter', x: CW * 0.30, y: CH * 0.25, label: 'XTO\nFILTER',    icon: '🔬', color: '#60a5fa', glow: 'rgba(96,165,250,' },
-    { id: 'ai',     x: CW * 0.55, y: CH * 0.25, label: 'AI\nENGINE',     icon: '🧠', color: '#c084fc', glow: 'rgba(192,132,252,' },
-    { id: 'ea',     x: CW * 0.55, y: CH * 0.75, label: 'EA\nEXECUTE',    icon: '⚙️', color: '#34d399', glow: 'rgba(52,211,153,' },
-    { id: 'risk',   x: CW * 0.30, y: CH * 0.75, label: 'RISK\nMGMT',     icon: '🛡️', color: '#f87171', glow: 'rgba(248,113,113,' },
-    { id: 'profit', x: CW * 0.82, y: CH * 0.50, label: 'PROFIT\n24/7',   icon: '💰', color: '#fbbf24', glow: 'rgba(251,191,36,', isCentral: true },
-  ];
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    initNodes();
+  }
 
-  const edges = isMob ? [
-    { from: 'data',   to: 'filter', label: 'Feed' },
-    { from: 'filter', to: 'ai',     label: 'Signal' },
-    { from: 'ai',     to: 'ea',     label: 'Order' },
-    { from: 'ea',     to: 'profit', label: 'P&L' },
-    { from: 'data',   to: 'profit', label: '', dashed: true },
-  ] : [
-    { from: 'data',   to: 'filter', label: 'Feed' },
-    { from: 'data',   to: 'risk',   label: 'Vol',   dashed: true },
-    { from: 'filter', to: 'ai',     label: 'Signal' },
-    { from: 'ai',     to: 'ea',     label: 'Order' },
-    { from: 'risk',   to: 'ea',     label: 'SL/TP' },
-    { from: 'ea',     to: 'profit', label: 'Trade' },
-    { from: 'risk',   to: 'profit', label: '',      dashed: true },
-  ];
-
-  // Moving particles along edges
-  const particles = [];
-  edges.forEach(e => {
-    const A = stages.find(s => s.id === e.from);
-    const B = stages.find(s => s.id === e.to);
-    const count = e.dashed ? 2 : 4;
+  function initNodes() {
+    const density = (W * H) / 16000;
+    const count = Math.max(28, Math.min(90, Math.round(density)));
+    nodes = [];
     for (let i = 0; i < count; i++) {
-      particles.push({
-        ax: A.x, ay: A.y, bx: B.x, by: B.y,
-        t: (i / count),
-        spd: 0.004 + Math.random() * 0.003,
-        col: A.color,
-        dashed: e.dashed
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.28,
+        vy: (Math.random() - 0.5) * 0.28,
+        r: 1.2 + Math.random() * 1.6,
+        hue: Math.random() < 0.65 ? 'cyan' : 'gold'
       });
     }
-  });
-
-  // Hexagon shape helper
-  function hexPath(ctx, x, y, r) {
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-      const a = (Math.PI / 3) * i - Math.PI / 6;
-      const px = x + r * Math.cos(a), py = y + r * Math.sin(a);
-      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
-    }
-    ctx.closePath();
   }
 
-  let frame = 0;
+  function colorFor(hue, alpha) {
+    return hue === 'gold' ? `rgba(245,179,66,${alpha})` : `rgba(34,211,238,${alpha})`;
+  }
 
-  function draw() {
-    c.clearRect(0, 0, CW, CH);
-    frame++;
-    const pulse = frame * 0.03;
+  function step() {
+    ctx.clearRect(0, 0, W, H);
 
-    // ── BACKGROUND GRID (subtle) ──
-    c.save();
-    c.strokeStyle = 'rgba(201,151,42,0.04)';
-    c.lineWidth = 1;
-    const gSize = 30;
-    for (let gx = 0; gx < CW; gx += gSize) {
-      c.beginPath(); c.moveTo(gx, 0); c.lineTo(gx, CH); c.stroke();
-    }
-    for (let gy = 0; gy < CH; gy += gSize) {
-      c.beginPath(); c.moveTo(0, gy); c.lineTo(CW, gy); c.stroke();
-    }
-    c.restore();
-
-    // ── EDGES ──
-    edges.forEach(e => {
-      const A = stages.find(s => s.id === e.from);
-      const B = stages.find(s => s.id === e.to);
-      // Gradient stroke
-      const gr = c.createLinearGradient(A.x, A.y, B.x, B.y);
-      gr.addColorStop(0, A.color + '50');
-      gr.addColorStop(1, B.color + '50');
-      c.save();
-      c.beginPath();
-      c.moveTo(A.x, A.y);
-      c.lineTo(B.x, B.y);
-      c.strokeStyle = gr;
-      c.lineWidth = e.dashed ? 1.5 : 2.5;
-      if (e.dashed) c.setLineDash([5, 8]);
-      c.stroke();
-      c.setLineDash([]);
-      // Arrow tip
-      const angle = Math.atan2(B.y - A.y, B.x - A.x);
-      const tipX = B.x - Math.cos(angle) * (B.isCentral ? 30 : 24);
-      const tipY = B.y - Math.sin(angle) * (B.isCentral ? 30 : 24);
-      c.beginPath();
-      c.moveTo(tipX, tipY);
-      c.lineTo(tipX - 10 * Math.cos(angle - 0.4), tipY - 10 * Math.sin(angle - 0.4));
-      c.lineTo(tipX - 10 * Math.cos(angle + 0.4), tipY - 10 * Math.sin(angle + 0.4));
-      c.closePath();
-      c.fillStyle = B.color + 'CC';
-      c.fill();
-      // Edge label
-      if (e.label && !isMob) {
-        const mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
-        const nx = Math.sin(angle) * 13, ny = -Math.cos(angle) * 13;
-        c.fillStyle = 'rgba(255,255,255,0.3)';
-        c.font = '600 9px Inter,sans-serif';
-        c.textAlign = 'center';
-        c.fillText(e.label, mx + nx, my + ny + 3);
+    // move + wrap nodes
+    for (const n of nodes) {
+      if (!prefersReduced) {
+        n.x += n.vx;
+        n.y += n.vy;
       }
-      c.restore();
-    });
+      if (n.x < -20) n.x = W + 20; else if (n.x > W + 20) n.x = -20;
+      if (n.y < -20) n.y = H + 20; else if (n.y > H + 20) n.y = -20;
 
-    // ── PARTICLES ──
-    particles.forEach(p => {
-      p.t = (p.t + p.spd) % 1;
-      const x = p.ax + (p.bx - p.ax) * p.t;
-      const y = p.ay + (p.by - p.ay) * p.t;
-      const alpha = Math.sin(p.t * Math.PI) * (p.dashed ? 0.5 : 0.9);
-      c.save();
-      c.globalAlpha = alpha;
-      // Glow
-      const grad = c.createRadialGradient(x, y, 0, x, y, 5);
-      grad.addColorStop(0, p.col);
-      grad.addColorStop(1, p.col + '00');
-      c.fillStyle = grad;
-      c.beginPath();
-      c.arc(x, y, 5, 0, Math.PI * 2);
-      c.fill();
-      // Core dot
-      c.globalAlpha = alpha;
-      c.fillStyle = p.col;
-      c.beginPath();
-      c.arc(x, y, 2.5, 0, Math.PI * 2);
-      c.fill();
-      c.restore();
-    });
+      // gentle drift toward cursor when nearby (neural pull)
+      if (mouse.active) {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_DIST && dist > 0.01) {
+          const pull = (1 - dist / MOUSE_DIST) * 0.02;
+          n.x += dx * pull;
+          n.y += dy * pull;
+        }
+      }
+    }
 
-    // ── NODES ──
-stages.forEach((s, si) => {
-  const r = s.isCentral ? (isMob ? 48 : 56) : (isMob ? 38 : 44);
-  const pulseFactor = 1 + Math.sin(pulse + si * 1.1) * 0.04;
+    // draw links between nearby nodes
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < LINK_DIST) {
+          const alpha = (1 - dist / LINK_DIST) * 0.16;
+          ctx.strokeStyle = colorFor('cyan', alpha);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
 
-      // Outer glow ring
-      c.save();
-      c.beginPath();
-      hexPath(c, s.x, s.y, r * 1.55 * pulseFactor);
-      c.strokeStyle = s.color + '18';
-      c.lineWidth = 10;
-      c.stroke();
-      c.restore();
+    // draw links + glow from mouse position (network reacts to cursor)
+    if (mouse.active) {
+      for (const n of nodes) {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_DIST) {
+          const alpha = (1 - dist / MOUSE_DIST) * 0.5;
+          ctx.strokeStyle = colorFor('gold', alpha);
+          ctx.lineWidth = 1.1;
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+          ctx.lineTo(n.x, n.y);
+          ctx.stroke();
+        }
+      }
+      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
+      grad.addColorStop(0, 'rgba(245,179,66,0.35)');
+      grad.addColorStop(1, 'rgba(245,179,66,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 60, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-      // Mid ring
-      c.save();
-      c.beginPath();
-      hexPath(c, s.x, s.y, r * 1.25 * pulseFactor);
-      c.strokeStyle = s.color + '35';
-      c.lineWidth = 2;
-      c.stroke();
-      c.restore();
+    // draw nodes
+    for (const n of nodes) {
+      ctx.beginPath();
+      ctx.fillStyle = colorFor(n.hue, 0.75);
+      ctx.shadowColor = colorFor(n.hue, 0.9);
+      ctx.shadowBlur = 6;
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
 
-      // Node body (filled hex)
-      const bg = c.createRadialGradient(s.x - r * 0.3, s.y - r * 0.3, r * 0.05, s.x, s.y, r * 1.1);
-      bg.addColorStop(0, s.color + '33');
-      bg.addColorStop(0.6, s.color + '18');
-      bg.addColorStop(1, s.color + '05');
-      c.save();
-      hexPath(c, s.x, s.y, r);
-      c.fillStyle = bg;
-      c.fill();
-      c.strokeStyle = s.color + 'AA';
-      c.lineWidth = s.isCentral ? 2.5 : 1.5;
-      c.stroke();
-      c.restore();
-
-      // Icon
-      c.save();
-      c.font = `${s.isCentral ? (isMob ? 16 : 18) : (isMob ? 13 : 14)}px serif`;
-      c.textAlign = 'center';
-      c.textBaseline = 'middle';
-      c.fillText(s.icon, s.x, s.y - (isMob ? 5 : 6));
-      c.restore();
-
-      // Label (two lines)
-      const lines = s.label.split('\n');
-      lines.forEach((line, li) => {
-        const fs = s.isCentral ? (isMob ? 8.5 : 9.5) : (isMob ? 7.5 : 8);
-        c.save();
-        c.fillStyle = s.color;
-        c.font = `800 ${fs}px Montserrat,sans-serif`;
-        c.textAlign = 'center';
-        c.textBaseline = 'top';
-        const lh = fs + 2;
-        const startY = s.y + (s.isCentral ? (isMob ? 6 : 7) : (isMob ? 5 : 6));
-        c.fillText(line, s.x, startY + li * lh);
-        c.restore();
-      });
-    });
-
-    // ── SCAN LINE (cinematic sweep) ──
-    const scanX = (Math.sin(pulse * 0.4) * 0.5 + 0.5) * CW;
-    const sg = c.createLinearGradient(scanX - 40, 0, scanX + 40, 0);
-    sg.addColorStop(0, 'rgba(240,192,74,0)');
-    sg.addColorStop(0.5, 'rgba(240,192,74,0.03)');
-    sg.addColorStop(1, 'rgba(240,192,74,0)');
-    c.fillStyle = sg;
-    c.fillRect(scanX - 40, 0, 80, CH);
-
-    requestAnimationFrame(draw);
+    requestAnimationFrame(step);
   }
 
-  draw();
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+  });
+  window.addEventListener('mouseleave', () => { mouse.active = false; });
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+      mouse.active = true;
+    }
+  }, { passive: true });
+  window.addEventListener('touchend', () => { mouse.active = false; });
+
+  resize();
+  requestAnimationFrame(step);
+})();
+
+// ═══ RENDER FUNCTIONS ═══
+function renderTestimonials(lang) {
+  const data = testimonialsData[lang] || testimonialsData.vi;
+  document.getElementById('testimonialsGrid').innerHTML = data.map(t => `
+    <div class="testimonial-card reveal">
+      <div class="testimonial-top">
+        <div class="testimonial-avatar">${t.avatar}</div>
+        <div><div class="testimonial-name">${t.name}</div><div class="testimonial-meta">${t.meta}</div></div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+      <div class="testimonial-text">"${t.text}"</div>
+      <div class="testimonial-result">${t.result}</div>
+    </div>
+  `).join('');
 }
 
-const flowObs = new IntersectionObserver(e => {
-  e.forEach(en => {
-    if (en.isIntersecting) { initFlowDiagram(); flowObs.unobserve(en.target); }
+function renderFaq(lang) {
+  const data = faqData[lang] || faqData.vi;
+  document.getElementById('faqContainer').innerHTML = data.map((item, i) => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>${item.q}</span>
+        <span class="faq-q-mark">+</span>
+      </button>
+      <div class="faq-a"><p>${item.a}</p></div>
+    </div>
+  `).join('');
+}
+
+// ═══ LANGUAGE ═══
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  const data = langData[lang] || langData.vi;
+
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (key && data[key] !== undefined) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        el.value = data[key];
+      } else if (el.tagName === 'BUTTON' && !el.classList.contains('lang-btn')) {
+        el.innerHTML = data[key];
+      } else {
+        el.innerHTML = data[key];
+      }
+    }
   });
-}, { threshold: 0.1 });
-const flowSec = document.getElementById('flow');
-if (flowSec) flowObs.observe(flowSec);
 
-/* MODALS */
-function openContact(){document.getElementById('contactModal').classList.add('open');document.body.style.overflow='hidden'}
-function closeContact(){document.getElementById('contactModal').classList.remove('open');document.body.style.overflow=''}
+  renderTestimonials(lang);
+  renderFaq(lang);
+}
 
-function openCT(){document.getElementById('ctPage')&&(document.getElementById('ctPage').classList.add('open'),document.body.style.overflow='hidden',document.getElementById('ctPage').scrollTop=0)}
-function closeCT(){document.getElementById('ctPage')&&(document.getElementById('ctPage').classList.remove('open'),document.body.style.overflow='')}
+// ═══ UI FUNCTIONS ═══
+function openModal() { document.getElementById('contactModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelector('.modal')?.addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-function openBSP(){document.getElementById('botPage').classList.add('open');document.body.style.overflow='hidden';document.getElementById('botPage').scrollTop=0}
-function closeBSP(){document.getElementById('botPage').classList.remove('open');document.body.style.overflow=''}
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-a').style.maxHeight = null;
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    const a = item.querySelector('.faq-a');
+    a.style.maxHeight = a.scrollHeight + 'px';
+  }
+}
 
-function openESP(){document.getElementById('eaPage')&&(document.getElementById('eaPage').classList.add('open'),document.body.style.overflow='hidden',document.getElementById('eaPage').scrollTop=0)}
-function closeESP(){document.getElementById('eaPage')&&(document.getElementById('eaPage').classList.remove('open'),document.body.style.overflow='')}
+// ═══ REVEAL ON SCROLL ═══
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-function switchTab(i){document.querySelectorAll('.ctab').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelectorAll('.cpanel').forEach((p,j)=>p.classList.toggle('active',j===i))}
+// ═══ NAV SCROLL EFFECT ═══
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
 
-/* MOBILE NAV */
-const hamBtn=document.getElementById('ham'),mobNav=document.getElementById('mobNav');
-function toggleMob(){const o=mobNav.classList.toggle('open');hamBtn.classList.toggle('open',o);document.body.style.overflow=o?'hidden':''}
-function closeMob(){mobNav.classList.remove('open');hamBtn.classList.remove('open');document.body.style.overflow=''}
+// ═══ NAV CLOSE ON MOBILE ═══
+document.querySelectorAll('.nav-link, .nav-cta').forEach(el => {
+  el.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
 
-/* FAB */
-let fabOpen=false;
-function toggleFab(){fabOpen=!fabOpen;document.getElementById('fabMenu').classList.toggle('open',fabOpen);document.getElementById('fabBtn').style.background=fabOpen?'linear-gradient(135deg,#333,#555)':'linear-gradient(135deg,var(--gd),var(--gold),var(--gl))'}
-document.addEventListener('click',e=>{const f=document.getElementById('mobFab');if(fabOpen&&f&&!f.contains(e.target)){fabOpen=false;document.getElementById('fabMenu').classList.remove('open');document.getElementById('fabBtn').style.background=''}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeBSP();closeContact();closeMob()}});
-
-/* FLOAT ANIMATION */
-const style=document.createElement('style');
-style.textContent='@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}';
-document.head.appendChild(style);
+// ═══ INIT ═══
+setLang('vi');
 </script>
 </body>
 </html>
