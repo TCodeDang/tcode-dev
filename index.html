@@ -86,21 +86,24 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .nav-inner { display:flex; align-items:center; justify-content:space-between; }
 .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
 .nav-logo-icon { 
-  width: 42px; 
-  height: 35px; 
-  border-radius: 6px; 
-  background: rgba(14, 203, 129, 0.1); 
-  border: 2px solid rgb(14, 203, 129); 
+  width: 35px; 
+  height: 32px; 
+  border-radius: 5px; 
+  background: rgba(0, 255, 200, 0.1); 
+  border: 1px solid rgb(1110, 255, 200); 
   display: flex; 
   align-items: center; 
   justify-content: center; 
   font-size: 28px; 
   font-weight: 800; 
-  color: rgb(14, 203, 129); 
-  box-shadow: 0 0 30px rgba(14, 203, 129, 0.15); 
+  color: rgb(0, 255, 200); 
+  box-shadow: 0 0 30px rgba(0, 255, 200, 0.15); 
   font-family: var(--font-display); 
   animation: pulse-icon 2s ease-in-out infinite; 
 }
+.nav-logo-text { font-size:20px; font-weight:800; letter-spacing:-0.5px; font-family:var(--font-display); }
+.nav-logo-text .city { color: rgb(0, 255, 200); }
+.nav-logo-text .bot { color: var(--accent-gold); }
 .nav-logo-text { font-size:20px; font-weight:800; letter-spacing:-0.5px; font-family:var(--font-display); }
 .nav-logo-text span { color:var(--accent-gold); }
 .nav-right { display:flex; align-items:center; gap:16px; }
@@ -324,8 +327,8 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 <nav class="nav" id="navbar">
   <div class="container nav-inner">
     <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">⚡</div>
-      <div class="nav-logo-text"><span class="city">City</span><span>Bot</span></div>
+      <div class="nav-logo-icon">▦</div>
+      <div class="nav-logo-text"><span class="city">City </span><span>Bot</span></div>
     </a>
     <div class="nav-right">
       <div class="nav-links" id="navLinks">
@@ -369,8 +372,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <div class="hero-core-ring r3"></div>
         <div class="hero-core-ring r4"></div>
         <div class="hero-core-center">
-          <span class="main">CityBot</span>
-          <span class="sub">TCode</span>
+          <span class="main">City Bot</span>
         </div>
         <div class="hero-core-orbit o1" title="6+ Module chiến thuật">🧩</div>
         <div class="hero-core-orbit o2" title="AI kiểm soát rủi ro">✧🛡️</div>
@@ -553,18 +555,81 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
   <div class="container">
     <div class="sec-header reveal">
       <div class="sec-label" data-key="services_label">🚀 Dịch Vụ</div>
-      <h2 class="sec-title" data-key="services_title">Viết bot giao dịch <span class="highlight">theo yêu cầu</span></h2>
-      <p class="sec-desc" data-key="services_desc">Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch, gia công hàng trăm EA cho khách hàng trong và ngoài nước.</p>
+      <h2 class="sec-title" data-key="services_title">CODE ROBOT <span class="highlight">THEO YÊU CẦU</span></h2>
+      <p class="sec-desc" data-key="services_desc">Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch. Gia công hàng trăm EA cho khách hàng trong và ngoài nước.</p>
     </div>
 
-    <div class="reveal" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:36px 40px; margin-bottom:32px;">
-      <p style="color:var(--text-secondary); font-size:15px; line-height:1.8; max-width:900px;" data-key="services_desc_detail">
-        Chúng tôi cung cấp dịch vụ viết bot giao dịch tự động theo yêu cầu trên nền tảng MT4, MT5.<br><br>
-        <strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br>
-        <strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.
+    <!-- Mô tả dịch vụ chính -->
+    <div class="reveal" style="background:var(--bg-card); border:1px solid var(--accent-gold); border-radius:var(--radius-lg); padding:36px 40px; margin-bottom:32px; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:-50px; right:-50px; font-size:120px; opacity:0.04;">⚙️</div>
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:12px; flex-wrap:wrap;">
+        <span style="font-size:28px;">🤖</span>
+        <span style="font-family:var(--font-display); font-size:22px; font-weight:700; background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">CODE ROBOT MT4/MT5 THEO YÊU CẦU</span>
+        <span style="font-size:11px; padding:4px 14px; border-radius:100px; background:var(--accent-gold-glow); color:var(--accent-gold); font-family:var(--font-mono); letter-spacing:0.5px;">Tùy chỉnh 100%</span>
+      </div>
+      <p style="color:var(--text-secondary); font-size:15px; line-height:1.9;" data-key="services_desc_detail">
+        ☘️ Tư vấn và Code Bot AutoTrading theo yêu cầu trên nền tảng MT4 và MT5.
       </p>
     </div>
 
+    <!-- 2 cột: Dịch vụ chính + Công cụ -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px;">
+      <!-- Cột trái: Dịch vụ chính -->
+      <div class="reveal" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:28px 24px;">
+        <div style="font-size:20px; font-weight:700; font-family:var(--font-display); margin-bottom:20px; color:var(--accent-gold); display:flex; align-items:center; gap:10px;">
+          <span>📋</span> Dịch vụ chính
+        </div>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
+            <span><strong style="color:var(--text-primary);">Tư vấn & Code Bot</strong><br><span style="color:var(--text-secondary); font-size:14px;">AutoTrading theo yêu cầu, từ đơn giản đến phức tạp</span></span>
+          </li>
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
+            <span><strong style="color:var(--text-primary);">Báo tín hiệu</strong><br><span style="color:var(--text-secondary); font-size:14px;">Gửi tín hiệu về điện thoại, Telegram, Email</span></span>
+          </li>
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
+            <span><strong style="color:var(--text-primary);">TradingView → MT4/MT5</strong><br><span style="color:var(--text-secondary); font-size:14px;">Lấy tín hiệu từ TradingView sang MT4/MT5 hoặc Telegram</span></span>
+          </li>
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
+            <span><strong style="color:var(--text-primary);">Copy Trading</strong><br><span style="color:var(--text-secondary); font-size:14px;">Sao chép lệnh giữa các tài khoản MT4/MT5</span></span>
+          </li>
+          <li style="padding:10px 0; display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
+            <span><strong style="color:var(--text-primary);">Quản lý bản quyền</strong><br><span style="color:var(--text-secondary); font-size:14px;">File quản lý bản quyền ID MT5 online cho IB, đại lý</span></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Cột phải: Công cụ & Tính năng -->
+      <div class="reveal" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:28px 24px;">
+        <div style="font-size:20px; font-weight:700; font-family:var(--font-display); margin-bottom:20px; color:var(--accent-gold); display:flex; align-items:center; gap:10px;">
+          <span>🛠️</span> Công cụ & Tính năng
+        </div>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
+            <span><strong style="color:var(--text-primary);">Quản lý vốn & Rủi ro</strong><br><span style="color:var(--text-secondary); font-size:14px;">Hỗ trợ quản lý vốn, kiểm soát rủi ro theo quỹ FTMO, The5%... (Keep Rules)</span></span>
+          </li>
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
+            <span><strong style="color:var(--text-primary);">StopLoss theo % Risk</strong><br><span style="color:var(--text-secondary); font-size:14px;">Tính toán và cài StopLoss tự động theo % rủi ro trên tài khoản</span></span>
+          </li>
+          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
+            <span><strong style="color:var(--text-primary);">Bảng điều khiển Panel</strong><br><span style="color:var(--text-secondary); font-size:14px;">Hỗ trợ thao tác nhanh, quản lý lệnh trực quan</span></span>
+          </li>
+          <li style="padding:10px 0; display:flex; align-items:flex-start; gap:12px;">
+            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
+            <span><strong style="color:var(--text-primary);">Chiến thuật lồng ghép</strong><br><span style="color:var(--text-secondary); font-size:14px;">DCA, Martingale, Pyramid, Cắt tỉa đầu đuôi, Hedging, Trailing Stop …</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 8 ưu điểm -->
     <div class="services-grid reveal">
       <div class="service-card">
         <span class="service-icon">🔒</span>
@@ -604,12 +669,23 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <div class="service-card">
         <span class="service-icon">🔐</span>
         <div class="service-title" data-key="sv_8_title">Bảo Mật Tuyệt Đối</div>
-        <div class="service-desc" data-key="sv_8_desc">Cam kết bảo mật chiến lược giao dịch của khách hàng</div>
+        <div class="service-desc" data-key="sv_8_desc">Cam kết bảo mật chiến lược giao dịch của khách hàng. Ký NDA nếu cần.</div>
       </div>
+    </div>
+
+    <!-- CTA nhỏ trong dịch vụ -->
+    <div class="reveal" style="margin-top:32px; text-align:center; padding:24px; background:var(--bg-secondary); border-radius:var(--radius); border:1px dashed var(--border-color);">
+      <p style="color:var(--text-secondary); font-size:14px; margin-bottom:12px;">
+        💡 <strong style="color:var(--text-primary);">Bạn có ý tưởng chiến lược riêng?</strong> Hãy liên hệ để được tư vấn và báo giá.
+      </p>
+      <a href="#contactModal" onclick="openModal()" style="color:var(--accent-gold); text-decoration:none; font-weight:600; font-family:var(--font-mono); font-size:14px; border:1px solid var(--accent-gold); padding:8px 24px; border-radius:8px; display:inline-block; transition:var(--transition);">
+        📩 Tư vấn ngay
+      </a>
     </div>
   </div>
 </section>
 
+<!-- ─── LINKS ─── -->
 <!-- ─── LINKS ─── -->
 <section class="section-padding" id="links" style="background:var(--bg-secondary)">
   <div class="container">
@@ -620,17 +696,29 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
     </div>
 
     <div class="links-grid reveal">
-      <!-- VPS -->
+      <!-- Cột 1: VPS + Nhóm Chat -->
       <div class="links-card">
+        <!-- VPS -->
         <div class="links-card-title">🖥️ VPS giá tốt</div>
         <a href="https://manage.maxserver.com/aff.php?aff=449" target="_blank" rel="noopener" class="link-item">
           <span class="link-icon">🚀</span>
           <span class="link-label" data-key="link_vps">MaxServer VPS — Liên hệ Admin để check mã giảm giá</span>
           <span class="link-arrow">→</span>
         </a>
+
+        <!-- Divider -->
+        <hr class="links-divider">
+
+        <!-- Nhóm Chat -->
+        <div class="links-card-title" style="font-size:14px; margin-bottom:8px;">👥 Nhóm Chat</div>
+        <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item">
+          <span class="link-icon">✈️</span>
+          <span class="link-label" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
+          <span class="link-arrow">→</span>
+        </a>
       </div>
 
-      <!-- Sàn giao dịch + Nhóm chat -->
+      <!-- Cột 2: Sàn giao dịch -->
       <div class="links-card">
         <div class="links-card-title">💹 Sàn giao dịch</div>
         <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="link-item">
@@ -641,13 +729,6 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <a href="https://one.exnessonelink.com/a/w35l4bg07v" target="_blank" rel="noopener" class="link-item">
           <span class="link-icon">🏛️</span>
           <span class="link-label">Exness</span>
-          <span class="link-arrow">→</span>
-        </a>
-        <hr class="links-divider">
-        <div class="links-card-title" style="font-size:14px; margin-bottom:8px;">👥 Nhóm Chat</div>
-        <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item">
-          <span class="link-icon">✈️</span>
-          <span class="link-label" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
           <span class="link-arrow">→</span>
         </a>
       </div>
@@ -754,8 +835,8 @@ const langData = {
     process_title: '<span class="highlight">Bắt đầu với CityBot</span>',
     process_desc: 'Bắt đầu với CityBot rất đơn giản. Làm theo 3 bước và bạn sẽ giao dịch ngay lập tức.',
     step1_num: 'BƯỚC 01',
-    step1_title: 'Nhận bản quyền',
-    step1_desc: 'Liên hệ TCode để lấy file EA CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.',
+    step1_title: 'Lấy File Bot và Kích hoạt',
+    step1_desc: 'Liên hệ TCode để lấy file EA CityBot. Ad sẽ gửi file EA và hướng dẫn cài đặt.',
     step2_num: 'BƯỚC 02',
     step2_title: 'Cài đặt & Cấu hình',
     step2_desc: 'Kéo thả EA lên biểu đồ MT5, thiết lập tham số rủi ro và chọn module mong muốn từ bảng điều khiển.',
@@ -765,7 +846,7 @@ const langData = {
     services_label: '🚀 Dịch Vụ',
     services_title: 'Viết bot giao dịch <span class="highlight">theo yêu cầu</span>',
     services_desc: 'Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch, gia công hàng trăm EA cho khách hàng trong và ngoài nước.',
-    services_desc_detail: 'Chúng tôi cung cấp dịch vụ viết bot giao dịch tự động theo yêu cầu trên nền tảng MT4, MT5.<br><br><strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br><strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.',
+    services_desc_detail: 'Ad TCode Nhận viết bot trade theo yêu cầu.<br><br><strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br><strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.',
     sv_1_title: 'Kiểm Tra Bảo Hành',
     sv_1_desc: 'Bảo hành 3-6 tháng sau khi bàn giao. Sửa lỗi miễn phí trong thời gian bảo hành.',
     sv_2_title: 'Giao Hàng Nhanh',
