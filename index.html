@@ -54,7 +54,14 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
               var(--bg-primary);
   overflow:hidden;
 }
-.star { position:absolute; background:white; border-radius:50%; animation:twinkle var(--duration) ease-in-out infinite; }
+.star { 
+  position: absolute; 
+  background: white; 
+  border-radius: 100%; 
+  animation: twinkle var(--duration) ease-in-out infinite;
+  opacity: 0.5;
+  box-shadow: 0 0 2px rgba(255,255,255,0.3);
+}
 @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(1);} 50%{opacity:1;transform:scale(1.3);} }
 .nebula { position:absolute; border-radius:50%; filter:blur(100px); opacity:0.15; }
 .nebula-1 { width:600px; height:600px; top:-200px; right:-150px; background:radial-gradient(circle, rgba(245,179,66,0.2), transparent 70%); animation:nebula-drift 30s ease-in-out infinite; }
@@ -137,7 +144,15 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 
 /* ─── HERO VISUAL ─── */
 .hero-visual { position:relative; display:flex; justify-content:center; align-items:center; }
-.hero-core { width:320px; height:320px; border-radius:50%; position:relative; display:flex; align-items:center; justify-content:center; }
+.hero-core { 
+  width: 300px; 
+  height: 600; 
+  border-radius: 50%; 
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
 .hero-core::before { content:''; position:absolute; inset:-20px; border-radius:50%; background:radial-gradient(circle at 35% 30%, rgba(245,179,66,0.15), transparent 70%); animation:pulse-core 4s ease-in-out infinite; }
 @keyframes pulse-core { 0%,100%{transform:scale(1);opacity:0.8;} 50%{transform:scale(1.05);opacity:1;} }
 .hero-core-ring { position:absolute; border-radius:50%; border:1px solid rgba(245,179,66,0.1); animation:spin-slow linear infinite; }
@@ -344,10 +359,10 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
           <span class="main">CityBot</span>
           <span class="sub">TCode</span>
         </div>
-        <div class="hero-core-orbit o1">⚡</div>
-        <div class="hero-core-orbit o2">🛡️</div>
-        <div class="hero-core-orbit o3">💰</div>
-        <div class="hero-core-orbit o4">✂️</div>
+<div class="hero-core-orbit o1" title="6+ Module chiến thuật">🧩</div>    <!-- Đa module -->
+<div class="hero-core-orbit o2" title="AI kiểm soát rủi ro">✧🛡️</div>     <!-- Bảo vệ -->
+<div class="hero-core-orbit o3" title="Giao dịch 24/7 tự động">⚙</div>   <!-- Tự động -->
+<div class="hero-core-orbit o4" title="Công cụ bán tự động">🎯</div>      <!-- Chính xác -->
       </div>
     </div>
   </div>
@@ -447,7 +462,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 <footer class="footer">
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-logo">City<span>Bot</span> <span style="font-size:12px;color:var(--text-muted);font-weight:400;font-family:var(--font-mono);letter-spacing:1px;">· TCode</span></div>
+      <div class="footer-logo">City<span>Bot</span> <span style="font-size:12px;color:var(--text-muted);font-weight:600;font-family:var(--font-mono);letter-spacing:1px;"></span></div>
       <div class="footer-links">
         <a href="#modules" data-key="footer_modules">Modules</a>
         <a href="#how-it-works" data-key="footer_how">Cách dùng</a>
@@ -455,7 +470,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <a href="#faq" data-key="footer_faq">FAQ</a>
       </div>
     </div>
-    <p class="footer-disclaimer" data-key="footer_disclaimer">CityBot là công cụ giao dịch tự động cho MT5, phát triển bởi TCode. Giao dịch tiềm ẩn rủi ro; hiệu suất quá khứ không đảm bảo kết quả tương lai. Luôn sử dụng quản lý rủi ro phù hợp. <br>© 2026 TCode · CityBot. Bảo lưu mọi quyền.</p>
+    <p class="footer-disclaimer" data-key="footer_disclaimer">CityBot là công cụ giao dịch tự động cho MT5, phát triển bởi Mr.TCode. Giao dịch tiềm ẩn rủi ro; hiệu suất quá khứ không đảm bảo kết quả tương lai. Luôn sử dụng quản lý rủi ro phù hợp. <br>© 2026 TCode · CityBot. Bảo lưu mọi quyền.</p>
   </div>
 </footer>
 
@@ -501,9 +516,9 @@ const langData = {
     nav_reviews: 'Đánh giá',
     nav_faq: 'FAQ',
     nav_cta: '🤖 Dùng thử',
-    hero_badge: 'TCode · MT5 Expert Advisor',
+    hero_badge: 'EA MT5 multi-strategy platform',
     hero_title: 'Trading đa chiến thuật với <span class="highlight">CityBot</span>',
-    hero_sub: 'Hệ sinh thái Expert Advisor đa module trên MT5 — Hedging, Scalping, DCA thông minh và công cụ thoát lệnh chính xác. Để CityBot vận hành, bạn tập trung vào chiến lược.',
+    hero_sub: 'Hệ sinh thái Expert Advisor đa chiến lược, đa công cụ — Hedging, Scalping, DCA thông minh, các công cụ hỗ trợ hữu dụng nhất, được cô động từ kinh nghiệm trading của các Pro Trader thực chiến.',
     hero_btn_primary: '🤖 Dùng thử ngay',
     hero_btn_secondary: 'Khám phá →',
     stat_1_value: '6+',
@@ -697,10 +712,10 @@ let currentLang = 'vi';
 // ═══ STARS ═══
 function createStars() {
   const container = document.getElementById('stars');
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 50; i++) { // số lượng  
     const s = document.createElement('div');
     s.className = 'star';
-    const size = Math.random() * 2 + 0.5;
+    const size = Math.random() * 0.2 + 0.1; // Kích thước từ 0.2px đến 1px
     s.style.width = size + 'px';
     s.style.height = size + 'px';
     s.style.left = Math.random() * 100 + '%';
