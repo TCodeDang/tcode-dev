@@ -182,22 +182,6 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .sec-header { margin-bottom:48px; }
 @media(max-width:768px){ .sec-header { text-align:center; } .sec-desc { margin-left:auto; margin-right:auto; } }
 
-/* ─── MODULES SHOWCASE ─── */
-.modules-showcase { background:var(--bg-secondary); border-radius:var(--radius-lg); padding:48px; border:1px solid var(--border-color); position:relative; overflow:hidden; }
-.modules-showcase::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 50%, rgba(245,179,66,0.03), transparent 60%); pointer-events:none; }
-@media(max-width:768px){ .modules-showcase { padding:24px; } }
-.modules-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px; }
-@media(max-width:600px){ .modules-grid { grid-template-columns:1fr; } }
-.module-item { display:flex; align-items:center; gap:14px; padding:14px 18px; background:var(--bg-card); border-radius:10px; border:1px solid var(--border-color); transition:var(--transition); cursor:default; }
-.module-item:hover { border-color:var(--accent-gold); background:rgba(245,179,66,0.04); transform:translateX(4px); }
-.module-badge { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
-.module-badge.gold { background:rgba(245,179,66,0.12); border:1px solid rgba(245,179,66,0.2); }
-.module-badge.blue { background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.2); }
-.module-badge.green { background:rgba(46,209,152,0.12); border:1px solid rgba(46,209,152,0.2); }
-.module-badge.purple { background:rgba(139,92,246,0.12); border:1px solid rgba(139,92,246,0.2); }
-.module-name { font-weight:600; font-size:14px; font-family:var(--font-mono); letter-spacing:0.2px; }
-.module-tag { font-size:10px; color:var(--text-muted); font-weight:500; margin-left:auto; padding:2px 10px; border-radius:4px; background:rgba(255,255,255,0.03); font-family:var(--font-mono); letter-spacing:0.5px; text-transform:uppercase; }
-
 /* ─── FEATURES TREE ─── */
 .features-tree { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 @media(max-width:900px){ .features-tree { grid-template-columns:1fr 1fr; } }
@@ -206,14 +190,30 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .feature-group:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
 .feature-group-title { font-family:var(--font-display); font-size:18px; font-weight:700; margin-bottom:16px; color:var(--accent-gold); letter-spacing:-0.3px; display:flex; align-items:center; gap:10px; }
 .feature-group-title .num { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); font-weight:400; }
-.feature-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); transition:var(--transition); }
+.feature-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); transition:var(--transition); cursor:pointer; }
 .feature-item:last-child { border-bottom:none; }
-.feature-item:hover { padding-left:8px; }
-.feature-item .icon { font-size:16px; width:28px; flex-shrink:0; }
+.feature-item:hover { padding-left:8px; background:rgba(245,179,66,0.04); border-radius:6px; }
+.feature-item .icon { font-size:16px; width:28px; flex-shrink:0; text-align:center; }
 .feature-item .name { font-size:14px; font-weight:500; font-family:var(--font-mono); letter-spacing:0.2px; }
 .feature-item .desc { font-size:12px; color:var(--text-muted); margin-left:auto; text-align:right; max-width:140px; line-height:1.4; }
-.feature-item .link-icon { color:var(--text-muted); font-size:12px; opacity:0; transition:var(--transition); margin-left:8px; }
+.feature-item .link-icon { color:var(--text-muted); font-size:12px; opacity:0.4; transition:var(--transition); margin-left:8px; }
 .feature-item:hover .link-icon { opacity:1; color:var(--accent-gold); }
+
+/* ─── MODULE DETAIL ─── */
+.module-detail { display:none; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:32px; margin-top:24px; animation:fadeSlideIn 0.4s ease; }
+.module-detail.active { display:block; }
+@keyframes fadeSlideIn { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+.module-detail-header { display:flex; align-items:center; gap:16px; margin-bottom:16px; }
+.module-detail-header .icon { font-size:32px; }
+.module-detail-header .title { font-family:var(--font-display); font-size:22px; font-weight:700; }
+.module-detail-header .badge { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-gold-glow); color:var(--accent-gold); font-family:var(--font-mono); letter-spacing:0.5px; }
+.module-detail-body { color:var(--text-secondary); font-size:14.5px; line-height:1.8; max-width:720px; margin-bottom:20px; }
+.module-detail-body strong { color:var(--text-primary); }
+.module-detail-actions { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-video { padding:10px 28px; border-radius:8px; background:var(--accent-red); color:#fff; font-weight:600; font-size:13px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); letter-spacing:0.3px; }
+.btn-video:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(239,90,106,0.35); }
+.btn-close-detail { padding:10px 24px; border-radius:8px; background:transparent; color:var(--text-secondary); font-size:13px; border:1px solid var(--border-color); cursor:pointer; transition:var(--transition); font-family:var(--font-mono); }
+.btn-close-detail:hover { border-color:var(--accent-gold); color:var(--text-primary); }
 
 /* ─── SERVICES ─── */
 .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
@@ -225,22 +225,29 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .service-title { font-size:15px; font-weight:700; font-family:var(--font-mono); letter-spacing:0.2px; margin-bottom:6px; }
 .service-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; }
 
+/* ─── PROCESS ─── */
+.steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media(max-width:768px){ .steps-grid { grid-template-columns:1fr; gap:16px; } }
+.step-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:32px 24px; text-align:center; transition:var(--transition); position:relative; }
+.step-card:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
+.step-number { font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--accent-gold); margin-bottom:8px; letter-spacing:2px; }
+.step-title { font-size:17px; font-weight:700; margin-bottom:6px; font-family:var(--font-display); }
+.step-desc { font-size:13.5px; color:var(--text-secondary); line-height:1.7; }
+
 /* ─── LINKS ─── */
 .links-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 @media(max-width:600px){ .links-grid { grid-template-columns:1fr; } }
-.links-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px; }
-.links-card-title { font-family:var(--font-display); font-size:16px; font-weight:700; margin-bottom:16px; color:var(--accent-gold); }
+.links-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px; transition:var(--transition); }
+.links-card:hover { border-color:var(--accent-gold); }
+.links-card-title { font-family:var(--font-display); font-size:16px; font-weight:700; margin-bottom:16px; color:var(--accent-gold); display:flex; align-items:center; gap:10px; }
 .links-card .link-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); text-decoration:none; color:var(--text-secondary); transition:var(--transition); }
 .links-card .link-item:last-child { border-bottom:none; }
 .links-card .link-item:hover { color:var(--text-primary); padding-left:6px; }
-.links-card .link-item .link-icon { font-size:18px; }
+.links-card .link-item .link-icon { font-size:18px; width:28px; text-align:center; flex-shrink:0; }
 .links-card .link-item .link-label { font-size:14px; flex:1; }
-.links-card .link-item .link-arrow { font-size:14px; color:var(--text-muted); }
-.links-card .link-item:hover .link-arrow { color:var(--accent-gold); }
-.links-card .link-sub { padding-left:28px; border-bottom:1px solid rgba(255,255,255,0.02); }
-.links-card .link-sub .link-item { padding-left:0; border-bottom:none; }
-.links-card .link-sub .link-item .link-icon { font-size:14px; }
-.links-card .link-sub .link-item .link-label { font-size:13px; }
+.links-card .link-item .link-arrow { font-size:14px; color:var(--text-muted); transition:var(--transition); }
+.links-card .link-item:hover .link-arrow { color:var(--accent-gold); transform:translateX(4px); }
+.links-divider { border:none; border-top:1px solid var(--border-color); margin:12px 0; }
 
 /* ─── FAQ ─── */
 .faq-item { border-bottom:1px solid var(--border-color); }
@@ -390,37 +397,37 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
           🤖 Bot Trade
           <span class="num">(6)</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('hedging-pro')">
           <span class="icon">🛡️</span>
           <span class="name">Hedging-Pro</span>
           <span class="desc">Cân lệnh hai chiều</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('turbo-infinity')">
           <span class="icon">🌀</span>
           <span class="name">Turbo Infinity</span>
           <span class="desc">Đa khung thời gian</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('xto-speeder')">
           <span class="icon">⚡</span>
           <span class="name">XTO Speeder</span>
           <span class="desc">DCA linh hoạt</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('multi-thread')">
           <span class="icon">🔀</span>
           <span class="name">Đa Luồng</span>
           <span class="desc">Solo độc lập</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('season-x')">
           <span class="icon">🌟</span>
           <span class="name">Season-X</span>
           <span class="desc">Bào lãi nhanh</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('money-tick')">
           <span class="icon">💰</span>
           <span class="name">Money-TICK</span>
           <span class="desc">Scalping thông minh</span>
@@ -434,31 +441,31 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
           🛠️ Tool Hỗ trợ
           <span class="num">(5)</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('blue9-scalp')">
           <span class="icon">🔵</span>
           <span class="name">Blue9 Scalp</span>
           <span class="desc">Tốc độ linh hoạt</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('pyramid-plus')">
           <span class="icon">📈</span>
           <span class="name">Nhồi Dương</span>
           <span class="desc">Xử lý đóng lệnh</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('trimming-assistant')">
           <span class="icon">✂️</span>
           <span class="name">Trợ lý TỈA LỆNH</span>
           <span class="desc">Tỉa đầu-đuôi</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('exit-assistant')">
           <span class="icon">🚪</span>
           <span class="name">Trợ lý THOÁT LỆNH</span>
           <span class="desc">SL/TP, Trailing</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('spread-assistant')">
           <span class="icon">📊</span>
           <span class="name">Trợ lý RẢI LỆNH</span>
           <span class="desc">Rải lệnh cơ bản</span>
@@ -472,25 +479,25 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
           📊 Market Insight
           <span class="num">(4)</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('market-analysis')">
           <span class="icon">📈</span>
           <span class="name">Phân tích thị trường</span>
           <span class="desc">Xu hướng</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('trade-stats')">
           <span class="icon">📋</span>
           <span class="name">Thống kê giao dịch</span>
           <span class="desc">Báo cáo chi tiết</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('ai-signal')">
           <span class="icon">📡</span>
           <span class="name">AI Signal</span>
           <span class="desc">Cảnh báo tín hiệu</span>
           <span class="link-icon">▶</span>
         </div>
-        <div class="feature-item">
+        <div class="feature-item" onclick="showModuleDetail('session-news')">
           <span class="icon">📰</span>
           <span class="name">Session & News</span>
           <span class="desc">Tin tức & phiên</span>
@@ -498,16 +505,43 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         </div>
       </div>
     </div>
+
+    <!-- Module Detail Panel -->
+    <div id="moduleDetailContainer" class="module-detail reveal">
+      <div class="module-detail-header">
+        <span class="icon" id="detailIcon">🛡️</span>
+        <span class="title" id="detailTitle">Hedging-Pro</span>
+        <span class="badge" id="detailBadge">Chiến thuật Sideway</span>
+      </div>
+      <div class="module-detail-body" id="detailBody">
+        <p><strong>Hedging-Pro</strong> là chiến thuật giao dịch cân bằng hai chiều, hoạt động hiệu quả trong thị trường đi ngang (sideway).</p>
+        <br>
+        <p><strong>Đặc điểm nổi bật:</strong></p>
+        <ul style="list-style:none; padding-left:0; margin-top:8px;">
+          <li style="padding:4px 0;">✓ Tự động vào lệnh Buy và Sell khi giá chạm vùng</li>
+          <li style="padding:4px 0;">✓ Cân bằng khối lượng giữa hai chiều</li>
+          <li style="padding:4px 0;">✓ Tự động đóng lệnh khi đạt lợi nhuận mục tiêu</li>
+          <li style="padding:4px 0;">✓ Hỗ trợ trailing hedging zone</li>
+        </ul>
+      </div>
+      <div class="module-detail-actions">
+        <a href="https://www.youtube.com/@TCode.TradingTech" target="_blank" class="btn-video">▶ Xem video hướng dẫn</a>
+        <button class="btn-close-detail" onclick="closeModuleDetail()">✕ Đóng</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── PROCESS ─── -->
 <section class="section-padding" id="process" style="background:var(--bg-secondary)">
   <div class="container">
     <div class="sec-header reveal">
       <div class="sec-label" data-key="process_label">⚙️ Quy trình</div>
-      <h2 class="sec-title" data-key="process_title">Từ bản quyền đến <span class="highlight">Lệnh đầu tiên</span></h2>
+      <h2 class="sec-title" data-key="process_title"><span class="highlight">Bắt đầu với CityBot</span></h2>
       <p class="sec-desc" data-key="process_desc">Bắt đầu với CityBot rất đơn giản. Làm theo 3 bước và bạn sẽ giao dịch ngay lập tức.</p>
     </div>
     <div class="steps-grid">
-      <div class="step-card reveal"><div class="step-number" data-key="step1_num">BƯỚC 01</div><div class="step-title" data-key="step1_title">Nhận bản quyền</div><div class="step-desc" data-key="step1_desc">Liên hệ TCode để yêu cầu bản quyền CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.</div></div>
+      <div class="step-card reveal"><div class="step-number" data-key="step1_num">BƯỚC 01</div><div class="step-title" data-key="step1_title">Nhận bản quyền</div><div class="step-desc" data-key="step1_desc">Liên hệ TCode để lấy file EA CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.</div></div>
       <div class="step-card reveal"><div class="step-number" data-key="step2_num">BƯỚC 02</div><div class="step-title" data-key="step2_title">Cài đặt & Cấu hình</div><div class="step-desc" data-key="step2_desc">Kéo thả EA lên biểu đồ MT5, thiết lập tham số rủi ro và chọn module mong muốn từ bảng điều khiển.</div></div>
       <div class="step-card reveal"><div class="step-number" data-key="step3_num">BƯỚC 03</div><div class="step-title" data-key="step3_title">Để Bot chạy</div><div class="step-desc" data-key="step3_desc">CityBot hoạt động 24/7. Công cụ bán tự động cho phép bạn can thiệp thủ công khi cần — kiểm soát toàn diện.</div></div>
     </div>
@@ -523,16 +557,14 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <p class="sec-desc" data-key="services_desc">Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch, gia công hàng trăm EA cho khách hàng trong và ngoài nước.</p>
     </div>
 
-    <!-- Mô tả dịch vụ -->
     <div class="reveal" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:36px 40px; margin-bottom:32px;">
       <p style="color:var(--text-secondary); font-size:15px; line-height:1.8; max-width:900px;" data-key="services_desc_detail">
-        Chúng tôi cung cấp dịch vụ viết bot giao dịch tự động theo yêu cầu trên nền tảng MT4, MT5 và TradingView (Pine Script).<br><br>
+        Chúng tôi cung cấp dịch vụ viết bot giao dịch tự động theo yêu cầu trên nền tảng MT4, MT5.<br><br>
         <strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br>
         <strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.
       </p>
     </div>
 
-    <!-- 8 ưu điểm -->
     <div class="services-grid reveal">
       <div class="service-card">
         <span class="service-icon">🔒</span>
@@ -562,7 +594,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <div class="service-card">
         <span class="service-icon">📝</span>
         <div class="service-title" data-key="sv_6_title">Code Sạch Chuẩn</div>
-        <div class="service-desc" data-key="sv_6_desc">Code theo chuẩn MQL4/MQL5/Pine Script, dễ bảo trì và nâng cấp sau này.</div>
+        <div class="service-desc" data-key="sv_6_desc">Code theo chuẩn MQL4/MQL5, dễ bảo trì và nâng cấp sau này.</div>
       </div>
       <div class="service-card">
         <span class="service-icon">📊</span>
@@ -572,7 +604,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <div class="service-card">
         <span class="service-icon">🔐</span>
         <div class="service-title" data-key="sv_8_title">Bảo Mật Tuyệt Đối</div>
-        <div class="service-desc" data-key="sv_8_desc">Cam kết bảo mật chiến lược giao dịch của khách hàng. Ký NDA nếu cần thiết.</div>
+        <div class="service-desc" data-key="sv_8_desc">Cam kết bảo mật chiến lược giao dịch của khách hàng</div>
       </div>
     </div>
   </div>
@@ -611,14 +643,13 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
           <span class="link-label">Exness</span>
           <span class="link-arrow">→</span>
         </a>
-        <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--border-color);">
-          <div class="links-card-title" style="font-size:14px; margin-bottom:8px;">👥 Nhóm Chat</div>
-          <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item">
-            <span class="link-icon">✈️</span>
-            <span class="link-label" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
-            <span class="link-arrow">→</span>
-          </a>
-        </div>
+        <hr class="links-divider">
+        <div class="links-card-title" style="font-size:14px; margin-bottom:8px;">👥 Nhóm Chat</div>
+        <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item">
+          <span class="link-icon">✈️</span>
+          <span class="link-label" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
+          <span class="link-arrow">→</span>
+        </a>
       </div>
     </div>
   </div>
@@ -719,15 +750,12 @@ const langData = {
     features_label: '📦 Tính Năng',
     features_title: 'Hệ thống <span class="highlight">3 nhóm chính</span>',
     features_desc: 'CityBot được tổ chức thành 3 nhóm module, mỗi nhóm phục vụ một mục đích chiến lược riêng biệt.',
-    video_label: '🎬 Video hướng dẫn từng module:',
-    video_placeholder: '(Sẽ cập nhật link hướng dẫn chi tiết cho từng module)',
-    video_note: '📌 Click vào mục để gắn link',
     process_label: '⚙️ Quy trình',
-    process_title: 'Từ bản quyền đến <span class="highlight">Lệnh đầu tiên</span>',
+    process_title: '<span class="highlight">Bắt đầu với CityBot</span>',
     process_desc: 'Bắt đầu với CityBot rất đơn giản. Làm theo 3 bước và bạn sẽ giao dịch ngay lập tức.',
     step1_num: 'BƯỚC 01',
     step1_title: 'Nhận bản quyền',
-    step1_desc: 'Liên hệ TCode để yêu cầu bản quyền CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.',
+    step1_desc: 'Liên hệ TCode để lấy file EA CityBot. Chúng tôi sẽ gửi file EA và hướng dẫn cài đặt ngay lập tức.',
     step2_num: 'BƯỚC 02',
     step2_title: 'Cài đặt & Cấu hình',
     step2_desc: 'Kéo thả EA lên biểu đồ MT5, thiết lập tham số rủi ro và chọn module mong muốn từ bảng điều khiển.',
@@ -737,7 +765,7 @@ const langData = {
     services_label: '🚀 Dịch Vụ',
     services_title: 'Viết bot giao dịch <span class="highlight">theo yêu cầu</span>',
     services_desc: 'Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch, gia công hàng trăm EA cho khách hàng trong và ngoài nước.',
-    services_desc_detail: 'Chúng tôi cung cấp dịch vụ viết bot giao dịch tự động theo yêu cầu trên nền tảng MT4, MT5 và TradingView (Pine Script).<br><br><strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br><strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.',
+    services_desc_detail: 'Chúng tôi cung cấp dịch vụ viết bot giao dịch tự động theo yêu cầu trên nền tảng MT4, MT5.<br><br><strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br><strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.',
     sv_1_title: 'Kiểm Tra Bảo Hành',
     sv_1_desc: 'Bảo hành 3-6 tháng sau khi bàn giao. Sửa lỗi miễn phí trong thời gian bảo hành.',
     sv_2_title: 'Giao Hàng Nhanh',
@@ -749,11 +777,11 @@ const langData = {
     sv_5_title: 'Giao Dịch 24/7',
     sv_5_desc: 'Bot hoạt động liên tục 24/7 không cần giám sát. Không bỏ lỡ bất kỳ cơ hội nào.',
     sv_6_title: 'Code Sạch Chuẩn',
-    sv_6_desc: 'Code theo chuẩn MQL4/MQL5/Pine Script, dễ bảo trì và nâng cấp sau này.',
+    sv_6_desc: 'Code theo chuẩn MQL4/MQL5, dễ bảo trì và nâng cấp sau này.',
     sv_7_title: 'Tối Ưu Backtest',
     sv_7_desc: 'Kiểm tra chiến lược trên dữ liệu lịch sử, tối ưu tham số trước khi chạy live.',
     sv_8_title: 'Bảo Mật Tuyệt Đối',
-    sv_8_desc: 'Cam kết bảo mật chiến lược giao dịch của khách hàng. Ký NDA nếu cần thiết.',
+    sv_8_desc: 'Cam kết bảo mật chiến lược giao dịch của khách hàng',
     links_label: '🔗 Liên Kết',
     links_title: 'Tài nguyên <span class="highlight">hữu ích</span>',
     links_desc: 'Các liên kết đến VPS, sàn giao dịch và cộng đồng TCode.',
@@ -798,9 +826,6 @@ const langData = {
     features_label: '📦 Features',
     features_title: '<span class="highlight">3 Core Groups</span>',
     features_desc: 'CityBot is organized into 3 module groups, each serving a distinct strategic purpose.',
-    video_label: '🎬 Module video tutorials:',
-    video_placeholder: '(Detailed guide links for each module will be updated)',
-    video_note: '📌 Click on each item to attach a link',
     process_label: '⚙️ Process',
     process_title: 'From License to <span class="highlight">First Trade</span>',
     process_desc: 'Getting started with CityBot is simple. Follow these three steps and you\'ll be trading in no time.',
@@ -816,7 +841,7 @@ const langData = {
     services_label: '🚀 Services',
     services_title: 'Custom Trading Bot <span class="highlight">Development</span>',
     services_desc: 'Over 6 years of experience in trading bot programming, with hundreds of EAs delivered to clients worldwide.',
-    services_desc_detail: 'We provide custom automated trading bot development on MT4, MT5, and TradingView (Pine Script).<br><br><strong style="color:var(--text-primary);">Strategies implemented:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, TradingView to MT5 signal relay, Telegram to MT5, and more.<br><br><strong style="color:var(--text-primary);">Integrated features:</strong> Automated Money Management (MM), Trailing Stop, Break-Even, Order Trimming, Zone Trade, Backtesting & Optimization, Multi-currency support, Custom indicator integration.',
+    services_desc_detail: 'We provide custom automated trading bot development on MT4, MT5.<br><br><strong style="color:var(--text-primary);">Strategies implemented:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, TradingView to MT5 signal relay, Telegram to MT5, and more.<br><br><strong style="color:var(--text-primary);">Integrated features:</strong> Automated Money Management (MM), Trailing Stop, Break-Even, Order Trimming, Zone Trade, Backtesting & Optimization, Multi-currency support, Custom indicator integration.',
     sv_1_title: 'Warranty Check',
     sv_1_desc: '3-6 months warranty after delivery. Free bug fixes during the warranty period.',
     sv_2_title: 'Fast Delivery',
@@ -828,11 +853,11 @@ const langData = {
     sv_5_title: '24/7 Trading',
     sv_5_desc: 'Bots run continuously 24/7 without supervision. Never miss a trading opportunity.',
     sv_6_title: 'Clean Code',
-    sv_6_desc: 'Code follows MQL4/MQL5/Pine Script standards, easy to maintain and upgrade.',
+    sv_6_desc: 'Code follows MQL4/MQL5 standards, easy to maintain and upgrade.',
     sv_7_title: 'Backtest Optimization',
     sv_7_desc: 'Test strategies on historical data, optimize parameters before going live.',
     sv_8_title: 'Absolute Security',
-    sv_8_desc: 'Committed to protecting client trading strategies. NDA available upon request.',
+    sv_8_desc: 'Committed to protecting client trading strategies.',
     links_label: '🔗 Links',
     links_title: 'Useful <span class="highlight">Resources</span>',
     links_desc: 'Links to VPS, brokers, and the TCode community.',
@@ -858,20 +883,205 @@ const langData = {
   }
 };
 
+// Module detail data
+const moduleDetails = {
+  'hedging-pro': {
+    icon: '🛡️',
+    title: 'Hedging-Pro',
+    badge: 'Chiến thuật Sideway',
+    body: `<p><strong>Hedging-Pro</strong> là chiến thuật giao dịch cân bằng hai chiều, hoạt động hiệu quả trong thị trường đi ngang (sideway).</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Tự động vào lệnh Buy và Sell khi giá chạm vùng</li>
+             <li style="padding:4px 0;">✓ Cân bằng khối lượng giữa hai chiều</li>
+             <li style="padding:4px 0;">✓ Tự động đóng lệnh khi đạt lợi nhuận mục tiêu</li>
+             <li style="padding:4px 0;">✓ Hỗ trợ trailing hedging zone</li>
+           </ul>`
+  },
+  'turbo-infinity': {
+    icon: '🌀',
+    title: 'Turbo Infinity',
+    badge: 'Đa khung thời gian',
+    body: `<p><strong>Turbo Infinity</strong> là chiến thuật giao dịch đa khung thời gian, tận dụng các tín hiệu từ nhiều timeframe để xác định điểm vào lệnh tối ưu.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Phân tích đa khung thời gian</li>
+             <li style="padding:4px 0;">✓ Xác định xu hướng chính và phụ</li>
+             <li style="padding:4px 0;">✓ Tối ưu điểm vào lệnh</li>
+           </ul>`
+  },
+  'xto-speeder': {
+    icon: '⚡',
+    title: 'XTO Speeder',
+    badge: 'DCA linh hoạt',
+    body: `<p><strong>XTO Speeder</strong> là chiến thuật DCA (Dollar Cost Averaging) linh hoạt, tự động tính toán khối lượng và khoảng cách mở lệnh.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Tự động tính lot dựa trên rủi ro</li>
+             <li style="padding:4px 0;">✓ Điều chỉnh khoảng cách DCA</li>
+             <li style="padding:4px 0;">✓ Hỗ trợ nhiều cặp tiền</li>
+           </ul>`
+  },
+  'multi-thread': {
+    icon: '🔀',
+    title: 'Đa Luồng',
+    badge: 'Solo độc lập',
+    body: `<p><strong>Đa Luồng</strong> cho phép chạy nhiều chiến thuật độc lập trên cùng một biểu đồ, mỗi chiến thuật có cài đặt riêng.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Chạy nhiều chiến thuật cùng lúc</li>
+             <li style="padding:4px 0;">✓ Cài đặt riêng cho từng luồng</li>
+             <li style="padding:4px 0;">✓ Quản lý rủi ro độc lập</li>
+           </ul>`
+  },
+  'season-x': {
+    icon: '🌟',
+    title: 'Season-X',
+    badge: 'Bào lãi nhanh',
+    body: `<p><strong>Season-X</strong> là chiến thuật bào lãi nhanh, tập trung vào việc tối ưu hóa lợi nhuận với các lệnh nhỏ và tần suất cao.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Tần suất giao dịch cao</li>
+             <li style="padding:4px 0;">✓ Tối ưu tỷ lệ lãi/lỗ</li>
+             <li style="padding:4px 0;">✓ Tự động chuyển TP</li>
+           </ul>`
+  },
+  'money-tick': {
+    icon: '💰',
+    title: 'Money-TICK',
+    badge: 'Scalping thông minh',
+    body: `<p><strong>Money-TICK</strong> là chiến thuật scalping thông minh với khả năng điều chỉnh lot dựa trên biến động thị trường.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Scalping tốc độ cao</li>
+             <li style="padding:4px 0;">✓ Điều chỉnh lot theo biến động</li>
+             <li style="padding:4px 0;">✓ Tỉa chéo thông minh</li>
+           </ul>`
+  },
+  'blue9-scalp': {
+    icon: '🔵',
+    title: 'Blue9 Scalp',
+    badge: 'Tốc độ linh hoạt',
+    body: `<p><strong>Blue9 Scalp</strong> là công cụ scalping tốc độ cao, cho phép vào lệnh nhanh chóng với các thiết lập tối ưu.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Vào lệnh nhanh với 1 click</li>
+             <li style="padding:4px 0;">✓ Thiết lập SL/TP mặc định</li>
+             <li style="padding:4px 0;">✓ Quản lý khối lượng linh hoạt</li>
+           </ul>`
+  },
+  'pyramid-plus': {
+    icon: '📈',
+    title: 'Nhồi Dương',
+    badge: 'Xử lý đóng lệnh',
+    body: `<p><strong>Nhồi Dương</strong> là chiến thuật xây dựng vị thế theo xu hướng, tự động đóng lệnh khi đạt mục tiêu.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Tự động tăng khối lượng theo xu hướng</li>
+             <li style="padding:4px 0;">✓ Đóng lệnh thông minh</li>
+             <li style="padding:4px 0;">✓ Quản lý vốn tự động</li>
+           </ul>`
+  },
+  'trimming-assistant': {
+    icon: '✂️',
+    title: 'Trợ lý TỈA LỆNH',
+    badge: 'Tỉa đầu-đuôi',
+    body: `<p><strong>Trợ lý TỈA LỆNH</strong> giúp tối ưu danh mục lệnh đang mở bằng cách đóng bớt các lệnh lỗ hoặc lãi nhỏ.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Tỉa lệnh đầu-đuôi</li>
+             <li style="padding:4px 0;">✓ Tỉa chéo Buy/Sell</li>
+             <li style="padding:4px 0;">✓ Tỉa toàn bộ lệnh lãi</li>
+           </ul>`
+  },
+  'exit-assistant': {
+    icon: '🚪',
+    title: 'Trợ lý THOÁT LỆNH',
+    badge: 'SL/TP, Trailing',
+    body: `<p><strong>Trợ lý THOÁT LỆNH</strong> cung cấp các công cụ thoát lệnh chính xác: SL/TP, Trailing Stop, Break-Even.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Đặt SL/TP với 1 click</li>
+             <li style="padding:4px 0;">✓ Trailing Stop tự động</li>
+             <li style="padding:4px 0;">✓ Break-Even thông minh</li>
+           </ul>`
+  },
+  'spread-assistant': {
+    icon: '📊',
+    title: 'Trợ lý RẢI LỆNH',
+    badge: 'Rải lệnh cơ bản',
+    body: `<p><strong>Trợ lý RẢI LỆNH</strong> giúp rải các lệnh chờ trên một vùng giá, tối ưu hóa điểm vào và quản lý rủi ro.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Vẽ vùng giá trên chart</li>
+             <li style="padding:4px 0;">✓ Rải lệnh chờ theo zone</li>
+             <li style="padding:4px 0;">✓ Tính toán khối lượng tối ưu</li>
+           </ul>`
+  },
+  'market-analysis': {
+    icon: '📈',
+    title: 'Phân tích thị trường',
+    badge: 'Xu hướng',
+    body: `<p><strong>Phân tích thị trường</strong> cung cấp các công cụ phân tích xu hướng và tín hiệu giao dịch.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Phân tích xu hướng đa khung</li>
+             <li style="padding:4px 0;">✓ Chỉ báo tùy chỉnh</li>
+             <li style="padding:4px 0;">✓ Cảnh báo tín hiệu</li>
+           </ul>`
+  },
+  'trade-stats': {
+    icon: '📋',
+    title: 'Thống kê giao dịch',
+    badge: 'Báo cáo chi tiết',
+    body: `<p><strong>Thống kê giao dịch</strong> cung cấp báo cáo chi tiết về hiệu suất giao dịch, lợi nhuận theo ngày và các chỉ số quan trọng.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Thống kê lợi nhuận theo ngày</li>
+             <li style="padding:4px 0;">✓ Biểu đồ hiệu suất</li>
+             <li style="padding:4px 0;">✓ Phân tích tỷ lệ thắng/thua</li>
+           </ul>`
+  },
+  'ai-signal': {
+    icon: '📡',
+    title: 'AI Signal',
+    badge: 'Cảnh báo tín hiệu',
+    body: `<p><strong>AI Signal</strong> cung cấp các tín hiệu giao dịch được tổng hợp từ AI và các chỉ báo kỹ thuật hàng đầu.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Tín hiệu mua/bán rõ ràng</li>
+             <li style="padding:4px 0;">✓ Cảnh báo tức thời</li>
+             <li style="padding:4px 0;">✓ Tích hợp nhiều chỉ báo</li>
+           </ul>`
+  },
+  'session-news': {
+    icon: '📰',
+    title: 'Session & News',
+    badge: 'Tin tức & phiên',
+    body: `<p><strong>Session & News</strong> cung cấp thông tin về các phiên giao dịch và cảnh báo tin tức ảnh hưởng đến thị trường.</p><br>
+           <p><strong>Đặc điểm nổi bật:</strong></p>
+           <ul style="list-style:none; padding-left:0; margin-top:8px;">
+             <li style="padding:4px 0;">✓ Lịch tin tức hàng ngày</li>
+             <li style="padding:4px 0;">✓ Cảnh báo trước tin trọng yếu</li>
+             <li style="padding:4px 0;">✓ Phân tích phiên giao dịch</li>
+           </ul>`
+  }
+};
+
 const faqData = {
   vi: [
     { q: 'CityBot hỗ trợ những thị trường nào?', a: 'CityBot chạy trên MT5, hỗ trợ tất cả các symbol có trên broker của bạn: forex, vàng, crypto, chỉ số, và nhiều hơn nữa.' },
     { q: 'Tôi có cần kinh nghiệm lập trình không?', a: 'Không. CityBot đi kèm với bảng điều khiển trực quan. Chỉ cần kéo thả EA lên biểu đồ, cấu hình rủi ro và chọn module của bạn.' },
     { q: 'Sự khác biệt giữa các module là gì?', a: 'Hedging Pro dành cho thị trường sideway, Season-X cho xu hướng, Money-TICK cho scalping, Rải lệnh Zone cho lệnh chờ, và công cụ Thoát/Tỉa lệnh cho can thiệp thủ công.' },
     { q: 'CityBot có hoạt động trong backtest không?', a: 'Có. Tất cả các module đều tương thích hoàn toàn với MT5 Strategy Tester. Bạn có thể tối ưu tham số và kiểm tra chiến lược trong quá khứ.' },
-    { q: 'Tôi nhận hỗ trợ như thế nào?', a: 'Chúng tôi cung cấp hỗ trợ trực tiếp qua Zalo và Telegram. Bạn sẽ được vào kênh cộng đồng riêng sau khi bản quyền được phê duyệt.' }
+    { q: 'Tôi nhận hỗ trợ như thế nào?', a: 'Liên hệ trực tiếp với Admin TCode qua Zalo và Telegram.' }
   ],
   en: [
     { q: 'What markets does CityBot support?', a: 'CityBot runs on MT5, so it supports all symbols available on your broker: forex, gold, crypto, indices, and more.' },
     { q: 'Do I need programming experience?', a: 'No. CityBot comes with a user-friendly dashboard. Just drop the EA on your chart, configure your risk settings, and choose your module.' },
     { q: 'What\'s the difference between modules?', a: 'Hedging Pro is for ranging markets, Season-X for trends, Money-TICK for scalping, Zone Trade for pending orders, and Exit/Trimming tools for manual intervention.' },
     { q: 'Does CityBot work in backtesting?', a: 'Yes. All modules are fully compatible with the MT5 Strategy Tester. You can optimize parameters and test strategies historically.' },
-    { q: 'How do I get support?', a: 'We provide support directly via Zalo and Telegram. You\'ll get access to a private community channel after your license is approved.' }
+    { q: 'How do I get support?', a: 'Contact Admin TCode directly via Zalo and Telegram.' }
   ]
 };
 
@@ -1032,6 +1242,31 @@ createStars();
   resize();
   requestAnimationFrame(step);
 })();
+
+// ═══ MODULE DETAIL ═══
+function showModuleDetail(id) {
+  const data = moduleDetails[id];
+  if (!data) return;
+  
+  const container = document.getElementById('moduleDetailContainer');
+  document.getElementById('detailIcon').textContent = data.icon;
+  document.getElementById('detailTitle').textContent = data.title;
+  document.getElementById('detailBadge').textContent = data.badge;
+  document.getElementById('detailBody').innerHTML = data.body;
+  
+  // Update video link
+  const videoBtn = container.querySelector('.btn-video');
+  if (videoBtn) {
+    videoBtn.href = 'https://www.youtube.com/@TCode.TradingTech';
+  }
+  
+  container.classList.add('active');
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeModuleDetail() {
+  document.getElementById('moduleDetailContainer').classList.remove('active');
+}
 
 // ═══ RENDER FAQ ═══
 function renderFaq(lang) {
