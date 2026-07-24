@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,14 +21,14 @@
   --text-primary: #FFFFFF;
   --text-secondary: #B0B0B0;
   --text-muted: #888888;
-  --accent-gold: #F7931A;
-  --accent-gold-glow: rgba(247, 147, 26, 0.10);
+  --accent-gold: #FFB74D;
+  --accent-gold-glow: rgba(255, 167, 38, 0.15);
   --accent-blue: #4a8bf7;
   --accent-purple: #8b5cf6;
   --accent-cyan: #22d3ee;
   --accent-green: #2ed198;
   --accent-red: #ef5a6a;
-  --gradient-gold: linear-gradient(135deg, #F7931A, #e08a2e);
+  --gradient-gold: linear-gradient(135deg, #FFA726, #FF9800);
   --gradient-cyber: linear-gradient(135deg, #22d3ee, #8b5cf6);
   --shadow-card: 0 8px 40px rgba(0,0,0,0.6);
   --radius: 12px;
@@ -96,7 +97,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
   justify-content: center; 
   font-size: 28px; 
   font-weight: 800; 
-  color: #F7931A; 
+  color: #FFB74D; 
   box-shadow: 0 0 30px rgba(247, 147, 26, 0.15); 
   font-family: var(--font-display); 
   animation: pulse-icon 2s ease-in-out infinite; 
@@ -321,6 +322,36 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .services-teaser::before { content:'⚙️'; position:absolute; top:-40px; right:-30px; font-size:140px; opacity:0.04; }
 .services-teaser-badges { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
 .services-teaser-badge { font-size:12px; padding:6px 14px; border-radius:100px; background:rgba(255,255,255,0.03); border:1px solid var(--border-color); color:var(--text-secondary); font-family:var(--font-mono); }
+/* ─── BROKER LOGOS ─── */
+
+.links-card .link-item:hover img {
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(247,147,26,0.2));
+  transition: var(--transition);
+}
+
+.links-card .link-item:hover .link-arrow {
+  color: var(--accent-gold);
+  transform: translateX(4px);
+}
+
+/* ─── FIX LOGO HOVER ─── */
+.nav-logo img {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+  filter: none !important;
+  transition: none !important;
+}
+.nav-logo:hover img {
+  filter: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+.nav-logo img:hover {
+  filter: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
 </style>
 </head>
 <body>
@@ -337,10 +368,10 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 <!-- ─── NAV ─── -->
 <nav class="nav" id="navbar">
   <div class="container nav-inner">
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">▦</div>
-      <div class="nav-logo-text"><span class="city">City </span><span>Bot</span></div>
-    </a>
+<a href="#" class="nav-logo">
+  <img src="https://res.cloudinary.com/hg8heso1/image/upload/v1784907519/CityBot_logo_flk0ig.png" alt="CityBot" style="height:55px; width:auto; object-fit:contain;">
+  <div class="nav-logo-text"><span class="city">City </span><span>Bot</span></div>
+</a>
     <div class="nav-right">
       <div class="nav-links" id="navLinks">
         <a href="#features" class="nav-link" data-key="nav_features">Tính Năng</a>
@@ -371,7 +402,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <a href="#features" class="btn-secondary" data-key="hero_btn_secondary">Khám phá ➜</a>
       </div>
       <div class="hero-stats">
-        <div><div class="hero-stat-value" data-key="stat_1_value">6+</div><div class="hero-stat-label" data-key="stat_1_label">Module tích hợp</div></div>
+        <div><div class="hero-stat-value" data-key="stat_1_value">15+</div><div class="hero-stat-label" data-key="stat_1_label">Module tích hợp</div></div>
         <div><div class="hero-stat-value" data-key="stat_2_value">24/7</div><div class="hero-stat-label" data-key="stat_2_label">Giao dịch tự động</div></div>
         <div><div class="hero-stat-value" data-key="stat_3_value">1-Click</div><div class="hero-stat-label" data-key="stat_3_label">Công cụ bán tự động</div></div>
       </div>
@@ -385,7 +416,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <div class="hero-core-center">
           <span class="main">City Bot</span>
         </div>
-        <div class="hero-core-orbit o1" title="6+ Module chiến thuật">🧩</div>
+        <div class="hero-core-orbit o1" title="15+ Module chiến thuật">🧩</div>
         <div class="hero-core-orbit o2" title="AI kiểm soát rủi ro">✧🛡️</div>
         <div class="hero-core-orbit o3" title="Giao dịch 24/7 tự động">⚙</div>
         <div class="hero-core-orbit o4" title="Công cụ bán tự động">🎯</div>
@@ -623,28 +654,31 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <hr class="links-divider">
 
         <!-- Nhóm Chat -->
-        <div class="links-card-title" style="font-size:14px; margin-bottom:8px;">👥 Nhóm Chat</div>
-        <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item">
-          <span class="link-icon">✈️</span>
-          <span class="link-label" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
-          <span class="link-arrow">➜</span>
-        </a>
+<!-- Nhóm Chat -->
+<div class="links-card-title" style="font-size:14px; margin-bottom:8px;">👥 Nhóm Chat</div>
+<a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item" style="display:flex; align-items:center; gap:14px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); text-decoration:none; transition:var(--transition);">
+  <img src="https://res.cloudinary.com/hg8heso1/image/upload/v1784907449/Telegram_logo.svg_gonmoq.webp" alt="Telegram" style="width:28px; height:28px; object-fit:contain; flex-shrink:0;">
+  <span style="flex:1; font-size:14px; color:var(--text-secondary);" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
+  <span style="font-size:14px; color:var(--text-muted); transition:var(--transition);">➜</span>
+</a>
       </div>
 
       <!-- Cột 2: Sàn giao dịch -->
-      <div class="links-card">
-        <div class="links-card-title">💹 Sàn giao dịch</div>
-        <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="link-item">
-          <span class="link-icon">🏦</span>
-          <span class="link-label">Vantage</span>
-          <span class="link-arrow">➜</span>
-        </a>
-        <a href="https://one.exnessonelink.com/a/w35l4bg07v" target="_blank" rel="noopener" class="link-item">
-          <span class="link-icon">🏛️</span>
-          <span class="link-label">Exness</span>
-          <span class="link-arrow">➜</span>
-        </a>
-      </div>
+<!-- Cột 2: Sàn giao dịch -->
+<!-- Cột 2: Sàn giao dịch -->
+<div class="links-card">
+  <div class="links-card-title">💹 Sàn giao dịch</div>
+  <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="link-item" style="display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.03); text-decoration:none; transition:var(--transition);">
+    <img src="https://res.cloudinary.com/hg8heso1/image/upload/f_auto,q_auto/01KP2ZTF2WF63CXQGN8JQQ90HH_wpthel" alt="Vantage" style="width:70px; height:auto; object-fit:contain; flex-shrink:0;">
+    <span style="flex:1; font-size:14px; color:var(--text-secondary);">Vantage</span>
+    <span style="font-size:14px; color:var(--text-muted); transition:var(--transition);">➜</span>
+  </a>
+  <a href="https://one.exnessonelink.com/a/w35l4bg07v" target="_blank" rel="noopener" class="link-item" style="display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.03); text-decoration:none; transition:var(--transition);">
+    <img src="https://res.cloudinary.com/hg8heso1/image/upload/v1784906818/01KJ4SCJ88E286DJM4DC19B8QH_fpjntg.webp" alt="Exness" style="width:70px; height:auto; object-fit:contain; flex-shrink:0;">
+    <span style="flex:1; font-size:14px; color:var(--text-secondary);">Exness</span>
+    <span style="font-size:14px; color:var(--text-muted); transition:var(--transition);">➜</span>
+  </a>
+</div>
     </div>
   </div>
 </section>
@@ -735,12 +769,12 @@ const langData = {
     hero_sub: 'Hệ sinh thái Expert Advisor đa chiến lược, đa công cụ — Hedging, Scalping, DCA thông minh, các công cụ hỗ trợ hữu dụng nhất, được cô động từ kinh nghiệm trading của các Pro Trader thực chiến.',
     hero_btn_primary: '🤖 Dùng thử ngay',
     hero_btn_secondary: 'Khám phá ➜',
-    stat_1_value: '6+',
-    stat_1_label: 'Module tích hợp',
+    stat_1_value: '15+',
+    stat_1_label: 'Chiến lược tích hợp',
     stat_2_value: '24/7',
     stat_2_label: 'Giao dịch tự động',
-    stat_3_value: '1-Click',
-    stat_3_label: 'Công cụ bán tự động',
+    stat_3_value: 'All in One',
+    stat_3_label: 'Mọi thứ trong 1 EA MT5',
     features_label: '📦 Tính Năng',
     features_title: 'Hệ thống <span class="highlight">3 nhóm chính</span>',
     features_desc: 'CityBot được tổ chức thành 3 nhóm module, mỗi nhóm phục vụ một mục đích chiến lược riêng biệt.',
@@ -757,7 +791,7 @@ const langData = {
     step3_title: 'Để Bot chạy',
     step3_desc: 'CityBot hoạt động 24/7. Công cụ bán tự động cho phép bạn can thiệp thủ công khi cần — kiểm soát toàn diện.',
     services_label: '🚀 Dịch Vụ',
-    services_title: 'Viết bot giao dịch <span class="highlight">theo yêu cầu</span>',
+    services_title: ' <span class="highlight">theo yêu cầu</span>',
     services_desc: 'Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch, gia công hàng trăm EA cho khách hàng trong và ngoài nước.',
     services_teaser_title: 'CODE ROBOT MT4/MT5 THEO YÊU CẦU',
     services_teaser_tag: 'Tùy chỉnh 100%',
@@ -1118,9 +1152,9 @@ createStars();
     }
   }
 
-  function colorFor(hue, alpha) {
-    return hue === 'gold' ? `rgba(247,147,26,${alpha})` : `rgba(247,147,26,${alpha})`;
-  }
+function colorFor(hue, alpha) {
+  return hue === 'gold' ? `rgba(200,200,200,${alpha})` : `rgba(180,180,180,${alpha})`;
+}
 
   function step() {
     ctx.clearRect(0, 0, W, H);
@@ -1187,8 +1221,8 @@ createStars();
     for (const n of nodes) {
       ctx.beginPath();
       ctx.fillStyle = colorFor('gold', 0.75);
-      ctx.shadowColor = colorFor('gold', 0.9);
-      ctx.shadowBlur = 6;
+ctx.shadowColor = 'rgba(200,200,200,0.6)';
+ctx.shadowBlur = 6;
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
