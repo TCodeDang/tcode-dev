@@ -11,23 +11,23 @@
 <style>
 /* ─── ROOT ─── */
 :root {
-  --bg-primary: #05080f;
-  --bg-secondary: #0a0f1a;
-  --bg-card: #0d1422;
-  --bg-card-hover: #121c30;
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #0A0A0A;
+  --bg-card: #0A0A0A;
+  --bg-card-hover: #0A0A0A;
   --border-color: #1a2740;
   --border-light: #243353;
-  --text-primary: #e8edf5;
-  --text-secondary: #8ea4c8;
-  --text-muted: #4a5a7a;
-  --accent-gold: #f5b342;
-  --accent-gold-glow: rgba(245, 179, 66, 0.10);
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B0B0;
+  --text-muted: #888888;
+  --accent-gold: #F7931A;
+  --accent-gold-glow: rgba(247, 147, 26, 0.10);
   --accent-blue: #4a8bf7;
   --accent-purple: #8b5cf6;
   --accent-cyan: #22d3ee;
   --accent-green: #2ed198;
   --accent-red: #ef5a6a;
-  --gradient-gold: linear-gradient(135deg, #f5b342, #e08a2e);
+  --gradient-gold: linear-gradient(135deg, #F7931A, #e08a2e);
   --gradient-cyber: linear-gradient(135deg, #22d3ee, #8b5cf6);
   --shadow-card: 0 8px 40px rgba(0,0,0,0.6);
   --radius: 12px;
@@ -40,7 +40,7 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
 body { background:var(--bg-primary); color:var(--text-primary); font-family:var(--font-body); line-height:1.6; overflow-x:hidden; min-height:100vh; letter-spacing:-0.01em; }
-::selection { background:var(--accent-gold); color:#05080f; }
+::selection { background:var(--accent-gold); color:#0A0A0A; }
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-track { background:var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background:var(--accent-gold); border-radius:10px; }
@@ -48,9 +48,9 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 /* ─── UNIVERSE BACKGROUND ─── */
 #universe {
   position:fixed; inset:0; z-index:0;
-  background: radial-gradient(ellipse at 20% 30%, rgba(34, 211, 238, 0.04), transparent 50%),
-              radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.04), transparent 50%),
-              radial-gradient(ellipse at 50% 50%, rgba(245, 179, 66, 0.02), transparent 70%),
+  background: radial-gradient(ellipse at 20% 30%, rgba(247, 147, 26, 0.035), transparent 45%),
+              radial-gradient(ellipse at 80% 70%, rgba(247, 147, 26, 0.035), transparent 45%),
+              radial-gradient(ellipse at 50% 50%, rgba(247, 147, 26, 0.015), transparent 60%),
               var(--bg-primary);
   overflow:hidden;
 }
@@ -63,10 +63,10 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
   box-shadow: 0 0 2px rgba(255,255,255,0.3);
 }
 @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(1);} 50%{opacity:1;transform:scale(1.3);} }
-.nebula { position:absolute; border-radius:50%; filter:blur(100px); opacity:0.15; }
-.nebula-1 { width:600px; height:600px; top:-200px; right:-150px; background:radial-gradient(circle, rgba(245,179,66,0.2), transparent 70%); animation:nebula-drift 30s ease-in-out infinite; }
-.nebula-2 { width:500px; height:500px; bottom:-150px; left:-100px; background:radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%); animation:nebula-drift 25s ease-in-out infinite reverse; }
-.nebula-3 { width:400px; height:400px; top:40%; left:55%; background:radial-gradient(circle, rgba(34,211,238,0.10), transparent 70%); animation:nebula-drift 35s ease-in-out infinite; }
+.nebula { position:absolute; border-radius:50%; filter:blur(100px); opacity:0.07; }
+.nebula-1 { width:600px; height:600px; top:-200px; right:-150px; background:radial-gradient(circle, rgba(247,147,26,0.2), transparent 70%); animation:nebula-drift 30s ease-in-out infinite; }
+.nebula-2 { width:500px; height:500px; bottom:-150px; left:-100px; background:radial-gradient(circle, rgba(247,147,26,0.15), transparent 70%); animation:nebula-drift 25s ease-in-out infinite reverse; }
+.nebula-3 { width:400px; height:400px; top:40%; left:55%; background:radial-gradient(circle, rgba(247,147,26,0.10), transparent 70%); animation:nebula-drift 35s ease-in-out infinite; }
 @keyframes nebula-drift { 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(40px,-30px) scale(1.1);} 66%{transform:translate(-30px,40px) scale(0.9);} }
 
 /* ─── NEURAL NETWORK ─── */
@@ -81,29 +81,29 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 @media(max-width:768px){ .section-padding { padding:56px 0; } }
 
 /* ─── NAV ─── */
-.nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:14px 0; background:rgba(5,8,15,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.04); transition:var(--transition); }
-.nav.scrolled { border-bottom-color:rgba(245,179,66,0.12); box-shadow:0 4px 30px rgba(0,0,0,0.4); }
+.nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:14px 0; background:rgba(10,10,10,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.04); transition:var(--transition); }
+.nav.scrolled { border-bottom-color:rgba(247,147,26,0.12); box-shadow:0 4px 30px rgba(0,0,0,0.4); }
 .nav-inner { display:flex; align-items:center; justify-content:space-between; }
 .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
 .nav-logo-icon { 
   width: 35px; 
   height: 32px; 
   border-radius: 5px; 
-  background: rgba(0, 255, 200, 0.1); 
-  border: 1px solid rgb(1110, 255, 200); 
+  background: rgba(247, 147, 26, 0.1); 
+  border: 1px solid rgba(247, 147, 26, 0.3); 
   display: flex; 
   align-items: center; 
   justify-content: center; 
   font-size: 28px; 
   font-weight: 800; 
-  color: rgb(0, 255, 200); 
-  box-shadow: 0 0 30px rgba(0, 255, 200, 0.15); 
+  color: #F7931A; 
+  box-shadow: 0 0 30px rgba(247, 147, 26, 0.15); 
   font-family: var(--font-display); 
   animation: pulse-icon 2s ease-in-out infinite; 
 }
 .nav-logo-text { font-size:20px; font-weight:800; letter-spacing:-0.5px; font-family:var(--font-display); }
-.nav-logo-text .city { color: rgb(0, 255, 200); }
-.nav-logo-text .bot { color: var(--accent-gold); }
+.nav-logo-text .city { color: #F7931A; }
+.nav-logo-text .bot { color: #F7931A; }
 .nav-logo-text { font-size:20px; font-weight:800; letter-spacing:-0.5px; font-family:var(--font-display); }
 .nav-logo-text span { color:var(--accent-gold); }
 .nav-right { display:flex; align-items:center; gap:16px; }
@@ -115,10 +115,10 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .nav-link:hover::after { width:100%; }
 .lang-toggle { display:flex; gap:4px; background:rgba(255,255,255,0.03); border-radius:8px; padding:3px; border:1px solid var(--border-color); }
 .lang-btn { padding:4px 12px; border:none; border-radius:6px; background:transparent; color:var(--text-muted); font-size:10px; font-weight:700; cursor:pointer; transition:var(--transition); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.5px; }
-.lang-btn.active { background:var(--accent-gold); color:#05080f; }
+.lang-btn.active { background:var(--accent-gold); color:#0A0A0A; }
 .lang-btn:hover:not(.active) { color:var(--text-primary); }
-.nav-cta { padding:8px 22px; border-radius:8px; background:var(--gradient-gold); color:#05080f; font-weight:700; font-size:12px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); letter-spacing:0.3px; }
-.nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(245,179,66,0.3); }
+.nav-cta { padding:8px 22px; border-radius:8px; background:var(--gradient-gold); color:#0A0A0A; font-weight:700; font-size:12px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); letter-spacing:0.3px; }
+.nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(247,147,26,0.3); }
 .nav-mobile-btn { display:none; background:none; border:none; color:var(--text-primary); font-size:24px; cursor:pointer; padding:4px; }
 @media(max-width:768px){ .nav-mobile-btn { display:block; } .nav-cta { padding:6px 16px; font-size:11px; } }
 
@@ -126,23 +126,23 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .hero { position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; padding:100px 0 60px; }
 .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
 @media(max-width:900px){ .hero-grid { grid-template-columns:1fr; text-align:center; gap:40px; } }
-.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:100px; background:var(--accent-gold-glow); border:1px solid rgba(245,179,66,0.2); font-size:11px; font-weight:600; color:var(--accent-gold); margin-bottom:20px; font-family:var(--font-mono); letter-spacing:1px; text-transform:uppercase; }
-.hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--accent-gold); animation:pulse-dot 1.6s ease-in-out infinite; box-shadow:0 0 12px rgba(245,179,66,0.4); }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:100px; background:var(--accent-gold-glow); border:1px solid rgba(247,147,26,0.2); font-size:11px; font-weight:600; color:var(--accent-gold); margin-bottom:20px; font-family:var(--font-mono); letter-spacing:1px; text-transform:uppercase; }
+.hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--accent-gold); animation:pulse-dot 1.6s ease-in-out infinite; box-shadow:0 0 12px rgba(247,147,26,0.4); }
 @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-.hero-title { font-family:var(--font-display); font-size:clamp(2.2rem,5.2vw,3.6rem); font-weight:800; line-height:1.1; margin-bottom:16px; letter-spacing:-1px; }
+.hero-title { font-family:var(--font-display); font-size:clamp(2.2rem,5.2vw,3.6rem); font-weight:800; line-height:1.1; margin-bottom:16px; letter-spacing:-1px; color:#FFFFFF; }
 .hero-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .hero-sub { font-size:clamp(0.95rem,1.2vw,1.05rem); color:var(--text-secondary); max-width:520px; line-height:1.8; margin-bottom:28px; }
 @media(max-width:900px){ .hero-sub { margin-left:auto; margin-right:auto; } }
 .hero-actions { display:flex; gap:14px; flex-wrap:wrap; }
 @media(max-width:900px){ .hero-actions { justify-content:center; } }
-.btn-primary { padding:14px 34px; border-radius:10px; background:var(--gradient-gold); color:#05080f; font-weight:700; font-size:14px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); letter-spacing:0.3px; }
-.btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(245,179,66,0.35); }
+.btn-primary { padding:14px 34px; border-radius:10px; background:var(--gradient-gold); color:#0A0A0A; font-weight:700; font-size:14px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); letter-spacing:0.3px; }
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(247,147,26,0.35); }
 .btn-secondary { padding:14px 34px; border-radius:10px; background:transparent; color:var(--text-primary); font-weight:600; font-size:14px; border:1px solid var(--border-color); cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
 .btn-secondary:hover { border-color:var(--accent-gold); color:var(--accent-gold); background:var(--accent-gold-glow); }
 .hero-stats { display:flex; gap:40px; margin-top:36px; padding-top:28px; border-top:1px solid var(--border-color); }
 @media(max-width:900px){ .hero-stats { justify-content:center; } }
-.hero-stat-value { font-size:28px; font-weight:800; font-family:var(--font-display); background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-stat-value { font-size:28px; font-weight:800; font-family:var(--font-display); color:#F7931A; }
 .hero-stat-label { font-size:12px; color:var(--text-muted); font-weight:500; font-family:var(--font-mono); letter-spacing:0.5px; }
 
 /* ─── HERO VISUAL ─── */
@@ -156,17 +156,17 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
   align-items: center; 
   justify-content: center; 
 }
-.hero-core::before { content:''; position:absolute; inset:-20px; border-radius:50%; background:radial-gradient(circle at 35% 30%, rgba(245,179,66,0.15), transparent 70%); animation:pulse-core 4s ease-in-out infinite; }
+.hero-core::before { content:''; position:absolute; inset:-20px; border-radius:50%; background:radial-gradient(circle at 35% 30%, rgba(247,147,26,0.15), transparent 70%); animation:pulse-core 4s ease-in-out infinite; }
 @keyframes pulse-core { 0%,100%{transform:scale(1);opacity:0.8;} 50%{transform:scale(1.05);opacity:1;} }
-.hero-core-ring { position:absolute; border-radius:50%; border:1px solid rgba(245,179,66,0.1); animation:spin-slow linear infinite; }
-.hero-core-ring.r1 { inset:-30px; border-color:rgba(245,179,66,0.12); animation-duration:20s; }
-.hero-core-ring.r2 { inset:-60px; border-color:rgba(34,211,238,0.08); animation-duration:30s; animation-direction:reverse; }
-.hero-core-ring.r3 { inset:-90px; border-color:rgba(139,92,246,0.06); animation-duration:40s; }
-.hero-core-ring.r4 { inset:-120px; border-color:rgba(245,179,66,0.04); animation-duration:50s; animation-direction:reverse; }
+.hero-core-ring { position:absolute; border-radius:50%; border:1px solid rgba(247,147,26,0.1); animation:spin-slow linear infinite; }
+.hero-core-ring.r1 { inset:-30px; border-color:rgba(247,147,26,0.12); animation-duration:20s; }
+.hero-core-ring.r2 { inset:-60px; border-color:rgba(247,147,26,0.08); animation-duration:30s; animation-direction:reverse; }
+.hero-core-ring.r3 { inset:-90px; border-color:rgba(247,147,26,0.06); animation-duration:40s; }
+.hero-core-ring.r4 { inset:-120px; border-color:rgba(247,147,26,0.04); animation-duration:50s; animation-direction:reverse; }
 @keyframes spin-slow { to { transform:rotate(360deg); } }
-.hero-core-center { position:relative; z-index:2; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle at 40% 30%, #f5b342, #c97d2a); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 80px rgba(245,179,66,0.15), inset 0 -20px 40px rgba(0,0,0,0.3); }
-.hero-core-center .main { font-family:var(--font-display); font-size:22px; font-weight:800; color:#05080f; letter-spacing:0.5px; line-height:1.2; }
-.hero-core-center .sub { font-family:var(--font-mono); font-size:9px; color:rgba(5,8,15,0.6); letter-spacing:2px; font-weight:700; }
+.hero-core-center { position:relative; z-index:2; width:140px; height:140px; border-radius:50%; background:radial-gradient(circle at 40% 30%, #F7931A, #c97d2a); display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 0 80px rgba(247,147,26,0.15), inset 0 -20px 40px rgba(0,0,0,0.3); }
+.hero-core-center .main { font-family:var(--font-display); font-size:22px; font-weight:800; color:#0A0A0A; letter-spacing:0.5px; line-height:1.2; }
+.hero-core-center .sub { font-family:var(--font-mono); font-size:9px; color:rgba(10,10,10,0.6); letter-spacing:2px; font-weight:700; }
 .hero-core-orbit { position:absolute; z-index:3; width:36px; height:36px; border-radius:50%; background:var(--bg-card); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--text-secondary); box-shadow:0 0 20px rgba(0,0,0,0.4); animation:orbit-float 5s ease-in-out infinite; }
 .o1 { top:-12px; left:50%; transform:translateX(-50%); animation-delay:0s; }
 .o2 { bottom:-12px; left:50%; transform:translateX(-50%); animation-delay:-1.6s; }
@@ -179,7 +179,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 
 /* ─── SECTION HEADER ─── */
 .sec-label { font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--accent-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
-.sec-title { font-family:var(--font-display); font-size:clamp(1.8rem,3.2vw,2.6rem); font-weight:700; line-height:1.2; letter-spacing:-0.5px; }
+.sec-title { font-family:var(--font-display); font-size:clamp(1.8rem,3.2vw,2.6rem); font-weight:700; line-height:1.2; letter-spacing:-0.5px; color:#FFFFFF; }
 .sec-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .sec-desc { color:var(--text-secondary); font-size:1.05rem; max-width:600px; line-height:1.7; margin-top:12px; }
 .sec-header { margin-bottom:48px; }
@@ -191,13 +191,13 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 @media(max-width:600px){ .features-tree { grid-template-columns:1fr; } }
 .feature-group { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px; transition:var(--transition); }
 .feature-group:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
-.feature-group-title { font-family:var(--font-display); font-size:18px; font-weight:700; margin-bottom:16px; color:var(--accent-gold); letter-spacing:-0.3px; display:flex; align-items:center; gap:10px; }
+.feature-group-title { font-family:var(--font-display); font-size:18px; font-weight:700; margin-bottom:16px; color:#FFFFFF; letter-spacing:-0.3px; display:flex; align-items:center; gap:10px; }
 .feature-group-title .num { font-family:var(--font-mono); font-size:12px; color:var(--text-muted); font-weight:400; }
 .feature-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); transition:var(--transition); cursor:pointer; }
 .feature-item:last-child { border-bottom:none; }
-.feature-item:hover { padding-left:8px; background:rgba(245,179,66,0.04); border-radius:6px; }
+.feature-item:hover { padding-left:8px; background:rgba(247,147,26,0.04); border-radius:6px; }
 .feature-item .icon { font-size:16px; width:28px; flex-shrink:0; text-align:center; }
-.feature-item .name { font-size:14px; font-weight:500; font-family:var(--font-mono); letter-spacing:0.2px; }
+.feature-item .name { font-size:14px; font-weight:500; font-family:var(--font-mono); letter-spacing:0.2px; color:#FFFFFF; }
 .feature-item .desc { font-size:12px; color:var(--text-muted); margin-left:auto; text-align:right; max-width:140px; line-height:1.4; }
 .feature-item .link-icon { color:var(--text-muted); font-size:12px; opacity:0.4; transition:var(--transition); margin-left:8px; }
 .feature-item:hover .link-icon { opacity:1; color:var(--accent-gold); }
@@ -208,7 +208,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 @keyframes fadeSlideIn { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
 .module-detail-header { display:flex; align-items:center; gap:16px; margin-bottom:16px; }
 .module-detail-header .icon { font-size:32px; }
-.module-detail-header .title { font-family:var(--font-display); font-size:22px; font-weight:700; }
+.module-detail-header .title { font-family:var(--font-display); font-size:22px; font-weight:700; color:#FFFFFF; }
 .module-detail-header .badge { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-gold-glow); color:var(--accent-gold); font-family:var(--font-mono); letter-spacing:0.5px; }
 .module-detail-body { color:var(--text-secondary); font-size:14.5px; line-height:1.8; max-width:720px; margin-bottom:20px; }
 .module-detail-body strong { color:var(--text-primary); }
@@ -225,7 +225,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .service-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px 20px; text-align:center; transition:var(--transition); }
 .service-card:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
 .service-icon { font-size:32px; margin-bottom:12px; display:block; }
-.service-title { font-size:15px; font-weight:700; font-family:var(--font-mono); letter-spacing:0.2px; margin-bottom:6px; }
+.service-title { font-size:15px; font-weight:700; font-family:var(--font-mono); letter-spacing:0.2px; margin-bottom:6px; color:#FFFFFF; }
 .service-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; }
 
 /* ─── PROCESS ─── */
@@ -234,7 +234,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .step-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:32px 24px; text-align:center; transition:var(--transition); position:relative; }
 .step-card:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
 .step-number { font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--accent-gold); margin-bottom:8px; letter-spacing:2px; }
-.step-title { font-size:17px; font-weight:700; margin-bottom:6px; font-family:var(--font-display); }
+.step-title { font-size:17px; font-weight:700; margin-bottom:6px; font-family:var(--font-display); color:#FFFFFF; }
 .step-desc { font-size:13.5px; color:var(--text-secondary); line-height:1.7; }
 
 /* ─── LINKS ─── */
@@ -242,7 +242,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 @media(max-width:600px){ .links-grid { grid-template-columns:1fr; } }
 .links-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px; transition:var(--transition); }
 .links-card:hover { border-color:var(--accent-gold); }
-.links-card-title { font-family:var(--font-display); font-size:16px; font-weight:700; margin-bottom:16px; color:var(--accent-gold); display:flex; align-items:center; gap:10px; }
+.links-card-title { font-family:var(--font-display); font-size:16px; font-weight:700; margin-bottom:16px; color:#FFFFFF; display:flex; align-items:center; gap:10px; }
 .links-card .link-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); text-decoration:none; color:var(--text-secondary); transition:var(--transition); }
 .links-card .link-item:last-child { border-bottom:none; }
 .links-card .link-item:hover { color:var(--text-primary); padding-left:6px; }
@@ -254,7 +254,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 
 /* ─── FAQ ─── */
 .faq-item { border-bottom:1px solid var(--border-color); }
-.faq-q { display:flex; justify-content:space-between; align-items:center; padding:18px 0; cursor:pointer; font-weight:600; font-size:15px; background:none; border:none; width:100%; text-align:left; color:var(--text-primary); font-family:var(--font-body); transition:var(--transition); }
+.faq-q { display:flex; justify-content:space-between; align-items:center; padding:18px 0; cursor:pointer; font-weight:600; font-size:15px; background:none; border:none; width:100%; text-align:left; color:#FFFFFF; font-family:var(--font-body); transition:var(--transition); }
 .faq-q:hover { color:var(--accent-gold); }
 .faq-q-mark { font-size:22px; transition:transform 0.3s; color:var(--accent-gold); flex-shrink:0; margin-left:16px; font-weight:300; }
 .faq-item.open .faq-q-mark { transform:rotate(45deg); }
@@ -263,24 +263,24 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 
 /* ─── CTA ─── */
 .cta-section { background:var(--bg-secondary); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); }
-.cta-box { background:linear-gradient(135deg, rgba(245,179,66,0.05), rgba(5,8,15,0.9)); border:1px solid rgba(245,179,66,0.10); border-radius:var(--radius-lg); padding:60px 48px; text-align:center; position:relative; overflow:hidden; }
-.cta-box::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 50% 50%, rgba(245,179,66,0.04), transparent 60%); animation:cta-glow 20s ease-in-out infinite; }
+.cta-box { background:linear-gradient(135deg, rgba(247,147,26,0.05), rgba(10,10,10,0.9)); border:1px solid rgba(247,147,26,0.10); border-radius:var(--radius-lg); padding:60px 48px; text-align:center; position:relative; overflow:hidden; }
+.cta-box::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 50% 50%, rgba(247,147,26,0.04), transparent 60%); animation:cta-glow 20s ease-in-out infinite; }
 @keyframes cta-glow { 0%,100%{transform:translate(0,0);} 50%{transform:translate(5%,5%);} }
 .cta-box > * { position:relative; z-index:1; }
 @media(max-width:768px){ .cta-box { padding:36px 24px; } }
-.cta-title { font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; margin-bottom:12px; letter-spacing:-0.5px; }
+.cta-title { font-family:var(--font-display); font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; margin-bottom:12px; letter-spacing:-0.5px; color:#FFFFFF; }
 .cta-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .cta-desc { color:var(--text-secondary); font-size:1.05rem; max-width:500px; margin:0 auto 28px; line-height:1.7; }
 
 /* ─── FOOTER ─── */
 .footer { padding:40px 0 30px; border-top:1px solid var(--border-color); position:relative; z-index:1; }
 .footer-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-.footer-logo { font-size:18px; font-weight:700; letter-spacing:-0.5px; font-family:var(--font-display); }
+.footer-logo { font-size:18px; font-weight:700; letter-spacing:-0.5px; font-family:var(--font-display); color:#FFFFFF; }
 .footer-logo span { color:var(--accent-gold); }
 .footer-links { display:flex; gap:24px; flex-wrap:wrap; }
-.footer-links a { color:var(--text-muted); text-decoration:none; font-size:13px; transition:var(--transition); font-family:var(--font-mono); letter-spacing:0.3px; }
+.footer-links a { color:#888888; text-decoration:none; font-size:13px; transition:var(--transition); font-family:var(--font-mono); letter-spacing:0.3px; }
 .footer-links a:hover { color:var(--text-primary); }
-.footer-disclaimer { font-size:11.5px; color:var(--text-muted); max-width:700px; line-height:1.7; margin-top:12px; }
+.footer-disclaimer { font-size:11.5px; color:#888888; max-width:700px; line-height:1.7; margin-top:12px; }
 @media(max-width:768px){ .footer-inner { flex-direction:column; text-align:center; } .footer-links { justify-content:center; } }
 
 /* ─── MODAL ─── */
@@ -290,18 +290,18 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .modal-box { background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-lg); max-width:420px; width:100%; padding:32px; position:relative; }
 .modal-close { position:absolute; top:12px; right:16px; background:none; border:none; color:var(--text-muted); font-size:22px; cursor:pointer; transition:var(--transition); }
 .modal-close:hover { color:var(--text-primary); }
-.modal-icon { width:56px; height:56px; border-radius:50%; background:var(--accent-gold-glow); border:1px solid rgba(245,179,66,0.2); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 16px; }
-.modal-title { font-size:20px; font-weight:700; text-align:center; margin-bottom:6px; font-family:var(--font-display); }
+.modal-icon { width:56px; height:56px; border-radius:50%; background:var(--accent-gold-glow); border:1px solid rgba(247,147,26,0.2); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 16px; }
+.modal-title { font-size:20px; font-weight:700; text-align:center; margin-bottom:6px; font-family:var(--font-display); color:#FFFFFF; }
 .modal-desc { color:var(--text-secondary); font-size:13.5px; text-align:center; margin-bottom:20px; line-height:1.7; }
 .contact-list { display:flex; flex-direction:column; gap:10px; }
 .contact-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:10px; text-decoration:none; transition:var(--transition); }
-.contact-item:hover { border-color:var(--accent-gold); background:rgba(245,179,66,0.04); }
+.contact-item:hover { border-color:var(--accent-gold); background:rgba(247,147,26,0.04); }
 .contact-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
 .contact-icon.zalo { background:rgba(0,104,255,0.12); border:1px solid rgba(0,104,255,0.2); }
 .contact-icon.telegram { background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.2); }
 .contact-icon.facebook { background:rgba(59,89,152,0.12); border:1px solid rgba(59,89,152,0.2); }
 .contact-info { flex:1; }
-.contact-label { font-weight:600; font-size:13px; font-family:var(--font-mono); letter-spacing:0.2px; }
+.contact-label { font-weight:600; font-size:13px; font-family:var(--font-mono); letter-spacing:0.2px; color:#FFFFFF; }
 .contact-value { font-size:11.5px; color:var(--text-muted); font-family:var(--font-mono); }
 .contact-arrow { color:var(--text-muted); font-size:16px; }
 
@@ -310,6 +310,17 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
 .reveal.show { opacity:1; transform:translateY(0); }
 .text-center { text-align:center; }
 @media(max-width:480px){ .btn-primary, .btn-secondary { padding:12px 24px; font-size:13px; } }
+
+/* ─── SERVICES LINK CLICKABLE ─── */
+.service-card-clickable { cursor:pointer; }
+.service-card-clickable:hover .service-title { color:var(--accent-gold); }
+
+/* ─── SERVICES TEASER (index page) ─── */
+.services-teaser { background:var(--bg-card); border:1px solid var(--accent-gold); border-radius:var(--radius-lg); padding:44px 40px; position:relative; overflow:hidden; text-decoration:none; display:block; cursor:pointer; transition:var(--transition); }
+.services-teaser:hover { transform:translateY(-4px); box-shadow:var(--shadow-card); }
+.services-teaser::before { content:'⚙️'; position:absolute; top:-40px; right:-30px; font-size:140px; opacity:0.04; }
+.services-teaser-badges { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+.services-teaser-badge { font-size:12px; padding:6px 14px; border-radius:100px; background:rgba(255,255,255,0.03); border:1px solid var(--border-color); color:var(--text-secondary); font-family:var(--font-mono); }
 </style>
 </head>
 <body>
@@ -334,7 +345,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <div class="nav-links" id="navLinks">
         <a href="#features" class="nav-link" data-key="nav_features">Tính Năng</a>
         <a href="#process" class="nav-link" data-key="nav_process">Quy trình</a>
-        <a href="#services" class="nav-link" data-key="nav_services">Dịch Vụ</a>
+        <a href="services.html" target="_blank" rel="noopener" class="nav-link" data-key="nav_services">Dịch Vụ</a>
         <a href="#links" class="nav-link" data-key="nav_links">Liên Kết</a>
         <a href="#faq" class="nav-link" data-key="nav_faq">FAQ</a>
         <button class="nav-cta" onclick="openModal()" data-key="nav_cta">🤖 Dùng thử</button>
@@ -357,7 +368,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <p class="hero-sub" data-key="hero_sub">Hệ sinh thái Expert Advisor đa module trên MT5 — Hedging, Scalping, DCA thông minh và công cụ thoát lệnh chính xác. Để CityBot vận hành, bạn tập trung vào chiến lược.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="openModal()" data-key="hero_btn_primary">🤖 Dùng thử ngay</button>
-        <a href="#features" class="btn-secondary" data-key="hero_btn_secondary">Khám phá →</a>
+        <a href="#features" class="btn-secondary" data-key="hero_btn_secondary">Khám phá ➜</a>
       </div>
       <div class="hero-stats">
         <div><div class="hero-stat-value" data-key="stat_1_value">6+</div><div class="hero-stat-label" data-key="stat_1_label">Module tích hợp</div></div>
@@ -550,7 +561,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
   </div>
 </section>
 
-<!-- ─── SERVICES ─── -->
+<!-- ─── SERVICES TEASER ─── -->
 <section class="section-padding" id="services">
   <div class="container">
     <div class="sec-header reveal">
@@ -559,119 +570,22 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <p class="sec-desc" data-key="services_desc">Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch. Gia công hàng trăm EA cho khách hàng trong và ngoài nước.</p>
     </div>
 
-    <!-- Mô tả dịch vụ chính -->
-    <div class="reveal" style="background:var(--bg-card); border:1px solid var(--accent-gold); border-radius:var(--radius-lg); padding:36px 40px; margin-bottom:32px; position:relative; overflow:hidden;">
-      <div style="position:absolute; top:-50px; right:-50px; font-size:120px; opacity:0.04;">⚙️</div>
+    <a href="services.html" target="_blank" rel="noopener" class="services-teaser reveal">
       <div style="display:flex; align-items:center; gap:16px; margin-bottom:12px; flex-wrap:wrap;">
         <span style="font-size:28px;">🤖</span>
-        <span style="font-family:var(--font-display); font-size:22px; font-weight:700; background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">CODE ROBOT MT4/MT5 THEO YÊU CẦU</span>
-        <span style="font-size:11px; padding:4px 14px; border-radius:100px; background:var(--accent-gold-glow); color:var(--accent-gold); font-family:var(--font-mono); letter-spacing:0.5px;">Tùy chỉnh 100%</span>
+        <span style="font-family:var(--font-display); font-size:22px; font-weight:700; background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;" data-key="services_teaser_title">CODE ROBOT MT4/MT5 THEO YÊU CẦU</span>
+        <span style="font-size:11px; padding:4px 14px; border-radius:100px; background:var(--accent-gold-glow); color:var(--accent-gold); font-family:var(--font-mono); letter-spacing:0.5px;" data-key="services_teaser_tag">Tùy chỉnh 100%</span>
       </div>
-      <p style="color:var(--text-secondary); font-size:15px; line-height:1.9;" data-key="services_desc_detail">
-        ☘️ Tư vấn và Code Bot AutoTrading theo yêu cầu trên nền tảng MT4 và MT5.
+      <p style="color:var(--text-secondary); font-size:15px; line-height:1.9; max-width:640px;" data-key="services_desc_detail">
+        ☘️ Tư vấn và Code Bot AutoTrading theo yêu cầu trên nền tảng MT4 và MT5. Xem đầy đủ dịch vụ chính, công cụ & tính năng, cùng các cam kết bảo hành — bảo mật trên trang riêng.
       </p>
-    </div>
-
-    <!-- 2 cột: Dịch vụ chính + Công cụ -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px;">
-      <!-- Cột trái: Dịch vụ chính -->
-      <div class="reveal" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:28px 24px;">
-        <div style="font-size:20px; font-weight:700; font-family:var(--font-display); margin-bottom:20px; color:var(--accent-gold); display:flex; align-items:center; gap:10px;">
-          <span>📋</span> Dịch vụ chính
-        </div>
-        <ul style="list-style:none; padding:0; margin:0;">
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
-            <span><strong style="color:var(--text-primary);">Tư vấn & Code Bot</strong><br><span style="color:var(--text-secondary); font-size:14px;">AutoTrading theo yêu cầu, từ đơn giản đến phức tạp</span></span>
-          </li>
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
-            <span><strong style="color:var(--text-primary);">Báo tín hiệu</strong><br><span style="color:var(--text-secondary); font-size:14px;">Gửi tín hiệu về điện thoại, Telegram, Email</span></span>
-          </li>
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
-            <span><strong style="color:var(--text-primary);">TradingView → MT4/MT5</strong><br><span style="color:var(--text-secondary); font-size:14px;">Lấy tín hiệu từ TradingView sang MT4/MT5 hoặc Telegram</span></span>
-          </li>
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
-            <span><strong style="color:var(--text-primary);">Copy Trading</strong><br><span style="color:var(--text-secondary); font-size:14px;">Sao chép lệnh giữa các tài khoản MT4/MT5</span></span>
-          </li>
-          <li style="padding:10px 0; display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-gold); font-size:18px; flex-shrink:0;">✓</span>
-            <span><strong style="color:var(--text-primary);">Quản lý bản quyền</strong><br><span style="color:var(--text-secondary); font-size:14px;">File quản lý bản quyền ID MT5 online cho IB, đại lý</span></span>
-          </li>
-        </ul>
+      <div class="services-teaser-badges">
+        <span class="services-teaser-badge" data-key="services_teaser_badge_1">📋 Dịch vụ chính</span>
+        <span class="services-teaser-badge" data-key="services_teaser_badge_2">🛠️ Công cụ & Tính năng</span>
+        <span class="services-teaser-badge" data-key="services_teaser_badge_3">🔒 Bảo hành & Bảo mật</span>
       </div>
-
-      <!-- Cột phải: Công cụ & Tính năng -->
-      <div class="reveal" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:28px 24px;">
-        <div style="font-size:20px; font-weight:700; font-family:var(--font-display); margin-bottom:20px; color:var(--accent-gold); display:flex; align-items:center; gap:10px;">
-          <span>🛠️</span> Công cụ & Tính năng
-        </div>
-        <ul style="list-style:none; padding:0; margin:0;">
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
-            <span><strong style="color:var(--text-primary);">Quản lý vốn & Rủi ro</strong><br><span style="color:var(--text-secondary); font-size:14px;">Hỗ trợ quản lý vốn, kiểm soát rủi ro theo quỹ FTMO, The5%... (Keep Rules)</span></span>
-          </li>
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
-            <span><strong style="color:var(--text-primary);">StopLoss theo % Risk</strong><br><span style="color:var(--text-secondary); font-size:14px;">Tính toán và cài StopLoss tự động theo % rủi ro trên tài khoản</span></span>
-          </li>
-          <li style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
-            <span><strong style="color:var(--text-primary);">Bảng điều khiển Panel</strong><br><span style="color:var(--text-secondary); font-size:14px;">Hỗ trợ thao tác nhanh, quản lý lệnh trực quan</span></span>
-          </li>
-          <li style="padding:10px 0; display:flex; align-items:flex-start; gap:12px;">
-            <span style="color:var(--accent-cyan); font-size:16px; flex-shrink:0;">◆</span>
-            <span><strong style="color:var(--text-primary);">Chiến thuật lồng ghép</strong><br><span style="color:var(--text-secondary); font-size:14px;">DCA, Martingale, Pyramid, Cắt tỉa đầu đuôi, Hedging, Trailing Stop …</span></span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 8 ưu điểm -->
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <span class="service-icon">🔒</span>
-        <div class="service-title" data-key="sv_1_title">Kiểm Tra Bảo Hành</div>
-        <div class="service-desc" data-key="sv_1_desc">Bảo hành 3-6 tháng sau khi bàn giao. Sửa lỗi miễn phí trong thời gian bảo hành.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">⚡</span>
-        <div class="service-title" data-key="sv_2_title">Giao Hàng Nhanh</div>
-        <div class="service-desc" data-key="sv_2_desc">Bot đơn giản hoàn thành trong 24-48 giờ. Bot phức tạp trong 3-7 ngày làm việc.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">💬</span>
-        <div class="service-title" data-key="sv_3_title">Hỗ Trợ 24/7</div>
-        <div class="service-desc" data-key="sv_3_desc">Đội ngũ kỹ thuật sẵn sàng hỗ trợ qua Zalo, Telegram bất kỳ lúc nào.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">🛠️</span>
-        <div class="service-title" data-key="sv_4_title">Chỉnh Sửa Linh Hoạt</div>
-        <div class="service-desc" data-key="sv_4_desc">Hỗ trợ chỉnh sửa thông số, cài đặt theo yêu cầu trong suốt thời gian sử dụng.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">🕒</span>
-        <div class="service-title" data-key="sv_5_title">Giao Dịch 24/7</div>
-        <div class="service-desc" data-key="sv_5_desc">Bot hoạt động liên tục 24/7 không cần giám sát. Không bỏ lỡ bất kỳ cơ hội nào.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">📝</span>
-        <div class="service-title" data-key="sv_6_title">Code Sạch Chuẩn</div>
-        <div class="service-desc" data-key="sv_6_desc">Code theo chuẩn MQL4/MQL5, dễ bảo trì và nâng cấp sau này.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">📊</span>
-        <div class="service-title" data-key="sv_7_title">Tối Ưu Backtest</div>
-        <div class="service-desc" data-key="sv_7_desc">Kiểm tra chiến lược trên dữ liệu lịch sử, tối ưu tham số trước khi chạy live.</div>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">🔐</span>
-        <div class="service-title" data-key="sv_8_title">Bảo Mật Tuyệt Đối</div>
-        <div class="service-desc" data-key="sv_8_desc">Cam kết bảo mật chiến lược giao dịch của khách hàng. Ký NDA nếu cần.</div>
-      </div>
-    </div>
+      <div style="margin-top:20px; color:var(--accent-gold); font-size:14px; font-weight:600;" data-key="services_teaser_cta">👉 Xem chi tiết dịch vụ</div>
+    </a>
 
     <!-- CTA nhỏ trong dịch vụ -->
     <div class="reveal" style="margin-top:32px; text-align:center; padding:24px; background:var(--bg-secondary); border-radius:var(--radius); border:1px dashed var(--border-color);">
@@ -685,7 +599,6 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
   </div>
 </section>
 
-<!-- ─── LINKS ─── -->
 <!-- ─── LINKS ─── -->
 <section class="section-padding" id="links" style="background:var(--bg-secondary)">
   <div class="container">
@@ -703,7 +616,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <a href="https://manage.maxserver.com/aff.php?aff=449" target="_blank" rel="noopener" class="link-item">
           <span class="link-icon">🚀</span>
           <span class="link-label" data-key="link_vps">MaxServer VPS — Liên hệ Admin để check mã giảm giá</span>
-          <span class="link-arrow">→</span>
+          <span class="link-arrow">➜</span>
         </a>
 
         <!-- Divider -->
@@ -714,7 +627,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <a href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener" class="link-item">
           <span class="link-icon">✈️</span>
           <span class="link-label" data-key="link_community">TCode Trading HeBot — Cộng đồng</span>
-          <span class="link-arrow">→</span>
+          <span class="link-arrow">➜</span>
         </a>
       </div>
 
@@ -724,12 +637,12 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
         <a href="https://vigco.co/la-com-inv/vi/Rn4u2Uep" target="_blank" rel="noopener" class="link-item">
           <span class="link-icon">🏦</span>
           <span class="link-label">Vantage</span>
-          <span class="link-arrow">→</span>
+          <span class="link-arrow">➜</span>
         </a>
         <a href="https://one.exnessonelink.com/a/w35l4bg07v" target="_blank" rel="noopener" class="link-item">
           <span class="link-icon">🏛️</span>
           <span class="link-label">Exness</span>
-          <span class="link-arrow">→</span>
+          <span class="link-arrow">➜</span>
         </a>
       </div>
     </div>
@@ -766,7 +679,7 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <div class="footer-links">
         <a href="#features" data-key="footer_features">Tính Năng</a>
         <a href="#process" data-key="footer_process">Quy trình</a>
-        <a href="#services" data-key="footer_services">Dịch Vụ</a>
+        <a href="services.html" target="_blank" rel="noopener" data-key="footer_services">Dịch Vụ</a>
         <a href="#links" data-key="footer_links">Liên Kết</a>
         <a href="#faq" data-key="footer_faq">FAQ</a>
       </div>
@@ -786,22 +699,22 @@ body { background:var(--bg-primary); color:var(--text-primary); font-family:var(
       <a class="contact-item" href="https://zalo.me/0964822327" target="_blank" rel="noopener">
         <div class="contact-icon zalo">💬</div>
         <div class="contact-info"><div class="contact-label" data-key="contact_zalo">Zalo</div><div class="contact-value">0964 822 327</div></div>
-        <span class="contact-arrow">→</span>
+        <span class="contact-arrow">➜</span>
       </a>
       <a class="contact-item" href="https://t.me/tCode_T95" target="_blank" rel="noopener">
         <div class="contact-icon telegram">✈️</div>
         <div class="contact-info"><div class="contact-label" data-key="contact_telegram">Telegram</div><div class="contact-value">@tCode_T95</div></div>
-        <span class="contact-arrow">→</span>
+        <span class="contact-arrow">➜</span>
       </a>
       <a class="contact-item" href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener">
         <div class="contact-icon facebook">👥</div>
         <div class="contact-info"><div class="contact-label" data-key="contact_community">Cộng đồng</div><div class="contact-value">@TCode_TradingHeBot</div></div>
-        <span class="contact-arrow">→</span>
+        <span class="contact-arrow">➜</span>
       </a>
       <a class="contact-item" href="https://tcodedang.github.io/tcode-dev/" target="_blank" rel="noopener">
-        <div class="contact-icon" style="background:rgba(245,179,66,0.12);border:1px solid rgba(245,179,66,0.2);">🌐</div>
+        <div class="contact-icon" style="background:rgba(247,147,26,0.12);border:1px solid rgba(247,147,26,0.2);">🌐</div>
         <div class="contact-info"><div class="contact-label" data-key="contact_website">Website</div><div class="contact-value">TCode Dev</div></div>
-        <span class="contact-arrow">→</span>
+        <span class="contact-arrow">➜</span>
       </a>
     </div>
   </div>
@@ -821,7 +734,7 @@ const langData = {
     hero_title: 'Trading đa chiến thuật với <span class="highlight">CityBot</span>',
     hero_sub: 'Hệ sinh thái Expert Advisor đa chiến lược, đa công cụ — Hedging, Scalping, DCA thông minh, các công cụ hỗ trợ hữu dụng nhất, được cô động từ kinh nghiệm trading của các Pro Trader thực chiến.',
     hero_btn_primary: '🤖 Dùng thử ngay',
-    hero_btn_secondary: 'Khám phá →',
+    hero_btn_secondary: 'Khám phá ➜',
     stat_1_value: '6+',
     stat_1_label: 'Module tích hợp',
     stat_2_value: '24/7',
@@ -846,23 +759,13 @@ const langData = {
     services_label: '🚀 Dịch Vụ',
     services_title: 'Viết bot giao dịch <span class="highlight">theo yêu cầu</span>',
     services_desc: 'Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch, gia công hàng trăm EA cho khách hàng trong và ngoài nước.',
-    services_desc_detail: 'Ad TCode Nhận viết bot trade theo yêu cầu.<br><br><strong style="color:var(--text-primary);">Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br><strong style="color:var(--text-primary);">Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.',
-    sv_1_title: 'Kiểm Tra Bảo Hành',
-    sv_1_desc: 'Bảo hành 3-6 tháng sau khi bàn giao. Sửa lỗi miễn phí trong thời gian bảo hành.',
-    sv_2_title: 'Giao Hàng Nhanh',
-    sv_2_desc: 'Bot đơn giản hoàn thành trong 24-48 giờ. Bot phức tạp trong 3-7 ngày làm việc.',
-    sv_3_title: 'Hỗ Trợ 24/7',
-    sv_3_desc: 'Đội ngũ kỹ thuật sẵn sàng hỗ trợ qua Zalo, Telegram bất kỳ lúc nào.',
-    sv_4_title: 'Chỉnh Sửa Linh Hoạt',
-    sv_4_desc: 'Hỗ trợ chỉnh sửa thông số, cài đặt theo yêu cầu trong suốt thời gian sử dụng.',
-    sv_5_title: 'Giao Dịch 24/7',
-    sv_5_desc: 'Bot hoạt động liên tục 24/7 không cần giám sát. Không bỏ lỡ bất kỳ cơ hội nào.',
-    sv_6_title: 'Code Sạch Chuẩn',
-    sv_6_desc: 'Code theo chuẩn MQL4/MQL5, dễ bảo trì và nâng cấp sau này.',
-    sv_7_title: 'Tối Ưu Backtest',
-    sv_7_desc: 'Kiểm tra chiến lược trên dữ liệu lịch sử, tối ưu tham số trước khi chạy live.',
-    sv_8_title: 'Bảo Mật Tuyệt Đối',
-    sv_8_desc: 'Cam kết bảo mật chiến lược giao dịch của khách hàng',
+    services_teaser_title: 'CODE ROBOT MT4/MT5 THEO YÊU CẦU',
+    services_teaser_tag: 'Tùy chỉnh 100%',
+    services_desc_detail: '☘️ Tư vấn và Code Bot AutoTrading theo yêu cầu trên nền tảng MT4 và MT5. Xem đầy đủ dịch vụ chính, công cụ & tính năng, cùng các cam kết bảo hành — bảo mật trên trang riêng.',
+    services_teaser_badge_1: '📋 Dịch vụ chính',
+    services_teaser_badge_2: '🛠️ Công cụ & Tính năng',
+    services_teaser_badge_3: '🔒 Bảo hành & Bảo mật',
+    services_teaser_cta: 'Xem chi tiết➜',
     links_label: '🔗 Liên Kết',
     links_title: 'Tài nguyên <span class="highlight">hữu ích</span>',
     links_desc: 'Các liên kết đến VPS, sàn giao dịch và cộng đồng TCode.',
@@ -897,7 +800,7 @@ const langData = {
     hero_title: 'CityBot — <span class="highlight">Your Trading Universe</span>',
     hero_sub: 'A complete multi-module Expert Advisor ecosystem on MT5 — Hedging, Scalping, Smart DCA, and precision exit tools. Let CityBot operate while you focus on strategy.',
     hero_btn_primary: '🤖 Try Now',
-    hero_btn_secondary: 'Explore →',
+    hero_btn_secondary: 'Explore ➜',
     stat_1_value: '6+',
     stat_1_label: 'Built-in Modules',
     stat_2_value: '24/7',
@@ -922,23 +825,13 @@ const langData = {
     services_label: '🚀 Services',
     services_title: 'Custom Trading Bot <span class="highlight">Development</span>',
     services_desc: 'Over 6 years of experience in trading bot programming, with hundreds of EAs delivered to clients worldwide.',
-    services_desc_detail: 'We provide custom automated trading bot development on MT4, MT5.<br><br><strong style="color:var(--text-primary);">Strategies implemented:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, TradingView to MT5 signal relay, Telegram to MT5, and more.<br><br><strong style="color:var(--text-primary);">Integrated features:</strong> Automated Money Management (MM), Trailing Stop, Break-Even, Order Trimming, Zone Trade, Backtesting & Optimization, Multi-currency support, Custom indicator integration.',
-    sv_1_title: 'Warranty Check',
-    sv_1_desc: '3-6 months warranty after delivery. Free bug fixes during the warranty period.',
-    sv_2_title: 'Fast Delivery',
-    sv_2_desc: 'Simple bots completed within 24-48 hours. Complex bots within 3-7 business days.',
-    sv_3_title: '24/7 Support',
-    sv_3_desc: 'Technical team ready to assist via Zalo and Telegram anytime.',
-    sv_4_title: 'Flexible Adjustments',
-    sv_4_desc: 'Support for parameter and configuration adjustments throughout the usage period.',
-    sv_5_title: '24/7 Trading',
-    sv_5_desc: 'Bots run continuously 24/7 without supervision. Never miss a trading opportunity.',
-    sv_6_title: 'Clean Code',
-    sv_6_desc: 'Code follows MQL4/MQL5 standards, easy to maintain and upgrade.',
-    sv_7_title: 'Backtest Optimization',
-    sv_7_desc: 'Test strategies on historical data, optimize parameters before going live.',
-    sv_8_title: 'Absolute Security',
-    sv_8_desc: 'Committed to protecting client trading strategies.',
+    services_teaser_title: 'CUSTOM MT4/MT5 ROBOT DEVELOPMENT',
+    services_teaser_tag: '100% Custom',
+    services_desc_detail: '☘️ Consulting and custom AutoTrading bot development on MT4 and MT5. See the full list of core services, tools & features, plus our warranty and security commitments on a dedicated page.',
+    services_teaser_badge_1: '📋 Core Services',
+    services_teaser_badge_2: '🛠️ Tools & Features',
+    services_teaser_badge_3: '🔒 Warranty & Security',
+    services_teaser_cta: '👉 View service details (opens new tab)',
     links_label: '🔗 Links',
     links_title: 'Useful <span class="highlight">Resources</span>',
     links_desc: 'Links to VPS, brokers, and the TCode community.',
@@ -1220,13 +1113,13 @@ createStars();
         vx: (Math.random() - 0.5) * 0.28,
         vy: (Math.random() - 0.5) * 0.28,
         r: 1.2 + Math.random() * 1.6,
-        hue: Math.random() < 0.65 ? 'cyan' : 'gold'
+        hue: Math.random() < 0.65 ? 'gold' : 'gold'
       });
     }
   }
 
   function colorFor(hue, alpha) {
-    return hue === 'gold' ? `rgba(245,179,66,${alpha})` : `rgba(34,211,238,${alpha})`;
+    return hue === 'gold' ? `rgba(247,147,26,${alpha})` : `rgba(247,147,26,${alpha})`;
   }
 
   function step() {
@@ -1258,7 +1151,7 @@ createStars();
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < LINK_DIST) {
           const alpha = (1 - dist / LINK_DIST) * 0.16;
-          ctx.strokeStyle = colorFor('cyan', alpha);
+          ctx.strokeStyle = colorFor('gold', alpha);
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -1283,8 +1176,8 @@ createStars();
         }
       }
       const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
-      grad.addColorStop(0, 'rgba(245,179,66,0.35)');
-      grad.addColorStop(1, 'rgba(245,179,66,0)');
+      grad.addColorStop(0, 'rgba(247,147,26,0.35)');
+      grad.addColorStop(1, 'rgba(247,147,26,0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
       ctx.arc(mouse.x, mouse.y, 60, 0, Math.PI * 2);
@@ -1293,8 +1186,8 @@ createStars();
 
     for (const n of nodes) {
       ctx.beginPath();
-      ctx.fillStyle = colorFor(n.hue, 0.75);
-      ctx.shadowColor = colorFor(n.hue, 0.9);
+      ctx.fillStyle = colorFor('gold', 0.75);
+      ctx.shadowColor = colorFor('gold', 0.9);
       ctx.shadowBlur = 6;
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
       ctx.fill();
