@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dịch Vụ — CityBot | TCode</title>
+<meta name="description" content="Dịch vụ viết bot giao dịch MT4/MT5 theo yêu cầu bởi TCode. Dịch vụ chính, công cụ & tính năng, bảo hành và bảo mật.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #0A0A0A;
+  --bg-card: #0A0A0A;
+  --border-color: #1a2740;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B0B0;
+  --text-muted: #888888;
+  --accent-gold: #F7931A;
+  --accent-gold-glow: rgba(247, 147, 26, 0.10);
+  --accent-cyan: #22d3ee;
+  --gradient-gold: linear-gradient(135deg, #F7931A, #e08a2e);
+  --shadow-card: 0 8px 40px rgba(0,0,0,0.6);
+  --radius: 12px;
+  --radius-lg: 24px;
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Sora', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-font-smoothing:antialiased; }
+body { background:var(--bg-primary); color:var(--text-primary); font-family:var(--font-body); line-height:1.6; overflow-x:hidden; min-height:100vh; letter-spacing:-0.01em; }
+::selection { background:var(--accent-gold); color:#0A0A0A; }
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--bg-primary); }
+::-webkit-scrollbar-thumb { background:var(--accent-gold); border-radius:10px; }
+
+#universe {
+  position:fixed; inset:0; z-index:0;
+  background: radial-gradient(ellipse at 20% 20%, rgba(247, 147, 26, 0.035), transparent 45%),
+              radial-gradient(ellipse at 80% 80%, rgba(247, 147, 26, 0.035), transparent 45%),
+              var(--bg-primary);
+}
+
+.container { max-width:1140px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+.section-padding { padding:60px 0 80px; }
+@media(max-width:768px){ .section-padding { padding:44px 0 56px; } }
+
+/* NAV */
+.nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:14px 0; background:rgba(10,10,10,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.04); }
+.nav-inner { display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.nav-logo-icon { width:35px; height:32px; border-radius:5px; background:rgba(247,147,26,0.1); border:1px solid rgba(247,147,26,0.3); display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:800; color:#F7931A; font-family:var(--font-display); }
+.nav-logo-text { font-size:20px; font-weight:800; letter-spacing:-0.5px; font-family:var(--font-display); }
+.nav-logo-text span { color:var(--accent-gold); }
+.nav-back { color:var(--text-secondary); text-decoration:none; font-size:13px; font-family:var(--font-mono); display:flex; align-items:center; gap:6px; transition:var(--transition); }
+.nav-back:hover { color:var(--accent-gold); }
+
+/* HERO */
+.svc-hero { padding:130px 0 20px; text-align:center; }
+.sec-label { font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--accent-gold); letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+.svc-title { font-family:var(--font-display); font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-0.5px; margin-bottom:14px; }
+.svc-title .highlight { background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.svc-sub { color:var(--text-secondary); font-size:1.05rem; max-width:620px; margin:0 auto; line-height:1.7; }
+
+.intro-box { background:var(--bg-card); border:1px solid var(--accent-gold); border-radius:var(--radius-lg); padding:36px 40px; margin:36px 0; position:relative; overflow:hidden; }
+.intro-box::before { content:'⚙️'; position:absolute; top:-50px; right:-50px; font-size:120px; opacity:0.04; }
+.intro-box p { color:var(--text-secondary); font-size:15px; line-height:1.9; }
+.intro-box p strong { color:var(--text-primary); }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+@media(max-width:768px){ .two-col { grid-template-columns:1fr; } }
+.col-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:28px 24px; }
+.col-card-title { font-size:20px; font-weight:700; font-family:var(--font-display); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+.col-card ul { list-style:none; }
+.col-card li { padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); display:flex; align-items:flex-start; gap:12px; }
+.col-card li:last-child { border-bottom:none; }
+.col-card li .b1 { color:var(--accent-gold); font-size:18px; flex-shrink:0; }
+.col-card li .b2 { color:var(--accent-cyan); font-size:16px; flex-shrink:0; }
+.col-card li strong { color:#FFFFFF; }
+.col-card li span.d { color:var(--text-secondary); font-size:14px; }
+
+.sec-title { font-family:var(--font-display); font-size:clamp(1.5rem,2.6vw,2rem); font-weight:700; margin:12px 0 24px; }
+
+.services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+@media(max-width:900px){ .services-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:600px){ .services-grid { grid-template-columns:1fr; } }
+.service-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius); padding:24px 20px; text-align:center; transition:var(--transition); }
+.service-card:hover { border-color:var(--accent-gold); transform:translateY(-4px); box-shadow:var(--shadow-card); }
+.service-icon { font-size:32px; margin-bottom:12px; display:block; }
+.service-title { font-size:15px; font-weight:700; font-family:var(--font-mono); margin-bottom:6px; }
+.service-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+
+.cta-box { background:linear-gradient(135deg, rgba(247,147,26,0.05), rgba(10,10,10,0.9)); border:1px solid rgba(247,147,26,0.10); border-radius:var(--radius-lg); padding:44px 40px; text-align:center; margin-top:40px; }
+.cta-title { font-family:var(--font-display); font-size:1.5rem; font-weight:700; margin-bottom:10px; }
+.cta-desc { color:var(--text-secondary); font-size:15px; margin-bottom:22px; }
+.btn-primary { padding:14px 34px; border-radius:10px; background:var(--gradient-gold); color:#0A0A0A; font-weight:700; font-size:14px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); }
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(247,147,26,0.35); }
+
+.footer { padding:30px 0; border-top:1px solid var(--border-color); text-align:center; color:var(--text-muted); font-size:12px; }
+
+/* MODAL (reuse) */
+.modal { display:none; position:fixed; inset:0; z-index:2000; background:rgba(0,0,0,0.85); backdrop-filter:blur(16px); align-items:center; justify-content:center; padding:20px; }
+.modal.open { display:flex; }
+.modal-box { background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-lg); max-width:420px; width:100%; padding:32px; position:relative; }
+.modal-close { position:absolute; top:12px; right:16px; background:none; border:none; color:var(--text-muted); font-size:22px; cursor:pointer; }
+.modal-close:hover { color:var(--text-primary); }
+.modal-icon { width:56px; height:56px; border-radius:50%; background:var(--accent-gold-glow); border:1px solid rgba(247,147,26,0.2); display:flex; align-items:center; justify-content:center; font-size:24px; margin:0 auto 16px; }
+.modal-title { font-size:20px; font-weight:700; text-align:center; margin-bottom:6px; font-family:var(--font-display); }
+.modal-desc { color:var(--text-secondary); font-size:13.5px; text-align:center; margin-bottom:20px; line-height:1.7; }
+.contact-list { display:flex; flex-direction:column; gap:10px; }
+.contact-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:10px; text-decoration:none; transition:var(--transition); }
+.contact-item:hover { border-color:var(--accent-gold); background:rgba(247,147,26,0.04); }
+.contact-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.contact-icon.zalo { background:rgba(0,104,255,0.12); border:1px solid rgba(0,104,255,0.2); }
+.contact-icon.telegram { background:rgba(34,211,238,0.12); border:1px solid rgba(34,211,238,0.2); }
+.contact-icon.facebook { background:rgba(59,89,152,0.12); border:1px solid rgba(59,89,152,0.2); }
+.contact-info { flex:1; }
+.contact-label { font-weight:600; font-size:13px; font-family:var(--font-mono); }
+.contact-value { font-size:11.5px; color:var(--text-muted); font-family:var(--font-mono); }
+.contact-arrow { color:var(--text-muted); font-size:16px; }
+</style>
+</head>
+<body>
+
+<div id="universe"></div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">▦</div>
+      <div class="nav-logo-text"><span>City </span><span>Bot</span></div>
+    </a>
+    <a href="index.html" class="nav-back">← Về trang chủ</a>
+  </div>
+</nav>
+
+<section class="svc-hero container">
+  <div class="sec-label">🚀 DỊCH VỤ</div>
+  <h1 class="svc-title">CODE ROBOT <span class="highlight">THEO YÊU CẦU</span></h1>
+  <p class="svc-sub">Hơn 6 năm kinh nghiệm trong lĩnh vực lập trình bot giao dịch. Gia công hàng trăm EA cho khách hàng trong và ngoài nước.</p>
+</section>
+
+<section class="section-padding container">
+
+  <div class="intro-box">
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:12px; flex-wrap:wrap;">
+      <span style="font-size:28px;">🤖</span>
+      <span style="font-family:var(--font-display); font-size:22px; font-weight:700; background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">CODE ROBOT MT4/MT5 THEO YÊU CẦU</span>
+      <span style="font-size:11px; padding:4px 14px; border-radius:100px; background:var(--accent-gold-glow); color:var(--accent-gold); font-family:var(--font-mono); letter-spacing:0.5px;">Tùy chỉnh 100%</span>
+    </div>
+    <p>☘️ Ad TCode nhận viết bot trade theo yêu cầu.<br><br>
+      <strong>Các chiến lược đã triển khai:</strong> Scalping, Swing, Grid, Martingale, DCA, Hedging, Báo tín hiệu TradingView về MT5, Telegram sang MT5 và nhiều hơn nữa.<br><br>
+      <strong>Tính năng tích hợp:</strong> Quản lý vốn tự động (MM), Trailing Stop, Break-Even, Tỉa lệnh (Order Trimming), Rải lệnh Zone, Backtesting & Optimization, Hỗ trợ multi-currency, Tích hợp indicator tùy chỉnh.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="col-card">
+      <div class="col-card-title">📋 Dịch vụ chính</div>
+      <ul>
+        <li><span class="b1">✓</span><span><strong>Tư vấn & Code Bot</strong><br><span class="d">AutoTrading theo yêu cầu, từ đơn giản đến phức tạp</span></span></li>
+        <li><span class="b1">✓</span><span><strong>Báo tín hiệu</strong><br><span class="d">Gửi tín hiệu về điện thoại, Telegram, Email</span></span></li>
+        <li><span class="b1">✓</span><span><strong>TradingView → MT4/MT5</strong><br><span class="d">Lấy tín hiệu từ TradingView sang MT4/MT5 hoặc Telegram</span></span></li>
+        <li><span class="b1">✓</span><span><strong>Copy Trading</strong><br><span class="d">Sao chép lệnh giữa các tài khoản MT4/MT5</span></span></li>
+        <li><span class="b1">✓</span><span><strong>Quản lý bản quyền</strong><br><span class="d">File quản lý bản quyền ID MT5 online cho IB, đại lý</span></span></li>
+      </ul>
+    </div>
+    <div class="col-card">
+      <div class="col-card-title">🛠️ Công cụ & Tính năng</div>
+      <ul>
+        <li><span class="b2">◆</span><span><strong>Quản lý vốn & Rủi ro</strong><br><span class="d">Hỗ trợ quản lý vốn, kiểm soát rủi ro theo quỹ FTMO, The5%... (Keep Rules)</span></span></li>
+        <li><span class="b2">◆</span><span><strong>StopLoss theo % Risk</strong><br><span class="d">Tính toán và cài StopLoss tự động theo % rủi ro trên tài khoản</span></span></li>
+        <li><span class="b2">◆</span><span><strong>Bảng điều khiển Panel</strong><br><span class="d">Hỗ trợ thao tác nhanh, quản lý lệnh trực quan</span></span></li>
+        <li><span class="b2">◆</span><span><strong>Chiến thuật lồng ghép</strong><br><span class="d">DCA, Martingale, Pyramid, Cắt tỉa đầu đuôi, Hedging, Trailing Stop …</span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="sec-title">Cam kết <span style="background:var(--gradient-gold); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">chất lượng</span></h2>
+  <div class="services-grid">
+    <div class="service-card"><span class="service-icon">🔒</span><div class="service-title">Kiểm Tra Bảo Hành</div><div class="service-desc">Bảo hành 3-6 tháng sau khi bàn giao. Sửa lỗi miễn phí trong thời gian bảo hành.</div></div>
+    <div class="service-card"><span class="service-icon">⚡</span><div class="service-title">Giao Hàng Nhanh</div><div class="service-desc">Bot đơn giản hoàn thành trong 24-48 giờ. Bot phức tạp trong 3-7 ngày làm việc.</div></div>
+    <div class="service-card"><span class="service-icon">💬</span><div class="service-title">Hỗ Trợ 24/7</div><div class="service-desc">Đội ngũ kỹ thuật sẵn sàng hỗ trợ qua Zalo, Telegram bất kỳ lúc nào.</div></div>
+    <div class="service-card"><span class="service-icon">🛠️</span><div class="service-title">Chỉnh Sửa Linh Hoạt</div><div class="service-desc">Hỗ trợ chỉnh sửa thông số, cài đặt theo yêu cầu trong suốt thời gian sử dụng.</div></div>
+    <div class="service-card"><span class="service-icon">🕒</span><div class="service-title">Giao Dịch 24/7</div><div class="service-desc">Bot hoạt động liên tục 24/7 không cần giám sát. Không bỏ lỡ bất kỳ cơ hội nào.</div></div>
+    <div class="service-card"><span class="service-icon">📝</span><div class="service-title">Code Sạch Chuẩn</div><div class="service-desc">Code theo chuẩn MQL4/MQL5, dễ bảo trì và nâng cấp sau này.</div></div>
+    <div class="service-card"><span class="service-icon">📊</span><div class="service-title">Tối Ưu Backtest</div><div class="service-desc">Kiểm tra chiến lược trên dữ liệu lịch sử, tối ưu tham số trước khi chạy live.</div></div>
+    <div class="service-card"><span class="service-icon">🔐</span><div class="service-title">Bảo Mật Tuyệt Đối</div><div class="service-desc">Cam kết bảo mật chiến lược giao dịch của khách hàng. Ký NDA nếu cần.</div></div>
+  </div>
+
+  <div class="cta-box">
+    <div class="cta-title">Bạn có ý tưởng chiến lược riêng?</div>
+    <p class="cta-desc">Hãy liên hệ để được tư vấn và báo giá miễn phí.</p>
+    <button class="btn-primary" onclick="openModal()">📩 Tư vấn ngay</button>
+  </div>
+</section>
+
+<footer class="footer">© 2026 TCode · CityBot. Bảo lưu mọi quyền.</footer>
+
+<div class="modal" id="contactModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">🤖</div>
+    <div class="modal-title">Liên hệ TCode</div>
+    <p class="modal-desc">Liên hệ TCode để được tư vấn dịch vụ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
+    <div class="contact-list">
+      <a class="contact-item" href="https://zalo.me/0964822327" target="_blank" rel="noopener">
+        <div class="contact-icon zalo">💬</div>
+        <div class="contact-info"><div class="contact-label">Zalo</div><div class="contact-value">0964 822 327</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://t.me/tCode_T95" target="_blank" rel="noopener">
+        <div class="contact-icon telegram">✈️</div>
+        <div class="contact-info"><div class="contact-label">Telegram</div><div class="contact-value">@tCode_T95</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://t.me/TCode_TradingHeBot" target="_blank" rel="noopener">
+        <div class="contact-icon facebook">👥</div>
+        <div class="contact-info"><div class="contact-label">Cộng đồng</div><div class="contact-value">@TCode_TradingHeBot</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+      <a class="contact-item" href="https://tcodedang.github.io/tcode-dev/" target="_blank" rel="noopener">
+        <div class="contact-icon" style="background:rgba(247,147,26,0.12);border:1px solid rgba(247,147,26,0.2);">🌐</div>
+        <div class="contact-info"><div class="contact-label">Website</div><div class="contact-value">TCode Dev</div></div>
+        <span class="contact-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal() { document.getElementById('contactModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelector('.modal')?.addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
